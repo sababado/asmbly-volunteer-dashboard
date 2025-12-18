@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Asmbly Volunteer Dashboard - Persistence Layer
+  DynamoDB Table definition.
+
+  AppEnv:
+    Type: String
+    Description: Deployment Environment (dev, staging, prod)
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Default: dev
+
+Resources:
+  VolunteerTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: !Sub "VolunteerTable-${AppEnv}"
+      PrimaryKey:
+        Name: pk
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  TableName:
+    Value: !Ref VolunteerTable
+    Description: DynamoDB Table Name

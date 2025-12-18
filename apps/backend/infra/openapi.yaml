@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Asmbly Volunteer Dashboard API
+  description: >
+    API for the Asmbly Volunteer Dashboard.
+    Acts as a translation layer between the frontend and sync services (ClickUp, Slack, Neon).
+  version: 1.0.0
+servers:
+  - url: /api/v1
+    description: Production API
+  - url: http://localhost:8000
+    description: Local Development
+
+paths:
+  /tasks:
+    get:
+      summary: List all tasks
+      description: Returns a list of tasks filtered by query parameters. Reads from DynamoDB cache.
+      operationId: listTasks
+      parameters:
+        - name: shop
+          in: query
+          schema:
+            type: string
+          description: Filter by shop (e.g., 'woodshop', 'metalshop')
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [OPEN, IN_PROGRESS, DONE]
+          description: Filter by task status
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+  /tasks/{taskId}/claim:
+    post:
+      summary: Claim a task
+      description: Marks a task as 'IN_PROGRESS' and assigns it to the user. Triggers ClickUp sync.
+      operationId: claimTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task successfully claimed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /webhooks/clickup:
+    post:
+      summary: ClickUp Webhook Endpoint
+      description: Receives task update events from ClickUp and updates DynamoDB.
+      responses:
+        '200':
+          description: Webhook received
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Task ID (mapped from ClickUp)
+        title:
+          type: string
+        status:
+          type: string
+          enum: [OPEN, IN_PROGRESS, DONE]
+        shop:
+          type: string
+        assignee:
+          type: string
+          nullable: true
+      required:
+        - id
+        - title
+        - status

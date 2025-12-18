@@ -2,7 +2,7 @@
 Transform: AWS::Serverless-2016-10-31
 Description: >
   Asmbly Volunteer Dashboard Backend
-  Serverless API (FastAPI) + PostgreSQL (RDS).
+  Serverless API (FastAPI) + DynamoDB.
 
 Parameters:
   AppEnv:
@@ -14,6 +14,17 @@ Parameters:
       - prod
     Default: dev
 
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+    Runtime: python3.11
+    Environment:
+      Variables:
+        APP_ENV: !Ref AppEnv
+  Api:
+    StageName: !Ref AppEnv
+
 Resources:
   # 1. API Gateway + Lambda (FastAPI)
   FastApiFunction:
@@ -21,12 +32,6 @@ Resources:
     Properties:
       CodeUri: .
       Handler: functions.lambda_handler.handler  # Mangum adapter
-      Runtime: python3.11
-      Timeout: 30
-      MemorySize: 256
-      Environment:
-        Variables:
-          APP_ENV: !Ref AppEnv
       Events:
         Api:
           Type: Api
@@ -34,10 +39,19 @@ Resources:
             Path: /{proxy+}
             Method: ANY
 
-  # 2. Database (Postgres) - Optional / Placeholder
-  # Ideally, use a separate nested stack for persistence to prevent accidental deletion.
+  # 2. Database (DynamoDB) - Nested Stack
+  DatabaseLayer:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: infra/dynamodb.yaml
+      Parameters:
+        AppEnv: !Ref AppEnv
+
 
 Outputs:
   ApiUrl:
     Description: "API Gateway Endpoint URL"
-    Value: !Sub "https://.execute-api..amazonaws.com/Prod/"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/"
+  ApiDocsUrl:
+    Description: "API Documentation URL (Swagger UI)"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/docs"

@@ -11,17 +11,35 @@ This document serves as the primary source of truth for AI agents operating at t
 * **[Goal 2]:** [Description]
 * **[Goal 3]:** [Description]
 
-## 2. Global Architecture
+## 2. Global Architecture: API First & Sync Services
 
-* **Monorepo Strategy:** NPM Workspaces for managing multiple packages.
-* **Infrastructure:** "Serverless First" mentality (AWS Fargate, Lambda, S3/CloudFront).
-* **Database:** PostgreSQL (Standard RDS) ensuring ACID compliance.
+*   **API First:** The system acts as a translation layer. We define the API contract (OpenAPI) first, ensuring decoupling between consumers (Frontend) and providers (Backend/Sync Services).
+*   **Syncable Services:** The backend synchronizes data with external "Source of Truth" services:
+    *   **ClickUp:** Project management & task tracking.
+    *   **Slack:** Real-time notifications & chat ops.
+    *   **Discourse:** Long-form discussion & knowledge base.
+    *   **Neon CRM:** Membership & authentication.
+*   **Monorepo Strategy:** NPM Workspaces for managing multiple packages.
+*   **Infrastructure:** Serverless (AWS Lambda, API Gateway, DynamoDB).
+*   **Database:** DynamoDB (NoSQL) for high-speed sync/cache logic.
 
-## 3. Workspace Structure
+## 3. Workspace Structure & Component Roles
 
-* **packages/ui-kit:** Shared React component library (Atomic Design).
-* **apps/frontend:** Main web application (React/Vite).
-* **apps/backend:** API and business logic (Python/FastAPI).
+### packages/ui-kit (The "Look & Feel")
+*   **Identity:** The "Design System."
+*   **Role:** Ensures professional, consistent, and on-brand aesthetics (e.g., buttons, task cards). It provides the "Lego bricks" so the frontend doesn't re-invent styles.
+
+### apps/frontend (The "Experience")
+*   **Identity:** The "Presenter."
+*   **Role:** The only part the user sees. It assembles UI Kit components into pages, managing the user journey and fetching data from the Backend.
+
+### apps/backend (The "Engine" / "Traffic Controller")
+*   **Identity:** The "Translation Layer" & "Traffic Controller."
+*   **Role:**
+    *   **Syncs Data:** Listens for webhooks (e.g., from ClickUp) to update the DynamoDB cache.
+    *   **Protects Secrets:** Securely manages API keys for external services.
+    *   **Enforces Rules:** Validates actions (e.g., "Can this user complete this task?").
+    *   **API First:** Exposes a clean OpenAPI interface to the frontend.
 
 ## 4. Core Features (The "What")
 

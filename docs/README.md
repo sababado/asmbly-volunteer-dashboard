@@ -6,15 +6,19 @@
 
 ## Architecture
 
-This project follows a monorepo structure using NPM Workspaces (Frontend/UI Kit) and a standard Python structure (Backend).
+This project follows a "Clean Architecture" and "Serverless" approach.
+
+*   **Frontend:** React (Vite) + Storybook (UI Kit).
+*   **Backend:** Python (FastAPI/Lambda) + DynamoDB.
+*   **Infrastructure:** AWS SAM (Serverless Application Model).
 
 ```
 Asmbly Volunteer Dashboard/
 ├── apps/
-│   ├── frontend/        # React Application
-│   └── backend/         # Python API Service
+│   ├── frontend/        # React Application ("The Experience")
+│   └── backend/         # Serverless API ("The Engine")
 ├── packages/
-│   └── ui-kit/          # Shared React Component Library
+│   └── ui-kit/          # Shared Design System ("The Look & Feel")
 ├── docs/                # Project Documentation
 └── package.json         # Root Configuration
 ```
@@ -25,7 +29,7 @@ Asmbly Volunteer Dashboard/
 
 - Node.js (v18+)
 - Python (v3.11+)
-- Docker (optional, for local DB)
+- AWS CLI & SAM CLI (for backend deployment/local testing)
 
 ### Installation
 
@@ -44,8 +48,9 @@ Asmbly Volunteer Dashboard/
    ```bash
    cd apps/backend
    python -m venv venv
-   source venv/bin/activate  # or venv\Scripts\activate on Windows
+   source venv/bin/activate
    pip install -r requirements.txt
+   # Ensure you have AWS credentials configured or use DynamoDB Local
    ```
 
 ### Development
@@ -58,6 +63,8 @@ Asmbly Volunteer Dashboard/
 - **Run Backend:**
   ```bash
   cd apps/backend
+  sam local start-api
+  # OR directly with uvicorn if mocking AWS services
   uvicorn main:app --reload
   ```
 
