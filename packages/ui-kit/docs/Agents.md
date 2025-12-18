@@ -1,6 +1,7 @@
 ﻿# AI Agent Context: UI Kit
 
-This document is the **primary source of truth** for the component library. It focuses on component library standards, atomic design, and refactoring protocols.
+This document is the **primary source of truth** for the component library standards.
+For visual design specific tokens (Colors, Typography), refer to **[Brand.md](./Brand.md)**.
 
 ## 1. Objective
 

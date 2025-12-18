@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Details View - Asmbly Makerspace</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "asmbly-navy": "#2E3167","asmbly-navy-dark": "#242651",
+                        "asmbly-blue": "#4A90E2","asmbly-yellow": "#FFD100","asmbly-yellow-hover": "#E6BC00",
+                        "asmbly-teal": "#6CD4B8","asmbly-orange": "#E85D36","background-light": "#F8F9FA",
+                        "background-dark": "#1a1b2e",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#242651",
+                    },
+                    fontFamily: {
+                        "display": ["DM Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-body antialiased min-h-screen flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap bg-white dark:bg-asmbly-navy shadow-sm px-4 md:px-8 py-4 sticky top-0 z-50 border-b border-gray-100 dark:border-white/10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-asmbly-navy dark:text-white">
+<div class="size-10 text-asmbly-navy dark:text-white">
+<svg class="h-10 w-10" fill="currentColor" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<rect height="12" rx="1" width="12" x="0" y="0"></rect>
+<rect height="12" rx="1" width="12" x="14" y="0"></rect>
+<rect height="12" rx="1" width="12" x="0" y="14"></rect>
+<rect height="12" rx="1" width="12" x="14" y="14"></rect>
+<path d="M28 0H40V12H28V0Z"></path>
+<path d="M28 14H40V26H28V14Z"></path>
+<path d="M0 28H12V40H0V28Z"></path>
+<path d="M14 28H26V40H14V28Z"></path>
+</svg>
+</div>
+<div>
+<h2 class="text-xl font-display font-bold leading-none tracking-tight">asmbly</h2>
+<span class="text-xs font-display font-medium tracking-wide uppercase opacity-80">Volunteer Portal</span>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-8 pl-4">
+<a class="text-slate-600 dark:text-slate-300 hover:text-asmbly-navy dark:hover:text-white text-sm font-bold font-display uppercase tracking-wider transition-colors" href="#">Dashboard</a>
+<a class="text-asmbly-navy dark:text-asmbly-yellow text-sm font-bold font-display uppercase tracking-wider border-b-2 border-asmbly-navy dark:border-asmbly-yellow pb-0.5" href="#">My Tasks</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-asmbly-navy dark:hover:text-white text-sm font-bold font-display uppercase tracking-wider transition-colors" href="#">Leaderboard</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-6 items-center">
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full ring-1 ring-slate-200 dark:ring-white/20 focus-within:ring-asmbly-navy dark:focus-within:ring-asmbly-yellow overflow-hidden bg-slate-50 dark:bg-white/5 transition-shadow">
+<div class="text-slate-400 dark:text-slate-300 flex border-none items-center justify-center pl-4">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none overflow-hidden text-slate-900 dark:text-white focus:outline-0 border-none bg-transparent h-full placeholder:text-slate-400 dark:placeholder:text-slate-400 px-3 text-sm font-normal leading-normal" placeholder="Search tasks..." value=""/>
+</div>
+</label>
+<div class="flex items-center gap-3 pl-2 border-l border-slate-200 dark:border-white/10">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-white dark:ring-asmbly-yellow/50 shadow-sm" data-alt="User profile picture showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2oc68lxk3RrRcdjZ900QZUZeJYPTpCm-XOrkhEGCMrctyC5KtE6rHSeLBAdd6XHw47O2lOQ37_rV-14Ev0hwmhlcllKRCFarHE38vG8HHEzfuIE-iKOdFkiKl_FlI9thMh1umUlZkcC_E8hmZE_rnEESHJ04EYYrYddk9EH9iwbRovpPA0s6yuuuD-MuJOv71S5PwqQXwXX7JXUesDfcJK4LeNkVo7GdJzVdgTUDq4wsPym1d-PEWUHY_qL4GJBEhy4bBEYntLr6i");'></div>
+</div>
+</div>
+</header>
+<div class="h-2 w-full flex">
+<div class="h-full w-1/6 bg-asmbly-orange"></div>
+<div class="h-full w-1/6 bg-asmbly-navy"></div>
+<div class="h-full w-1/6 bg-asmbly-blue"></div>
+<div class="h-full w-1/6 bg-asmbly-yellow"></div>
+<div class="h-full w-1/6 bg-asmbly-teal"></div>
+<div class="h-full w-1/6 bg-asmbly-navy"></div>
+</div>
+<main class="flex-1 px-4 md:px-10 py-8 md:py-12 max-w-[1400px] mx-auto w-full">
+<nav class="flex flex-wrap gap-2 mb-8">
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-asmbly-navy dark:hover:text-asmbly-yellow transition-colors" href="#">Dashboard</a>
+<span class="text-slate-400 text-sm font-medium">/</span>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-asmbly-navy dark:hover:text-asmbly-yellow transition-colors" href="#">Maintenance Tasks</a>
+<span class="text-slate-400 text-sm font-medium">/</span>
+<span class="text-asmbly-navy dark:text-white text-sm font-semibold">Replace SawStop Brake Cartridge</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="flex flex-col gap-5 border-b border-slate-200 dark:border-white/10 pb-8">
+<div class="flex flex-wrap gap-3">
+<div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded px-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-100 dark:border-red-900/30">
+<span class="size-2 rounded-full bg-red-500 animate-pulse"></span>
+<p class="text-xs font-bold uppercase tracking-wider font-display">High Priority</p>
+</div>
+<div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded px-3 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[16px]">carpenter</span>
+<p class="text-xs font-bold uppercase tracking-wider font-display">Woodshop</p>
+</div>
+<div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded px-3 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<p class="text-xs font-bold uppercase tracking-wider font-display">Safety Critical</p>
+</div>
+</div>
+<div>
+<h1 class="text-asmbly-navy dark:text-white text-3xl md:text-5xl font-display font-bold leading-tight mb-3">Replace SawStop Brake Cartridge</h1>
+<div class="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5 bg-slate-100 dark:bg-white/5 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[16px]">tag</span>
+<span class="font-mono">CU-8675309</span>
+</div>
+<span class="hidden sm:block text-slate-300 dark:text-slate-600">•</span>
+<div class="flex items-center gap-1.5 text-asmbly-teal font-medium">
+<span class="material-symbols-outlined text-[18px] filled">check_circle</span> 
+                            ClickUp Active
+                        </div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="flex items-center justify-center size-8 rounded-full bg-asmbly-navy/10 dark:bg-white/10 text-asmbly-navy dark:text-asmbly-yellow">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</span>
+<h3 class="text-xl font-display font-bold text-asmbly-navy dark:text-white">Description</h3>
+</div>
+<div class="prose prose-slate dark:prose-invert prose-lg max-w-none text-slate-600 dark:text-slate-300">
+<p class="leading-relaxed">
+                        The brake cartridge on the main SawStop ICS (Industrial Cabinet Saw) has fired. This typically happens when the blade contacts conductive material or skin. 
+                    </p>
+<p class="font-medium text-asmbly-navy dark:text-white border-l-4 border-asmbly-yellow pl-4 py-1 bg-asmbly-yellow/10 dark:bg-asmbly-yellow/5 rounded-r">
+<strong>Your objective:</strong> Inspect the blade for damage and install the replacement cartridge. The saw is currently tagged out and cannot be used until this maintenance is complete.
+                    </p>
+<div class="my-8 p-5 bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-800/30 rounded-lg">
+<h4 class="text-orange-800 dark:text-orange-300 font-bold font-display uppercase tracking-wide text-sm flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined filled">warning</span>
+                            Safety Warning
+                        </h4>
+<p class="text-orange-900 dark:text-orange-100/90 text-sm">
+                            Ensure the saw is powered off at the breaker and strictly follow Lockout/Tagout (LOTO) procedures before opening the cabinet. Do not attempt if you have not completed the volunteer safety induction.
+                        </p>
+</div>
+<p>
+                        Replacement cartridges are located in the Supervisor Cabinet (Key #4). Please log the use of the consumable in the inventory sheet attached to the cabinet door.
+                    </p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+<div class="aspect-square rounded-lg bg-cover bg-center shadow-sm border border-slate-200 dark:border-white/10 hover:opacity-90 transition-opacity cursor-pointer" data-alt="Close up of a table saw blade and mechanism" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDOMW89mCHqSCrV7M_cd2b1xSBoSjsfYIBzf4hqA6DPadwPuKMxp7L3am_SyYBFGvhJvuL3su5O8V_mSsbdGOFnxoGtCMUxNPtYyFqkwJl2yl330MJKcTrvrhhQ4-s3XRuX-66kVwB5NvtRn8-tdy50vmikxqh5uisjTA6hSV8W9Syf5EThyc9IZAIVYaGy05nhL_CORrP_vQQcXZ6P1BsgZ39UOs5PNua1hYaN3wkhvhxwb0llYZq-_7KUXl4n8k46fdjlrRmvDyYv')"></div>
+<div class="aspect-square rounded-lg bg-cover bg-center shadow-sm border border-slate-200 dark:border-white/10 hover:opacity-90 transition-opacity cursor-pointer" data-alt="Woodworking workshop tools on a bench" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBNV42By9BGJDm_L9HGbFQWMDxDPWsqXJirhQGDJI4sivbIjtdwyOZt7e3yo95owACd-4waZ6m-LldXmDaASgMmCh5N5Plu_6PxZfj2_me9JFk3nkD0WlZzfRBF6lbkAbHVYeEZQk0rMzEQkKYg29tT3w4aGw2OniTKPV_aZcd-nEwv524ZtuEUoHF6mOVPnbMRKMhySlBoAoe-E6qoTI8s0aSUBJiWYDoWaCK1mxG4jr0L1gkAaGrE6gPlBNvAu1xfxkJwXLVl2--S')"></div>
+</div>
+</div>
+<div class="w-full h-px bg-slate-200 dark:bg-white/10 my-4"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-white/5 flex flex-col h-full">
+<h3 class="text-lg font-display font-bold text-asmbly-navy dark:text-white mb-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-asmbly-teal">handyman</span>
+                        Tools &amp; Parts
+                    </h3>
+<div class="flex flex-col gap-3 flex-1">
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-white/5">
+<div class="bg-white dark:bg-white/10 p-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-300 block">build</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white font-bold text-sm">10mm Wrench</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">For arbor nut</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-white/5">
+<div class="bg-white dark:bg-white/10 p-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-300 block">settings</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white font-bold text-sm">Brake Cartridge (Standard)</p>
+<p class="text-asmbly-teal text-xs font-bold uppercase tracking-wide">In Stock • Bin A4</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-white/5">
+<div class="bg-white dark:bg-white/10 p-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-300 block">key</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white font-bold text-sm">Cabinet Key #4</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Ask Duty Officer</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-white/5 flex flex-col h-full">
+<h3 class="text-lg font-display font-bold text-asmbly-navy dark:text-white mb-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-asmbly-teal">location_on</span>
+                        Location
+                    </h3>
+<div class="relative w-full h-40 bg-slate-800 rounded-xl overflow-hidden mb-4 border border-slate-200 dark:border-white/10 group">
+<img alt="Map of the workshop showing the location of the saw" class="w-full h-full object-cover opacity-70 group-hover:opacity-60 transition-opacity" data-alt="Blurred industrial workshop background representing a map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN83aFD4FH5Absl2fgLPpDuH_zLUXKiU5Fv5H20pKtYukFrfVOBVLoz1ICwdBfZdo-3dBemEjpqbOgulXlMba7cnYgb3YoRq8fhtYsiYbswYEo-PA_Ob3OHAO81s945GD5VZtXKtpmIgeNA_FBe51D7-84Q0NvMJrQZXVlS9kzqsJWhKxhXWr6drwj9j7LHxqb4mFcZZBsj1RWdgl6y0G14fy997NHbN3u0xSWb-15Xvhy00pOWcbkspnHdOA_IDDWJNM0EgY79h7U"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-asmbly-navy/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-white/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-asmbly-yellow">my_location</span>
+                                Table Saw 2
+                            </div>
+</div>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2">
+<div>
+<p class="text-asmbly-navy dark:text-white font-bold font-display">Woodshop</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Zone A • Main Floor</p>
+</div>
+<button class="text-asmbly-blue text-sm font-bold font-display uppercase tracking-wide hover:underline">View Map</button>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-slate-200 dark:border-white/10">
+<h3 class="text-xl font-display font-bold text-asmbly-navy dark:text-white mb-8">Activity &amp; Updates</h3>
+<div class="relative pl-6 space-y-10">
+<div class="absolute left-[9px] top-2 bottom-2 w-0.5 bg-slate-200 dark:bg-white/10"></div>
+<div class="relative group">
+<div class="absolute -left-[23px] top-0 size-4 bg-white dark:bg-asmbly-navy rounded-full border-4 border-slate-200 dark:border-slate-700 group-hover:border-asmbly-teal transition-colors"></div>
+<div class="flex items-start gap-4">
+<div class="size-10 rounded-full bg-slate-200 bg-cover bg-center shrink-0 ring-2 ring-white dark:ring-white/10" data-alt="Avatar of Alex" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyAQE67rAVuq5hPxflevpUhrcVum_yPMUIbhX3Wial98Fh6P_jI-PcaoAGUDe1bY9Pcr7sngPqH4LyYOcwInQfwHcVCxWe0zzLtzve1CXthG8lY8NQ4-R11B-jP_2iz6-wtmmN_upIJrgHENePijzO3ggu78cp1wpuQKEd7dExVeDbNcOVy3NRGccfRZxnlFM9iPBdHxFkBd6ivYTcPp3FZkgMd58Pc-sGCgVs3xyR4hBbG6YL8bqgx_Ntp9z6o2pJMqKR_9QXTNZy");'></div>
+<div class="bg-slate-50 dark:bg-surface-dark p-4 rounded-xl rounded-tl-none border border-slate-100 dark:border-white/5 flex-1">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+<p class="text-sm font-bold text-asmbly-navy dark:text-white font-display">Alex M.</p>
+<span class="text-xs font-medium text-slate-400 bg-white dark:bg-black/20 px-2 py-0.5 rounded-full border border-slate-100 dark:border-white/5">2 hours ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300">
+                                    "I checked the inventory, we have 2 spare cartridges left in Bin A4. I've tagged the machine out."
+                                </p>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -left-[23px] top-0 size-4 bg-white dark:bg-asmbly-navy rounded-full border-4 border-slate-200 dark:border-slate-700 group-hover:border-asmbly-teal transition-colors"></div>
+<div class="flex items-start gap-4">
+<div class="size-10 rounded-full flex items-center justify-center bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 shrink-0 ring-2 ring-white dark:ring-white/10">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<div class="bg-slate-50 dark:bg-surface-dark p-4 rounded-xl rounded-tl-none border border-slate-100 dark:border-white/5 flex-1">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+<p class="text-sm font-bold text-asmbly-navy dark:text-white font-display">ClickUp Bot</p>
+<span class="text-xs font-medium text-slate-400 bg-white dark:bg-black/20 px-2 py-0.5 rounded-full border border-slate-100 dark:border-white/5">5 hours ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300">
+                                    Task created automatically from Incident Report #221. Priority set to <span class="text-red-600 dark:text-red-400 font-bold">High</span>.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
+<div class="bg-white dark:bg-surface-dark rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg overflow-hidden relative">
+<div class="bg-slate-100 dark:bg-black/30 px-6 py-3 flex justify-between items-center border-b border-slate-200 dark:border-white/10">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest font-display">Status</p>
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-asmbly-blue opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-asmbly-blue"></span>
+</span>
+<span class="text-sm font-bold text-asmbly-navy dark:text-white font-display uppercase tracking-wider">Unclaimed</span>
+</div>
+</div>
+<div class="p-6">
+<div class="mb-6 space-y-2">
+<div class="flex items-baseline justify-between">
+<span class="text-slate-500 dark:text-slate-400 text-sm">Est. Time</span>
+<span class="font-bold text-asmbly-navy dark:text-white font-display text-lg">45 Mins</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-slate-500 dark:text-slate-400 text-sm">Points</span>
+<span class="font-bold text-asmbly-teal font-display text-lg">+150 XP</span>
+</div>
+</div>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-center gap-2 bg-asmbly-yellow hover:bg-asmbly-yellow-hover text-asmbly-navy font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded transition-all active:scale-[0.98] shadow-md shadow-asmbly-yellow/20">
+<span>Claim Task</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-slate-500 font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded cursor-not-allowed border border-transparent dark:border-white/5" disabled="">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Mark as Complete</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-black/20 p-3 flex items-center justify-center gap-3 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-white/5">
+<img alt="Slack" class="h-3.5 w-3.5 grayscale opacity-70" data-alt="Slack logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV71kNF5rMouf9vUMculk8FA4QJWlQfNqujhJyoeI_QxyQsFEO-q3ybYTySkGFugNfrRQ3uxOTBfKV35JUWt1zWkDKFKNiUyH_92ioobh1coaRFq9jXtN1FAYgVxLX8fPE6dtQ2zSZS4s-axrXKhzkPuO9DBxwBUm011IiS7sRHdJ30WzNQ-Eb_hF3Av3CCdj0xTGJPnD2CTxalQg-PbMM-9shxirClpJ8F3GFm-xDWPN7X3dQh_Hm8Y01-rbAw6hnZwKmVva2Meer"/>
+<img alt="ClickUp" class="h-3.5 w-3.5 grayscale opacity-70" data-alt="ClickUp logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE4CXL7SHjVqjCDdGG1Pkq2aNSa8-0cxDojz3XumFSlB-2eQJKpW9LSm9FitEIjnll2ZXO049NCyq2b2PGqDgQlXwjXosyGNE8qv7vn9QssgKEKPm18dM5izpGT6T1Ya2d-sgm0lukyl82FsaU3aKAwKxGo16oaT78e6_Cz7d9U6kXtyMisrAHeQFAMmtfPPuRrQb_C_-bj0yygDgFj0AN7LvuBQCsH8J4wgx7kwnE8JCLCWI7tv8eLzkeFFc8Jn7foHII72yTezLP"/>
+<span class="font-medium">Synced</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-slate-200 dark:border-white/10 shadow-sm">
+<p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 font-display">Reported By</p>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-cover bg-center ring-2 ring-slate-100 dark:ring-white/10" data-alt="Profile picture of Sarah J" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAetZMa95dVhyozSnOfWpLrFEM9BQf2snZcJa3i9ZGGkW2ETNZdOQRKXD5IP10g5pU2JopoCv3ko97g2ZhcxGcLaopT-hd6vmK4YnN43lxrC5XxNUlHovcvKiBT6QtB-FDkgrQEzWoOVZoOtpGItbnhAwNMOqmg6Rum78_NThCMnSkKHq8a178KcwIpMuXcYr7HcaBSsPiYcPd91bwdin2VPyFhlpMQWwdHlAZWtud_TAagtMSRCBu2wRdQqpXlfhU426GdMPBOy9r6')"></div>
+<div>
+<p class="text-asmbly-navy dark:text-white font-bold text-lg font-display">Sarah J.</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Shop Lead</p>
+</div>
+<button class="ml-auto p-2.5 text-slate-400 hover:text-asmbly-blue transition-colors rounded-full hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent hover:border-slate-100 dark:hover:border-white/10">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+<div class="bg-asmbly-navy dark:bg-asmbly-navy-dark rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+<div class="absolute -right-6 -top-6 size-24 bg-white/5 rounded-full blur-xl"></div>
+<div class="flex gap-4 relative z-10">
+<div class="mt-1">
+<span class="material-symbols-outlined text-asmbly-yellow text-3xl">help</span>
+</div>
+<div>
+<p class="font-bold font-display text-lg mb-2">Need assistance?</p>
+<p class="text-blue-100/80 text-sm leading-relaxed mb-4">
+                            If you're unsure about the procedure, please contact the on-duty supervisor or post in <span class="font-mono text-xs bg-black/30 px-1.5 py-0.5 rounded text-asmbly-teal border border-white/10">#woodshop-help</span>.
+                        </p>
+<a class="text-asmbly-yellow hover:text-white text-sm font-bold font-display uppercase tracking-wide hover:underline transition-colors flex items-center gap-1" href="#">
+                            View Repair Manual 
+                            <span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-asmbly-navy dark:bg-black py-12 border-t border-white/10 mt-auto">
+<div class="max-w-[1400px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-white opacity-60 text-sm">
+            © 2024 Asmbly Makerspace. All rights reserved.
+        </div>
+<div class="flex gap-6">
+<a class="text-white hover:text-asmbly-yellow text-sm font-medium transition-colors" href="#">Privacy Policy</a>
+<a class="text-white hover:text-asmbly-yellow text-sm font-medium transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+</body></html>

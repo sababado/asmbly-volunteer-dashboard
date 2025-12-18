@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Volunteer Portal Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Oswald:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d306b", // Deep indigo from header
+                        "secondary": "#f0b323", // Yellow accent
+                        "accent-teal": "#7cc0b8", // Teal/light blue accent
+                        "accent-red": "#e05244", // Red/Orange accent
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#1a1a1a",
+                        "surface": "#ffffff",
+                        "text-main": "#2d306b",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"], // Asmbly uses condensed headings
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "2px", "xl": "4px", "full": "9999px"}, // More squared off aesthetic
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-secondary text-primary font-bold uppercase tracking-wider px-6 py-2 hover:bg-yellow-400 transition-colors rounded-none text-sm;
+            }
+            .card-shadow {
+                @apply shadow-[0_2px_8px_rgba(0,0,0,0.08)];
+            }
+            .heading-accent {
+                @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-secondary;
+            }
+        }
+    </style>
+</head>
+<body class="font-body bg-background-light text-slate-800 h-screen flex overflow-hidden">
+<aside class="hidden lg:flex w-64 flex-col border-r border-gray-200 bg-primary shrink-0 transition-all duration-300">
+<div class="flex h-full flex-col justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-3 p-6 bg-[#242656]">
+<div class="bg-center bg-no-repeat bg-cover bg-white p-1 size-10 flex items-center justify-center shrink-0" style='mask-image: url("https://asmbly.org/wp-content/uploads/2019/07/cropped-Favicon-32x32.png"); -webkit-mask-image: url("https://asmbly.org/wp-content/uploads/2019/07/cropped-Favicon-32x32.png"); background-color: white;'>
+<span class="font-display font-bold text-lg text-primary">A</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white font-display text-lg font-bold leading-tight tracking-wide uppercase">Asmbly</h1>
+<p class="text-gray-300 text-xs font-normal">Volunteer Portal</p>
+</div>
+</div>
+<nav class="flex flex-col mt-4">
+<a class="flex items-center gap-4 px-6 py-3 bg-[#363a7d] border-l-4 border-secondary text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary">dashboard</span>
+<span class="text-sm font-medium uppercase tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 border-l-4 border-transparent hover:bg-[#363a7d] hover:border-white/20 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">checklist</span>
+<span class="text-sm font-medium uppercase tracking-wide">My Tasks</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 border-l-4 border-transparent hover:bg-[#363a7d] hover:border-white/20 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-sm font-medium uppercase tracking-wide">Leaderboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 border-l-4 border-transparent hover:bg-[#363a7d] hover:border-white/20 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-sm font-medium uppercase tracking-wide">Shop Areas</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 border-l-4 border-transparent hover:bg-[#363a7d] hover:border-white/20 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-sm font-medium uppercase tracking-wide">Profile</span>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#363a7d]">
+<div class="flex items-center gap-3 px-3 py-2 rounded hover:bg-[#363a7d] text-gray-300 cursor-pointer transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium uppercase tracking-wide">Log Out</span>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#f4f6f8]">
+<div class="lg:hidden flex items-center justify-between p-4 bg-primary text-white shadow-md">
+<span class="font-display font-bold text-xl uppercase tracking-wider">Asmbly</span>
+<button class="p-2 text-white"><span class="material-symbols-outlined">menu</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 scroll-smooth">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<header class="flex flex-col gap-3 pb-4 border-b border-gray-200">
+<h1 class="text-3xl md:text-5xl font-display font-bold text-primary uppercase">Welcome back, Alex</h1>
+<p class="text-slate-600 text-lg max-w-2xl font-light">The Woodshop needs some love today. Ready to help keep our community space running smoothly?</p>
+</header>
+<div class="relative overflow-hidden bg-white shadow-sm border-l-4 border-secondary p-6 md:p-8">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex gap-5">
+<div class="bg-secondary/10 p-3 rounded-full text-secondary h-fit shrink-0">
+<span class="material-symbols-outlined text-[28px]">warning</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-display font-bold text-primary uppercase tracking-wide">Shop Announcement: Woodshop closed Sunday</h3>
+<p class="text-slate-600 leading-relaxed max-w-3xl">
+                                Please plan your maintenance tasks accordingly. The dust collection system is undergoing critical upgrades and the area will be inaccessible.
+                            </p>
+</div>
+</div>
+<button class="shrink-0 text-sm font-bold uppercase tracking-wider text-slate-500 hover:text-primary px-4 py-2 hover:bg-slate-100 transition-colors">
+                        Dismiss
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="flex flex-col md:flex-row gap-4 p-4 bg-white shadow-sm border border-gray-100">
+<div class="relative flex-1 min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 text-sm text-slate-800 focus:ring-1 focus:ring-primary focus:border-primary outline-none placeholder-slate-400 transition-all rounded-sm" placeholder="Search tasks..." type="text"/>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-1 md:pb-0 no-scrollbar">
+<select class="bg-gray-50 border border-gray-200 text-slate-700 text-sm focus:ring-primary focus:border-primary block p-2.5 outline-none cursor-pointer min-w-[120px] rounded-sm">
+<option selected="">All Areas</option>
+<option value="wood">Woodshop</option>
+<option value="metal">Metal Shop</option>
+<option value="electronics">Electronics</option>
+<option value="general">General</option>
+</select>
+<select class="bg-gray-50 border border-gray-200 text-slate-700 text-sm focus:ring-primary focus:border-primary block p-2.5 outline-none cursor-pointer min-w-[120px] rounded-sm">
+<option selected="">All Types</option>
+<option value="preventative">Preventative</option>
+<option value="repair">Repair</option>
+<option value="improvement">Improvement</option>
+</select>
+<select class="bg-gray-50 border border-gray-200 text-slate-700 text-sm focus:ring-primary focus:border-primary block p-2.5 outline-none cursor-pointer min-w-[120px] rounded-sm">
+<option selected="">Difficulty</option>
+<option value="quick">Quick Win</option>
+<option value="project">Major Project</option>
+</select>
+</div>
+</div>
+<div class="flex items-end justify-between px-1 border-b border-gray-200 pb-2">
+<h2 class="text-xl font-display font-bold text-primary uppercase heading-accent">Open Tasks</h2>
+<span class="text-sm text-slate-500 font-medium">Showing 3 of 12</span>
+</div>
+<div class="flex flex-col gap-5">
+<div class="group flex flex-col md:flex-row bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-primary/30">
+<div class="hidden md:block w-1.5 bg-accent-teal shrink-0"></div>
+<div class="flex-1 flex flex-col gap-4 p-5 md:p-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-start justify-between gap-4">
+<h3 class="text-xl font-display font-bold text-primary group-hover:text-blue-800 transition-colors uppercase leading-tight">Replace Blades on Planer</h3>
+<span class="px-2 py-1 bg-accent-teal text-white text-[11px] font-bold uppercase tracking-wider shrink-0">Ready</span>
+</div>
+<p class="text-sm text-slate-600 leading-relaxed">The blades are showing signs of wear and tear, causing tearout on hardwoods.</p>
+</div>
+<div class="flex flex-wrap gap-2 items-center mt-auto pt-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">carpenter</span>
+                                        Woodshop
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-accent-red/10 text-xs font-semibold uppercase tracking-wide text-accent-red">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                                        High Urgency
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                        30 mins
+                                    </div>
+</div>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 p-5 md:p-6 md:pl-0 border-t md:border-t-0 md:border-l border-gray-100 bg-gray-50/50 md:bg-transparent">
+<button class="w-full md:w-auto btn-primary shadow-sm whitespace-nowrap">
+                                    Claim Task
+                                </button>
+<a class="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-slate-400 hover:text-primary transition-colors" href="#">
+                                    View in ClickUp <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+<div class="group flex flex-col md:flex-row bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-primary/30">
+<div class="hidden md:block w-1.5 bg-primary shrink-0"></div>
+<div class="flex-1 flex flex-col gap-4 p-5 md:p-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-start justify-between gap-4">
+<h3 class="text-xl font-display font-bold text-primary group-hover:text-blue-800 transition-colors uppercase leading-tight">Empty Dust Collector Bins</h3>
+<span class="px-2 py-1 bg-primary text-white text-[11px] font-bold uppercase tracking-wider shrink-0">Open</span>
+</div>
+<p class="text-sm text-slate-600 leading-relaxed">Bins 2 and 4 are nearing capacity. Please empty into the dumpster.</p>
+</div>
+<div class="flex flex-wrap gap-2 items-center mt-auto pt-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">carpenter</span>
+                                        Woodshop
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-secondary/10 text-xs font-semibold uppercase tracking-wide text-yellow-700">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                                        Med Urgency
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                        15 mins
+                                    </div>
+</div>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 p-5 md:p-6 md:pl-0 border-t md:border-t-0 md:border-l border-gray-100 bg-gray-50/50 md:bg-transparent">
+<button class="w-full md:w-auto btn-primary shadow-sm whitespace-nowrap">
+                                    Claim Task
+                                </button>
+<a class="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-slate-400 hover:text-primary transition-colors" href="#">
+                                    View in ClickUp <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+<div class="group flex flex-col md:flex-row bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-primary/30">
+<div class="hidden md:block w-1.5 bg-primary shrink-0"></div>
+<div class="flex-1 flex flex-col gap-4 p-5 md:p-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-start justify-between gap-4">
+<h3 class="text-xl font-display font-bold text-primary group-hover:text-blue-800 transition-colors uppercase leading-tight">Organize Welding Table</h3>
+<span class="px-2 py-1 bg-primary text-white text-[11px] font-bold uppercase tracking-wider shrink-0">Open</span>
+</div>
+<p class="text-sm text-slate-600 leading-relaxed">Sort clamps and clean the surface. Restock welding wire if needed.</p>
+</div>
+<div class="flex flex-wrap gap-2 items-center mt-auto pt-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">precision_manufacturing</span>
+                                        Metal Shop
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-500">
+<span class="material-symbols-outlined text-[16px]">low_priority</span>
+                                        Low Urgency
+                                    </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                        1 hr
+                                    </div>
+</div>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 p-5 md:p-6 md:pl-0 border-t md:border-t-0 md:border-l border-gray-100 bg-gray-50/50 md:bg-transparent">
+<button class="w-full md:w-auto btn-primary shadow-sm whitespace-nowrap">
+                                    Claim Task
+                                </button>
+<a class="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-slate-400 hover:text-primary transition-colors" href="#">
+                                    View in ClickUp <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<aside class="lg:col-span-4 flex flex-col gap-8">
+<div class="flex flex-col bg-primary text-white shadow-md relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full pointer-events-none"></div>
+<div class="px-6 py-5 border-b border-white/10">
+<h3 class="text-lg font-display font-bold uppercase tracking-wide">Your Impact</h3>
+</div>
+<div class="p-6 flex flex-col gap-8">
+<div class="flex items-center gap-5">
+<div class="size-14 bg-white/10 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[28px]">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-4xl font-display font-bold text-white leading-none">12.5</span>
+<span class="text-xs text-gray-300 font-bold uppercase tracking-widest mt-1">Hours this month</span>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<div class="size-14 bg-white/10 flex items-center justify-center text-accent-teal shrink-0">
+<span class="material-symbols-outlined text-[28px]">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="text-4xl font-display font-bold text-white leading-none">5</span>
+<span class="text-xs text-gray-300 font-bold uppercase tracking-widest mt-1">Tasks Completed</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between text-xs font-medium uppercase tracking-wide text-gray-300">
+<span>Progress to Goal</span>
+<span>65%</span>
+</div>
+<div class="w-full bg-black/20 h-3">
+<div class="bg-secondary h-3" style="width: 65%"></div>
+</div>
+<p class="text-xs text-gray-400 mt-1">Monthly Goal: 20hrs</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col bg-white border border-gray-200 shadow-sm">
+<div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+<h3 class="text-base font-display font-bold uppercase tracking-wide text-primary">Recent Activity</h3>
+<a class="text-xs text-primary font-bold uppercase tracking-wider hover:underline" href="#">View All</a>
+</div>
+<div class="p-0">
+<div class="flex gap-4 p-5 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<div class="mt-1">
+<div class="size-2.5 rounded-none bg-accent-teal rotate-45"></div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm font-semibold text-slate-800 leading-tight">Completed "Organize CNC Bits"</p>
+<p class="text-xs text-slate-500 uppercase tracking-wide">Yesterday • 2 hrs credited</p>
+</div>
+</div>
+<div class="flex gap-4 p-5 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<div class="mt-1">
+<div class="size-2.5 rounded-none bg-secondary rotate-45"></div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm font-semibold text-slate-800 leading-tight">Claimed "Fix Laser Cutter Exhaust"</p>
+<p class="text-xs text-slate-500 uppercase tracking-wide">2 days ago</p>
+</div>
+</div>
+<div class="flex gap-4 p-5 hover:bg-gray-50 transition-colors">
+<div class="mt-1">
+<div class="size-2.5 rounded-none bg-accent-red rotate-45"></div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm font-semibold text-slate-800 leading-tight">Earned "Fixer" Badge</p>
+<p class="text-xs text-slate-500 uppercase tracking-wide">Last week</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<a class="flex items-center justify-between p-4 bg-white border-l-4 border-transparent hover:border-primary shadow-sm hover:shadow-md transition-all group" href="#">
+<span class="text-sm font-bold uppercase tracking-wide text-slate-700 group-hover:text-primary">View Shop Calendar</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-[22px]">calendar_month</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-white border-l-4 border-transparent hover:border-primary shadow-sm hover:shadow-md transition-all group" href="#">
+<span class="text-sm font-bold uppercase tracking-wide text-slate-700 group-hover:text-primary">Report an Issue</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-[22px]">report_problem</span>
+</a>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>
