@@ -1,4 +1,4 @@
-﻿# Contributing to [Project Name]
+﻿# Contributing to Asmbly Volunteer Dashboard
 
 For all contributing guidelines, architecture overview, and technical standards, please refer to:
 

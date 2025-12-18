@@ -1,4 +1,4 @@
-# [Project Name]
+# Asmbly Volunteer Dashboard
 
 ## Overview
 
@@ -9,7 +9,7 @@
 This project follows a monorepo structure using NPM Workspaces (Frontend/UI Kit) and a standard Python structure (Backend).
 
 ```
-[Project Root]/
+Asmbly Volunteer Dashboard/
 ├── apps/
 │   ├── frontend/        # React Application
 │   └── backend/         # Python API Service
@@ -31,8 +31,8 @@ This project follows a monorepo structure using NPM Workspaces (Frontend/UI Kit)
 
 1. **Clone the repository:**
    ```bash
-   git clone [Repo URL]
-   cd [Project Name]
+   git clone https://github.com/sababado/asmbly-volunteer-dashboard
+   cd Asmbly Volunteer Dashboard
    ```
 
 2. **Install Frontend Dependencies:**

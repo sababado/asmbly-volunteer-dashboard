@@ -1,10 +1,10 @@
-﻿# AI Agent Context: [Project Name] (Root)
+﻿# AI Agent Context: Asmbly Volunteer Dashboard (Root)
 
 This document serves as the primary source of truth for AI agents operating at the **monorepo root level**. It outlines the high-level project scope, global architecture, and workspace structure.
 
 ## 1. Project Objective
 
-**[Project Name]** is a [Brief Description of Project].
+**Asmbly Volunteer Dashboard** is a [Brief Description of Project].
 
 **Key Goals:**
 * **[Goal 1]:** [Description]
@@ -68,7 +68,7 @@ When adding new features or making significant changes, always create a comprehe
 
 First off, thanks for taking the time to contribute! 
 
-The following is a set of guidelines for contributing to [Project Name]. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to Asmbly Volunteer Dashboard. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ###  Getting Started
 
@@ -82,7 +82,7 @@ The following is a set of guidelines for contributing to [Project Name]. These a
 
 1. Clone the repository:
    ```bash
-   git clone [Repo URL]
+   git clone https://github.com/sababado/asmbly-volunteer-dashboard
    ```
 2. Install dependencies (root):
    ```bash
@@ -106,7 +106,7 @@ Each part of the monorepo has its own detailed contribution guide:
 #### Directory Structure
 
 ```
-[Project Name]/
+Asmbly Volunteer Dashboard/
  packages/
     ui-kit/          # Component library (Atomic Design)
  apps/
