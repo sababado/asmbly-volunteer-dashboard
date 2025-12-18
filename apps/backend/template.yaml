@@ -13,9 +13,16 @@ Parameters:
       - staging
       - prod
     Default: dev
+  Application:
+    Type: String
+    Description: Application Name for tagging
+    Default: asmbly-volunteer-dashboard
 
 Globals:
   Function:
+    Tags:
+      Application: !Ref Application
+      Environment: !Ref AppEnv
     Timeout: 30
     MemorySize: 256
     Runtime: python3.11
@@ -46,6 +53,10 @@ Resources:
       Location: infra/dynamodb.yaml
       Parameters:
         AppEnv: !Ref AppEnv
+        Application: !Ref Application
+      Tags:
+        Application: !Ref Application
+        Environment: !Ref AppEnv
 
 
 Outputs:

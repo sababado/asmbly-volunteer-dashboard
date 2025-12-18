@@ -12,11 +12,18 @@ Description: >
       - staging
       - prod
     Default: dev
+  Application:
+    Type: String
+    Description: Application Name for tagging
+    Default: asmbly-volunteer-dashboard
 
 Resources:
   VolunteerTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
+      Tags:
+        Application: !Ref Application
+        Environment: !Ref AppEnv
       TableName: !Sub "VolunteerTable-${AppEnv}"
       PrimaryKey:
         Name: pk

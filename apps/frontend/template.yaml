@@ -17,6 +17,11 @@ Parameters:
     Type: String
     Description: GitHub Repository Name (for tagging)
     Default: asmbly-volunteer-dashboard
+  Application:
+    Type: String
+    Description: Application Name for tagging
+    Default: asmbly-volunteer-dashboard
+
 
 Resources:
   # 1. S3 Bucket for React App
@@ -32,6 +37,8 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref AppEnv
+        - Key: Application
+          Value: !Ref Application
 
   # 2. CloudFront Origin Access Control
   CloudFrontOAC:
@@ -76,6 +83,8 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref AppEnv
+        - Key: Application
+          Value: !Ref Application
 
   # 4. Bucket Policy to allow CloudFront
   FrontendBucketPolicy:
