@@ -1,7 +1,7 @@
 ﻿AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  [Project Name] Backend
+  Asmbly Volunteer Dashboard Backend
   Serverless API (FastAPI) + PostgreSQL (RDS).
 
 Parameters:

@@ -1,7 +1,7 @@
 ﻿AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  [Project Name] Frontend
+  Asmbly Volunteer Dashboard Frontend
   Single Page Application (SPA) hosted on S3 + CloudFront.
 
 Parameters:
@@ -16,7 +16,7 @@ Parameters:
   RepositoryName:
     Type: String
     Description: GitHub Repository Name (for tagging)
-    Default: [Project Name]
+    Default: asmbly-volunteer-dashboard
 
 Resources:
   # 1. S3 Bucket for React App
