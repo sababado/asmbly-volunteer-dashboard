@@ -1,11 +1,16 @@
-import uiKitConfig from '../../packages/ui-kit/tailwind.config';
+import uiKitConfig from '@asmbly/ui-kit/tailwind.config';
+import { createRequire } from 'module';
+import path from 'path';
+
+const require = createRequire(import.meta.url);
+const uiKitPath = path.dirname(require.resolve('@asmbly/ui-kit/package.json'));
 
 /** @type {import('tailwindcss').Config} */
 export default {
     presets: [uiKitConfig],
     content: [
         "./src/**/*.{js,ts,jsx,tsx}",
-        "../../packages/ui-kit/src/**/*.{js,ts,jsx,tsx}"
+        path.join(uiKitPath, "src/**/*.{js,ts,jsx,tsx}")
     ],
     theme: {
         extend: {},
