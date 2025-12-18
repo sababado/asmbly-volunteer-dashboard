@@ -2,7 +2,7 @@ import * as React from "react"
 import { Button, ButtonProps } from "../../atoms/Button/Button"
 import { CreditCard } from "lucide-react"
 
-export const SocialLoginButton = (props: ButtonProps) => {
+export const SocialLoginButton = ({ children, ...props }: ButtonProps) => {
     return (
         <Button
             variant="asmbly-yellow"
@@ -10,7 +10,7 @@ export const SocialLoginButton = (props: ButtonProps) => {
             leftIcon={<CreditCard className="h-6 w-6" />}
             {...props}
         >
-            <span className="truncate uppercase text-sm">Log in with Neon CRM</span>
+            <span className="truncate uppercase text-sm">{children}</span>
         </Button>
     )
 }

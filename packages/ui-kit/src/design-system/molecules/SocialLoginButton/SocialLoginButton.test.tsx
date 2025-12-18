@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('SocialLoginButton', () => {
     it('renders correctly', () => {
-        render(<SocialLoginButton />);
+        render(<SocialLoginButton>Log in with Neon CRM</SocialLoginButton>);
         expect(screen.getByText(/log in with neon crm/i)).toBeInTheDocument();
     });
 });
