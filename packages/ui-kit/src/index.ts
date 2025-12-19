@@ -37,7 +37,9 @@ export * from "./design-system/organisms/ClaimTaskCard/ClaimTaskCard";
 
 // Templates
 export * from "./design-system/templates/DashboardLayout/DashboardLayout";
+export * from "./design-system/templates/TaskDetailsTemplate/TaskDetailsTemplate";
 
 // Pages
 export * from "./pages/AuthPage/AuthPage";
 export * from "./pages/VolunteerDashboardPage/VolunteerDashboardPage";
+export * from "./pages/TaskDetailsPage/TaskDetailsPage";
