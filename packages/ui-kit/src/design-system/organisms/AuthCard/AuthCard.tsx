@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Logo } from "@/design-system/atoms/Logo/Logo"
-import { Lock } from "lucide-react"
+// import { Lock } from "lucide-react"
 
 export interface AuthCardProps {
     children: React.ReactNode;

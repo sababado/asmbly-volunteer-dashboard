@@ -1,4 +1,4 @@
-import * as React from "react"
+
 import { Button, ButtonProps } from "../../atoms/Button/Button"
 import { CreditCard } from "lucide-react"
 

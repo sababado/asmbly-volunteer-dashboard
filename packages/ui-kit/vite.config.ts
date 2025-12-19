@@ -15,4 +15,20 @@ export default defineConfig({
         setupFiles: './src/test/setup.ts',
         css: true,
     },
+    build: {
+        lib: {
+            entry: path.resolve(__dirname, 'src/index.ts'),
+            name: 'UiKit',
+            fileName: (format) => `ui-kit.${format}.js`,
+        },
+        rollupOptions: {
+            external: ['react', 'react-dom'],
+            output: {
+                globals: {
+                    react: 'React',
+                    'react-dom': 'ReactDOM',
+                },
+            },
+        },
+    },
 });

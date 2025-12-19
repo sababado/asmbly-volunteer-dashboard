@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { AlertTriangle, X } from 'lucide-react';
+import { AlertTriangle } from "lucide-react";
 
 export interface AnnouncementBannerProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;

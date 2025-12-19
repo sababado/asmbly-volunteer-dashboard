@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { AlertTriangle, ChevronRight } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 export interface ActionCardProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     label?: string;
