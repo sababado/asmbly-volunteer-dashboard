@@ -1,4 +1,4 @@
-import * as React from "react"
+
 import { Input } from "@/design-system/atoms/Input/Input"
 import { Button } from "@/design-system/atoms/Button/Button"
 import { Mail, Sparkles } from "lucide-react"

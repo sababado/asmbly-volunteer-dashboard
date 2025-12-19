@@ -16,6 +16,9 @@ export default {
                     metal: '#578BC9',
                     electronics: '#00916E',
                     lasers: '#D33E43',
+                    printing: '#EE6E23',
+                    textiles: '#79CCC4',
+                    ceramics: '#B34A9A',
                     white: '#F2F4EF',
                 },
                 // Auth Theme (code.html) - for fidelity
