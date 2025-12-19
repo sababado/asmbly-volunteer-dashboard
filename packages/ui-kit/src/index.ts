@@ -18,7 +18,7 @@ export * from "./design-system/molecules/SocialLoginButton/SocialLoginButton";
 export * from "./design-system/molecules/SidebarItem/SidebarItem";
 export * from "./design-system/molecules/AnnouncementBanner/AnnouncementBanner";
 export * from "./design-system/molecules/TaskListItem/TaskListItem";
-export * from "./design-system/molecules/ReportIssueCard/ReportIssueCard";
+export * from "./design-system/molecules/ActionCard/ActionCard";
 export * from "./design-system/molecules/StatCard/StatCard";
 
 // Organisms

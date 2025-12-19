@@ -2,12 +2,13 @@ import * as React from 'react';
 import { cn } from '../../../lib/utils';
 import { AlertTriangle, ChevronRight } from 'lucide-react';
 
-export interface ReportIssueCardProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface ActionCardProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     label?: string;
+    icon?: React.ElementType;
 }
 
-const ReportIssueCard = React.forwardRef<HTMLAnchorElement, ReportIssueCardProps>(
-    ({ className, label = "Report an Issue", ...props }, ref) => {
+const ActionCard = React.forwardRef<HTMLAnchorElement, ActionCardProps>(
+    ({ className, label = "Report an Issue", icon: Icon = AlertTriangle, ...props }, ref) => {
         return (
             <a
                 ref={ref}
@@ -20,11 +21,11 @@ const ReportIssueCard = React.forwardRef<HTMLAnchorElement, ReportIssueCardProps
                 <span className="text-sm font-bold uppercase tracking-wide text-slate-700 group-hover:text-brand-purple leading-tight">
                     {label}
                 </span>
-                <AlertTriangle className="text-slate-400 group-hover:text-brand-purple transition-colors shrink-0" size={22} />
+                <Icon className="text-slate-400 group-hover:text-brand-purple transition-colors shrink-0" size={22} />
             </a>
         );
     }
 );
-ReportIssueCard.displayName = "ReportIssueCard";
+ActionCard.displayName = "ActionCard";
 
-export { ReportIssueCard };
+export { ActionCard };
