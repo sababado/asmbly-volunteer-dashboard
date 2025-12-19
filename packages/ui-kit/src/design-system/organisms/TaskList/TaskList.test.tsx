@@ -2,7 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { TaskList } from './TaskList';
 
-const mockTasks = [
+import { TaskListItemProps } from '../../molecules/TaskListItem/TaskListItem';
+
+const mockTasks: TaskListItemProps[] = [
     {
         title: 'Task 1',
         description: 'Desc 1',
@@ -15,7 +17,7 @@ const mockTasks = [
 
 describe('TaskList', () => {
     it('renders tasks and filters', () => {
-        render(<TaskList tasks={mockTasks as any} />);
+        render(<TaskList tasks={mockTasks} />);
         expect(screen.getByText('Task 1')).toBeInTheDocument();
         expect(screen.getByText('Open Tasks')).toBeInTheDocument();
         expect(screen.getByRole('textbox')).toBeInTheDocument(); // Search

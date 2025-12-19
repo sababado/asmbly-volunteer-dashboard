@@ -2,7 +2,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Grid } from "lucide-react"
 
-export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> { }
+export type LogoProps = React.HTMLAttributes<HTMLDivElement>;
 
 const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
     ({ className, ...props }, ref) => {

@@ -13,7 +13,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockTasks = [
+import { TaskListItemProps } from '../../design-system/molecules/TaskListItem/TaskListItem';
+import { ImpactWidgetsProps } from '../../design-system/organisms/ImpactWidgets/ImpactWidgets';
+
+const mockTasks: TaskListItemProps[] = [
     {
         title: 'Replace Blades on Planer',
         description: 'The blades are showing signs of wear and tear.',
@@ -40,7 +43,7 @@ const mockTasks = [
     },
 ];
 
-const mockImpact = {
+const mockImpact: Omit<ImpactWidgetsProps, 'className'> = {
     hours: 12.5,
     tasksCompleted: 5,
     goalProgress: 65,
@@ -53,7 +56,7 @@ const mockImpact = {
 export const Default: Story = {
     args: {
         user: { name: 'Alex' },
-        tasks: mockTasks as any,
-        impactStats: mockImpact as any,
+        tasks: mockTasks,
+        impactStats: mockImpact,
     },
 };

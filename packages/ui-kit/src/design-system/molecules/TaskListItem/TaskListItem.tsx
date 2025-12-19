@@ -50,8 +50,8 @@ const getStatusBadge = (status: TaskStatus) => {
 }
 
 const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
-    ({ className, title, description, area, urgency, duration, status, onClickUpLink, onClaim, isNew, ...props }, ref) => {
-        const Icon = getAreaIcon(area);
+    ({ className, title, description, area, urgency, duration, status, onClickUpLink, onClaim, isNew: _isNew, ...props }, ref) => {
+
 
         return (
             <div
@@ -81,7 +81,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
 
                     <div className="flex flex-wrap gap-2 items-center mt-auto pt-2">
                         <Badge variant="default" className="gap-1.5">
-                            <Icon size={14} />
+                            {React.createElement(getAreaIcon(area), { size: 14 })}
                             <span className="capitalize">{area}shop</span>
                             {/* Simple capitalization, can map properly if needed */}
                         </Badge>

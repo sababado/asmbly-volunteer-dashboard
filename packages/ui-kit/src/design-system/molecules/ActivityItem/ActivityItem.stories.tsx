@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ActivityItem } from "./ActivityItem";
-import { Bot, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const meta = {
     title: "Molecules/ActivityItem",

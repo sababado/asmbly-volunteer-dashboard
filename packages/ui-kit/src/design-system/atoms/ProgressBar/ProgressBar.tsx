@@ -50,4 +50,5 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
 );
 ProgressBar.displayName = "ProgressBar";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { ProgressBar, progressBarVariants };

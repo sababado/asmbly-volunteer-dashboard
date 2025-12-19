@@ -13,7 +13,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockTasks = [
+import { TaskListItemProps } from '../../molecules/TaskListItem/TaskListItem';
+
+const mockTasks: TaskListItemProps[] = [
     {
         title: 'Replace Blades on Planer',
         description: 'The blades are showing signs of wear and tear.',
@@ -42,6 +44,6 @@ const mockTasks = [
 
 export const Default: Story = {
     args: {
-        tasks: mockTasks as any,
+        tasks: mockTasks,
     },
 };

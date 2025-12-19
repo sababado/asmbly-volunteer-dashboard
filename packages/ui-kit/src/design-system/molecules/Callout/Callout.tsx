@@ -59,4 +59,5 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
 );
 Callout.displayName = "Callout";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { Callout, calloutVariants };

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { ImpactWidgets } from './ImpactWidgets';
+import { ImpactWidgets, RecentActivity } from './ImpactWidgets';
 
-const mockActivity = [
+const mockActivity: RecentActivity[] = [
     { id: '1', text: 'Activity 1', time: 'Yesterday', type: 'completed', color: 'red' },
 ];
 
@@ -13,7 +13,7 @@ describe('ImpactWidgets', () => {
                 hours={10}
                 tasksCompleted={5}
                 goalProgress={50}
-                recentActivity={mockActivity as any}
+                recentActivity={mockActivity}
             />
         );
         expect(screen.getByText('10')).toBeInTheDocument();
