@@ -38,7 +38,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: .
-      Handler: functions.lambda_handler.handler  # Mangum adapter
+      Handler: src.api.app.handler  # Mangum adapter
       Events:
         Api:
           Type: Api
