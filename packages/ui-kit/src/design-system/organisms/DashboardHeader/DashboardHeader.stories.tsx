@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DashboardHeader } from './DashboardHeader';
 
 const meta = {
-    title: 'Design System/Organisms/DashboardHeader',
+    title: 'Organisms/DashboardHeader',
     component: DashboardHeader,
     tags: ['autodocs'],
 } satisfies Meta<typeof DashboardHeader>;

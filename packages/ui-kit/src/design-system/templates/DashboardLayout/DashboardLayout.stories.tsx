@@ -3,7 +3,7 @@ import { DashboardLayout } from './DashboardLayout';
 import { LayoutDashboard } from 'lucide-react';
 
 const meta = {
-    title: 'Design System/Templates/DashboardLayout',
+    title: 'Templates/DashboardLayout',
     component: DashboardLayout,
     tags: ['autodocs'],
     parameters: {

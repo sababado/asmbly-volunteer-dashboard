@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ImpactWidgets } from './ImpactWidgets';
 
 const meta = {
-    title: 'Design System/Organisms/ImpactWidgets',
+    title: 'Organisms/ImpactWidgets',
     component: ImpactWidgets,
     tags: ['autodocs'],
     parameters: {

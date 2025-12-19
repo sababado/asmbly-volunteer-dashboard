@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TaskList } from './TaskList';
 
 const meta = {
-    title: 'Design System/Organisms/TaskList',
+    title: 'Organisms/TaskList',
     component: TaskList,
     tags: ['autodocs'],
     parameters: {

@@ -3,7 +3,7 @@ import { Sidebar } from './Sidebar';
 import { LayoutDashboard, CheckSquare, Trophy, Store, User } from 'lucide-react';
 
 const meta = {
-    title: 'Design System/Organisms/Sidebar',
+    title: 'Organisms/Sidebar',
     component: Sidebar,
     tags: ['autodocs'],
     parameters: {

@@ -3,7 +3,7 @@ import { StatCard } from './StatCard';
 import { Timer, CheckCircle } from 'lucide-react';
 
 const meta = {
-    title: 'Design System/Molecules/StatCard',
+    title: 'Molecules/StatCard',
     component: StatCard,
     tags: ['autodocs'],
     argTypes: {

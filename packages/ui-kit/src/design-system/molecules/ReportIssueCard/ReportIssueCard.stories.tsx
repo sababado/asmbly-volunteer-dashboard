@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ReportIssueCard } from './ReportIssueCard';
 
 const meta = {
-    title: 'Design System/Molecules/ReportIssueCard',
+    title: 'Molecules/ReportIssueCard',
     component: ReportIssueCard,
     tags: ['autodocs'],
     argTypes: {},

@@ -3,7 +3,7 @@ import { SidebarItem } from './SidebarItem';
 import { LayoutDashboard, CheckSquare } from 'lucide-react';
 
 const meta = {
-    title: 'Design System/Molecules/SidebarItem',
+    title: 'Molecules/SidebarItem',
     component: SidebarItem,
     tags: ['autodocs'],
     argTypes: {
