@@ -13,7 +13,7 @@ export const LoginForm = ({ emailLabel, emailPlaceholder, buttonText }: LoginFor
     return (
         <div className="flex flex-col gap-5 px-8 pt-4 pb-8">
             <div className="flex flex-col gap-1.5">
-                <label className="text-slate-700 dark:text-blue-100 text-xs font-bold uppercase tracking-wider" htmlFor="email">{emailLabel}</label>
+                <label className="text-foreground text-xs font-bold uppercase tracking-wider" htmlFor="email">{emailLabel}</label>
                 <Input
                     id="email"
                     name="email"
@@ -24,7 +24,7 @@ export const LoginForm = ({ emailLabel, emailPlaceholder, buttonText }: LoginFor
             </div>
             <Button
                 variant="outline"
-                className="w-full gap-2 border-slate-300 dark:border-blue-400/30 text-slate-700 dark:text-blue-100 bg-transparent hover:bg-white/5 uppercase"
+                className="w-full gap-2 border-border text-foreground bg-transparent hover:bg-muted/50 uppercase"
                 leftIcon={<Sparkles className="h-[18px] w-[18px]" />}
             >
                 <span className="truncate">{buttonText}</span>

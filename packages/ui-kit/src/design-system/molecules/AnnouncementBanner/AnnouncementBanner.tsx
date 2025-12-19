@@ -15,7 +15,7 @@ const AnnouncementBanner = React.forwardRef<HTMLDivElement, AnnouncementBannerPr
             <div
                 ref={ref}
                 className={cn(
-                    "relative overflow-hidden bg-white shadow-sm border-l-4 p-6 md:p-8",
+                    "relative overflow-hidden bg-card shadow-sm border-l-4 p-6 md:p-8",
                     variant === 'warning' ? "border-brand-woodwork" : "border-brand-metal",
                     className
                 )}
@@ -30,10 +30,10 @@ const AnnouncementBanner = React.forwardRef<HTMLDivElement, AnnouncementBannerPr
                             <AlertTriangle size={28} />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-lg font-display font-bold text-brand-purple uppercase tracking-wide">
+                            <h3 className="text-lg font-display font-bold text-primary uppercase tracking-wide">
                                 {title}
                             </h3>
-                            <p className="text-slate-600 leading-relaxed max-w-3xl">
+                            <p className="text-muted-foreground leading-relaxed max-w-3xl">
                                 {message}
                             </p>
                         </div>
@@ -41,7 +41,7 @@ const AnnouncementBanner = React.forwardRef<HTMLDivElement, AnnouncementBannerPr
                     {onDismiss && (
                         <button
                             onClick={onDismiss}
-                            className="shrink-0 text-sm font-bold uppercase tracking-wider text-slate-500 hover:text-brand-purple px-4 py-2 hover:bg-slate-100 transition-colors"
+                            className="shrink-0 text-sm font-bold uppercase tracking-wider text-muted-foreground hover:text-primary px-4 py-2 hover:bg-muted transition-colors"
                         >
                             Dismiss
                         </button>

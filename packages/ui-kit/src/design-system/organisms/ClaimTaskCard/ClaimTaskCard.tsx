@@ -23,7 +23,7 @@ const ClaimTaskCard = React.forwardRef<HTMLDivElement, ClaimTaskCardProps>(
                 {...props}
             >
                 {/* Header */}
-                <div className="bg-slate-100 dark:bg-black/30 px-6 py-3 flex justify-between items-center border-b border-border">
+                <div className="bg-muted px-6 py-3 flex justify-between items-center border-b border-border">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest font-display">
                         Status
                     </p>
@@ -34,7 +34,7 @@ const ClaimTaskCard = React.forwardRef<HTMLDivElement, ClaimTaskCardProps>(
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-asmbly-blue"></span>
                             </span>
                         )}
-                        <span className="text-sm font-bold text-asmbly-navy dark:text-white font-display uppercase tracking-wider">
+                        <span className="text-sm font-bold text-foreground font-display uppercase tracking-wider">
                             {status}
                         </span>
                     </div>
@@ -45,7 +45,7 @@ const ClaimTaskCard = React.forwardRef<HTMLDivElement, ClaimTaskCardProps>(
                     <div className="mb-6 space-y-2">
                         <div className="flex items-baseline justify-between">
                             <span className="text-muted-foreground text-sm">Est. Time</span>
-                            <span className="font-bold text-asmbly-navy dark:text-white font-display text-lg">
+                            <span className="font-bold text-foreground font-display text-lg">
                                 {estTime}
                             </span>
                         </div>
@@ -68,7 +68,7 @@ const ClaimTaskCard = React.forwardRef<HTMLDivElement, ClaimTaskCardProps>(
                         <button
                             onClick={onComplete}
                             disabled={!isClaimed} // Assuming disabled if not claimed, per HTML example it was disabled
-                            className="w-full flex items-center justify-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-slate-500 font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded cursor-not-allowed border border-transparent dark:border-white/5 disabled:opacity-70"
+                            className="w-full flex items-center justify-center gap-2 bg-muted text-muted-foreground font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded cursor-not-allowed border border-transparent disabled:opacity-70"
                         >
                             <CheckCircle2 className="size-5" />
                             <span>Mark as Complete</span>

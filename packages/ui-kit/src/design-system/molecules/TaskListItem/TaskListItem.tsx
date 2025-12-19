@@ -57,7 +57,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "group flex flex-col md:flex-row bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all hover:border-brand-purple/30",
+                    "group flex flex-col md:flex-row bg-card border border-border shadow-sm hover:shadow-md transition-all hover:border-primary/30",
                     className
                 )}
                 {...props}
@@ -69,12 +69,12 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
                 <div className="flex-1 flex flex-col gap-4 p-5 md:p-6">
                     <div className="flex flex-col gap-2">
                         <div className="flex items-start justify-between gap-4">
-                            <h3 className="text-xl font-display font-bold text-brand-purple group-hover:text-blue-900 transition-colors uppercase leading-tight">
+                            <h3 className="text-xl font-display font-bold text-primary group-hover:text-primary/80 transition-colors uppercase leading-tight">
                                 {title}
                             </h3>
                             {getStatusBadge(status)}
                         </div>
-                        <p className="text-sm text-slate-600 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                             {description}
                         </p>
                     </div>
@@ -98,7 +98,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
                     </div>
                 </div>
 
-                <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 p-5 md:p-6 md:pl-0 border-t md:border-t-0 md:border-l border-gray-100 bg-gray-50/50 md:bg-transparent">
+                <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 p-5 md:p-6 md:pl-0 border-t md:border-t-0 md:border-l border-border bg-muted/30 md:bg-transparent">
                     <Button
                         variant="secondary"
                         size="sm"
@@ -113,7 +113,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
                             href={onClickUpLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-slate-400 hover:text-brand-purple transition-colors"
+                            className="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground hover:text-primary transition-colors"
                         >
                             View in ClickUp <ExternalLink size={12} />
                         </a>

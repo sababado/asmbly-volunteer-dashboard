@@ -15,20 +15,20 @@ const ToolPartItem = React.forwardRef<HTMLDivElement, ToolPartItemProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-white/5",
+                    "flex items-center gap-4 p-3 rounded-xl bg-card border border-border",
                     className
                 )}
                 {...props}
             >
-                <div className="bg-white dark:bg-white/10 p-2 rounded-lg shadow-sm">
-                    <Icon className="size-5 text-slate-500 dark:text-slate-300" />
+                <div className="bg-background dark:bg-muted p-2 rounded-lg shadow-sm">
+                    <Icon className="size-5 text-muted-foreground" />
                 </div>
                 <div>
-                    <p className="text-slate-900 dark:text-white font-bold text-sm">{name}</p>
+                    <p className="text-foreground font-bold text-sm">{name}</p>
                     <p
                         className={cn(
                             "text-xs",
-                            detailColor === "default" && "text-slate-500 dark:text-slate-400",
+                            detailColor === "default" && "text-muted-foreground",
                             detailColor === "teal" && "text-asmbly-teal font-bold uppercase tracking-wide"
                         )}
                     >

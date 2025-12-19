@@ -26,7 +26,7 @@ const ReporterCard = React.forwardRef<HTMLDivElement, ReporterCardProps>(
                 <div className="flex items-center gap-4">
                     {avatarSrc && (
                         <div
-                            className="size-12 rounded-full bg-cover bg-center ring-2 ring-slate-100 dark:ring-white/10"
+                            className="size-12 rounded-full bg-cover bg-center ring-2 ring-border"
                             style={{ backgroundImage: `url('${avatarSrc}')` }}
                             role="img"
                             aria-label={`Profile picture of ${name}`}
@@ -38,7 +38,7 @@ const ReporterCard = React.forwardRef<HTMLDivElement, ReporterCardProps>(
                     </div>
                     <button
                         onClick={onChatClick}
-                        className="ml-auto p-2.5 text-slate-400 hover:text-primary transition-colors rounded-full hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent hover:border-slate-100 dark:hover:border-white/10"
+                        className="ml-auto p-2.5 text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-muted border border-transparent hover:border-border"
                         aria-label="Chat with reporter"
                     >
                         <MessageSquare className="size-5" />

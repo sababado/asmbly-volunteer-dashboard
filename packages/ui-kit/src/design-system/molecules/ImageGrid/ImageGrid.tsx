@@ -23,7 +23,7 @@ const ImageGrid = React.forwardRef<HTMLDivElement, ImageGridProps>(
                 {images.map((img) => (
                     <div
                         key={img.id}
-                        className="aspect-square rounded-lg bg-cover bg-center shadow-sm border border-slate-200 dark:border-white/10 hover:opacity-90 transition-opacity cursor-pointer"
+                        className="aspect-square rounded-lg bg-cover bg-center shadow-sm border border-border hover:opacity-90 transition-opacity cursor-pointer"
                         style={{ backgroundImage: `url('${img.src}')` }}
                         role="img"
                         aria-label={img.alt}

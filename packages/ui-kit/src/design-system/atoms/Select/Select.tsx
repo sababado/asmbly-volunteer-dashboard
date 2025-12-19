@@ -12,7 +12,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             <div className={cn("relative", containerClassName)}>
                 <select
                     className={cn(
-                        "appearance-none w-full bg-gray-50 border border-gray-200 text-slate-700 text-sm focus:ring-brand-purple focus:border-brand-purple block py-2.5 pl-3 pr-10 outline-none cursor-pointer rounded-sm transition-colors",
+                        "appearance-none w-full bg-background border border-border text-foreground text-sm focus:ring-primary focus:border-primary block py-2.5 pl-3 pr-10 outline-none cursor-pointer rounded-sm transition-colors",
                         className
                     )}
                     ref={ref}
@@ -20,7 +20,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 >
                     {children}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none w-4 h-4 text-slate-500" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none w-4 h-4 text-muted-foreground" />
             </div>
         );
     }
