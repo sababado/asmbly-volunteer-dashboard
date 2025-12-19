@@ -9,7 +9,45 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Brand Palette (Brand.md)
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                },
+                secondary: {
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
+                },
+                destructive: {
+                    DEFAULT: "hsl(var(--destructive))",
+                    foreground: "hsl(var(--destructive-foreground))",
+                },
+                muted: {
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
+                },
+                accent: {
+                    DEFAULT: "hsl(var(--accent))",
+                    foreground: "hsl(var(--accent-foreground))",
+                },
+                popover: {
+                    DEFAULT: "hsl(var(--popover))",
+                    foreground: "hsl(var(--popover-foreground))",
+                },
+                card: {
+                    DEFAULT: "hsl(var(--card))",
+                    foreground: "hsl(var(--card-foreground))",
+                },
+                sidebar: {
+                    DEFAULT: "hsl(var(--sidebar-background))",
+                    foreground: "hsl(var(--sidebar-foreground))",
+                },
+
+                // Legacy Brand Palette (Brand.md) - Kept for specific overrides
                 brand: {
                     purple: '#292D6A',
                     woodwork: '#F3B61B',
@@ -21,23 +59,13 @@ export default {
                     ceramics: '#B34A9A',
                     white: '#F2F4EF',
                 },
-                // Auth Theme (code.html) - for fidelity
+                // Auth Theme - legacy
                 asmbly: {
                     navy: '#222958',
                     yellow: '#fecb00',
                     orange: '#e65133',
                     teal: '#22b298',
                 },
-                background: {
-                    light: '#f6f7f8',
-                    dark: '#0f1126',
-                },
-                border: {
-                    dark: '#343b6a',
-                },
-                surface: {
-                    dark: '#222958'
-                }
             },
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],

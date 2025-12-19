@@ -11,7 +11,7 @@ describe('Badge', () => {
     it('applies variant classes', () => {
         render(<Badge variant="primary">Primary</Badge>);
         const badge = screen.getByText('Primary');
-        expect(badge).toHaveClass('bg-brand-purple');
+        expect(badge).toHaveClass('bg-primary');
     });
 
     it('renders as div', () => {

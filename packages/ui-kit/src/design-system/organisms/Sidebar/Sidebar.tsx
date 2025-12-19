@@ -20,7 +20,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             <aside
                 ref={ref}
                 className={cn(
-                    "flex flex-col bg-brand-purple border-r border-gray-200 transition-all duration-300 shadow-xl z-20 h-screen",
+                    "flex flex-col bg-sidebar text-sidebar-foreground border-r border-border transition-all duration-300 shadow-xl z-20 h-screen",
                     isCollapsed ? "w-20" : "w-64",
                     className
                 )}
@@ -28,12 +28,12 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             >
                 <div className="flex flex-col h-full justify-between">
                     <div className="flex flex-col">
-                        <div className={cn("flex items-center p-6 bg-[#242656]", isCollapsed ? "justify-center p-4" : "gap-3")}>
-                            <Logo className="size-10 bg-white p-1 rounded-sm shrink-0 text-brand-purple" />
+                        <div className={cn("flex items-center p-6 bg-sidebar/90", isCollapsed ? "justify-center p-4" : "gap-3")}>
+                            <Logo className="size-10 bg-white p-1 rounded-sm shrink-0 text-sidebar" />
                             {!isCollapsed && (
                                 <div className="flex flex-col overflow-hidden">
                                     <h1 className="text-white font-display text-lg font-bold leading-tight tracking-wide uppercase truncate">Asmbly</h1>
-                                    <p className="text-gray-300 text-xs font-normal truncate">Volunteer Portal</p>
+                                    <p className="text-white/70 text-xs font-normal truncate">Volunteer Portal</p>
                                 </div>
                             )}
                         </div>
@@ -50,11 +50,11 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
                         </nav>
                     </div>
 
-                    <div className="p-4 border-t border-[#343b6a] flex flex-col gap-2">
+                    <div className="p-4 border-t border-white/10 flex flex-col gap-2">
                         <button
                             onClick={toggleSidebar}
                             className={cn(
-                                "flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-[#363a7d] transition-colors w-full",
+                                "flex items-center gap-3 px-3 py-2 rounded text-white/70 hover:bg-white/10 transition-colors w-full",
                                 isCollapsed && "justify-center"
                             )}
                             title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
@@ -66,7 +66,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
                         <button
                             onClick={onLogout}
                             className={cn(
-                                "flex items-center gap-3 px-3 py-2 rounded text-gray-300 hover:bg-[#363a7d] transition-colors w-full",
+                                "flex items-center gap-3 px-3 py-2 rounded text-white/70 hover:bg-white/10 transition-colors w-full",
                                 isCollapsed && "justify-center"
                             )}
                             title="Log Out"

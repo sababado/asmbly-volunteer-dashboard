@@ -2,10 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        /* Base */
+        --background: 210 20% 98%;
+        /* Light Gray #f6f7f8 converted to HSL approx */
+        --foreground: 222 47% 11%;
+
+        /* Card */
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+
+        /* Popover */
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+
+        /* Primary (Brand Purple #292D6A) */
+        --primary: 236 44% 29%;
+        --primary-foreground: 210 40% 98%;
+
+        /* Secondary (Brand Metal #578BC9 for now, or Woodwork Yellow for contrast?) 
+       Using metal as secondary standard */
+        --secondary: 213 49% 56%;
+        --secondary-foreground: 210 40% 98%;
+
+        /* Muted */
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+
+        /* Accent */
+        --accent: 210 40% 96.1%;
+        --accent-foreground: 222.2 47.4% 11.2%;
+
+        /* Destructive (Brand Lasers #D33E43) */
+        --destructive: 358 63% 53%;
+        --destructive-foreground: 210 40% 98%;
+
+        /* Border */
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 236 44% 29%;
+
+        /* Sidebar Specific */
+        --sidebar-background: 236 44% 29%;
+        /* Brand Purple */
+        --sidebar-foreground: 210 40% 98%;
+
+        /* Asmbly Specific */
+        --asmbly-yellow: 48 100% 50%;
+        /* #fecb00 */
+        --asmbly-orange: 10 79% 55%;
+        /* #e65133 */
+    }
+
+    .dark {
+        /* Base - Dark Mode (#0f1126) */
+        --background: 235 43% 10%;
+        --foreground: 210 40% 98%;
+
+        /* Card - Darker Surface */
+        --card: 235 43% 15%;
+        /* Slightly lighter than bg */
+        --card-foreground: 210 40% 98%;
+
+        /* Popover */
+        --popover: 235 43% 15%;
+        --popover-foreground: 210 40% 98%;
+
+        /* Primary */
+        --primary: 236 44% 39%;
+        /* Lighter purple for dark mode? Or maybe standard purple ok? */
+        --primary-foreground: 210 40% 98%;
+
+        /* Secondary */
+        --secondary: 213 49% 46%;
+        --secondary-foreground: 210 40% 98%;
+
+        /* Muted */
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+
+        /* Accent */
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+
+        /* Destructive */
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+
+        /* Border */
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 224.3 76.3% 48%;
+
+        /* Sidebar - Dark Mode */
+        --sidebar-background: 235 43% 13%;
+        /* Just dark bg */
+        --sidebar-foreground: 210 40% 98%;
+    }
+}
+
 @layer utilities {
     .btn-gradient {
         background: linear-gradient(90deg, #e65133 0%, #fecb00 100%);
     }
+
     .text-gradient {
         background: linear-gradient(90deg, #e65133 0%, #fecb00 100%);
         -webkit-background-clip: text;

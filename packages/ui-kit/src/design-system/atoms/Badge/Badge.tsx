@@ -7,11 +7,11 @@ const badgeVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-gray-100 text-slate-600 hover:bg-gray-200",
-                primary: "bg-brand-purple text-white hover:bg-brand-purple/80",
-                secondary: "bg-brand-woodwork text-yellow-900 hover:bg-brand-woodwork/80",
-                "accent-teal": "bg-brand-teal text-white hover:bg-brand-teal/80",
-                "accent-red": "bg-brand-laser/10 text-brand-laser hover:bg-brand-laser/20",
+                default: "bg-muted text-muted-foreground hover:bg-muted/80",
+                primary: "bg-primary text-primary-foreground hover:bg-primary/80",
+                secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+                "accent-teal": "bg-asmbly-teal text-white hover:bg-asmbly-teal/80", // Keeping brand for specific accents
+                "accent-red": "bg-destructive/10 text-destructive hover:bg-destructive/20",
                 outline: "text-foreground border border-input hover:bg-accent hover:text-accent-foreground",
             },
         },

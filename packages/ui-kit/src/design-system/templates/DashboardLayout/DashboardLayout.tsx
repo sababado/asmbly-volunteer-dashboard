@@ -11,7 +11,7 @@ const DashboardLayout = React.forwardRef<HTMLDivElement, DashboardLayoutProps>(
         return (
             <div
                 ref={ref}
-                className={cn("flex min-h-screen bg-[#f6f7f8]", className)}
+                className={cn("flex min-h-screen bg-background", className)}
                 {...props}
             >
                 <Sidebar {...sidebarProps} className="shrink-0 h-screen sticky top-0" />

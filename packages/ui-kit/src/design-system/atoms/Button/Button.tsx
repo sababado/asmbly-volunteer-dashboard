@@ -17,14 +17,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const baseStyles = "inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-display uppercase tracking-wide"
 
         const variants = {
-            default: "bg-asmbly-navy text-white hover:bg-asmbly-navy/90",
-            destructive: "bg-brand-lasers text-white hover:bg-brand-lasers/90",
-            outline: "border border-slate-300 dark:border-blue-400/30 text-slate-700 dark:text-blue-100 bg-transparent hover:bg-white/5",
-            secondary: "bg-brand-metal text-white hover:bg-brand-metal/80",
-            ghost: "hover:bg-slate-100 dark:hover:bg-slate-800",
-            link: "text-asmbly-teal underline-offset-4 hover:underline",
-            gradient: "bg-gradient-to-r from-asmbly-orange to-asmbly-yellow text-asmbly-navy hover:opacity-90",
-            "asmbly-yellow": "bg-asmbly-yellow hover:bg-[#edd046] text-asmbly-navy shadow-md hover:shadow-glow font-bold",
+            default: "bg-primary text-primary-foreground hover:bg-primary/90",
+            destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+            outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ghost: "hover:bg-accent hover:text-accent-foreground",
+            link: "text-primary underline-offset-4 hover:underline",
+            gradient: "bg-gradient-to-r from-asmbly-orange to-asmbly-yellow text-brand-purple hover:opacity-90", // Gradient remains special
+            "asmbly-yellow": "bg-asmbly-yellow hover:bg-[#edd046] text-brand-purple shadow-md hover:shadow-glow font-bold",
         }
 
         const sizes = {
