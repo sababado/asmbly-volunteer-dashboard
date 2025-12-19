@@ -3,7 +3,7 @@
 This document outlines the standards and architecture for the **Backend Application** (apps/backend).
 
 ## 1. Tech Stack
-*   **Language:** Python 3.11+.
+*   **Language:** Python 3.12+.
 *   **Framework:** FastAPI.
 *   **Database:** PostgreSQL + SQLModel (ORM) + Alembic (Migrations).
 *   **Infrastructure:** AWS SAM (Serverless Application Model).
