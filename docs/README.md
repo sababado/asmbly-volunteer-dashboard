@@ -59,6 +59,9 @@ Asmbly Volunteer Dashboard/
   ```bash
   npm run dev
   ```
+  This starts:
+  - Frontend: http://localhost:5173
+  - Storybook: http://localhost:6006
 
 - **Run Backend:**
   ```bash

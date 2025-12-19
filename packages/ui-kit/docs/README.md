@@ -68,4 +68,10 @@ To start the interactive component explorer (Storybook) locally:
 npm run storybook
 ```
 
+#### From the Project Root
+```bash
+npm run storybook -w @asmbly/ui-kit
+```
+
+
 This will start the development server at `http://localhost:6006`.
