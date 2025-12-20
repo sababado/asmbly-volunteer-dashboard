@@ -4,6 +4,7 @@ Description: >
   Asmbly Volunteer Dashboard - Persistence Layer
   DynamoDB Table definition.
 
+Parameters:
   AppEnv:
     Type: String
     Description: Deployment Environment (dev, staging, prod)

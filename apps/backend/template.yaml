@@ -17,11 +17,21 @@ Parameters:
     Type: String
     Description: Custom Domain Name (e.g. voldash.asmbly.org)
     Default: voldash.asmbly.org
+  Application:
+    Type: String
+    Description: Application Name for tagging
+    Default: asmbly-volunteer-dashboard
   CertificateArn:
     Type: String
     Description: ARN of the ACM Certificate for the domain (MUST BE IN US-EAST-1)
+  HostedZoneId:
+    Type: String
+    Description: Route53 Hosted Zone ID for DNS records (e.g. Z0362110BW3J7MF2QHCA for asmbly.org)
+    Default: Z0362110BW3J7MF2QHCA
 
 Globals:
+# ... (existing globals)
+
   Function:
     Tags:
       Application: !Ref Application
@@ -32,14 +42,22 @@ Globals:
     Environment:
       Variables:
         APP_ENV: !Ref AppEnv
-  Api:
-    StageName: !Ref AppEnv
 
 Conditions:
   IsProd: !Equals [!Ref AppEnv, prod]
 
 Resources:
-  # 1. API Gateway + Lambda (FastAPI)
+  # 1. API Gateway (Explicit Definition to allow StageName)
+  BackendApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref AppEnv
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
+  # 2. API Gateway + Lambda (FastAPI)
   FastApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -49,10 +67,11 @@ Resources:
         Api:
           Type: Api
           Properties:
+            RestApiId: !Ref BackendApi
             Path: /{proxy+}
             Method: ANY
 
-  # 2. Database (DynamoDB) - Nested Stack
+  # 3. Database (DynamoDB) - Nested Stack
   DatabaseLayer:
     Type: AWS::Serverless::Application
     Properties:
@@ -64,7 +83,7 @@ Resources:
         Application: !Ref Application
         Environment: !Ref AppEnv
 
-  # 3. Frontend Hosting (S3 + CloudFront)
+  # 4. Frontend Hosting (S3 + CloudFront)
   FrontendBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -119,7 +138,7 @@ Resources:
           
           # Backend Origin (API Gateway)
           - Id: ApiOrigin
-            DomainName: !Sub "${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com"
+            DomainName: !Sub "${BackendApi}.execute-api.${AWS::Region}.amazonaws.com"
             CustomOriginConfig:
               OriginProtocolPolicy: https-only
         
@@ -158,117 +177,30 @@ Resources:
         SigningBehavior: always
         SigningProtocol: sigv4
 
-  # 3. Frontend Hosting (S3 + CloudFront)
-  FrontendBucket:
-    Type: AWS::S3::Bucket
+  # 5. DNS Record (Route53)
+  DnsRecord:
+    Type: AWS::Route53::RecordSet
     Properties:
-      BucketName: !Sub "${Application}-frontend-${AppEnv}-${AWS::AccountId}"
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-      Tags:
-        - Key: Application
-          Value: !Ref Application
-        - Key: Environment
-          Value: !Ref AppEnv
-
-  FrontendBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref FrontendBucket
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: "cloudfront.amazonaws.com"
-            Action: "s3:GetObject"
-            Resource: !Sub "arn:aws:s3:::${FrontendBucket}/*"
-            Condition:
-              StringEquals:
-                "AWS:SourceArn": !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
-
-  CloudFrontDistribution:
-    Type: AWS::CloudFront::Distribution
-    Properties:
-      DistributionConfig:
-        Enabled: true
-        Comment: !Sub "Distribution for ${DomainName}"
-        Aliases:
-          - !Ref DomainName
-        ViewerCertificate:
-          AcmCertificateArn: !Ref CertificateArn
-          SslSupportMethod: sni-only
-          MinimumProtocolVersion: TLSv1.2_2021
-        DefaultRootObject: index.html
-        Origins:
-          # Frontend Origin (S3)
-          - Id: FrontendOrigin
-            DomainName: !GetAtt FrontendBucket.DomainName
-            S3OriginConfig:
-              OriginAccessIdentity: ""
-            OriginAccessControlId: !GetAtt CloudFrontOAC.Id
-          
-          # Backend Origin (API Gateway)
-          - Id: ApiOrigin
-            DomainName: !Sub "${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com"
-            CustomOriginConfig:
-              OriginProtocolPolicy: https-only
-        
-        # Default Behavior (Frontend)
-        DefaultCacheBehavior:
-          TargetOriginId: FrontendOrigin
-          ViewerProtocolPolicy: redirect-to-https
-          AllowedMethods: [GET, HEAD, OPTIONS]
-          CachedMethods: [GET, HEAD, OPTIONS]
-          Compress: true
-          ForwardedValues:
-            QueryString: false
-            Cookies:
-              Forward: none
-
-        # API Behavior (/api/*)
-        CacheBehaviors:
-          - PathPattern: /api/*
-            TargetOriginId: ApiOrigin
-            ViewerProtocolPolicy: https-only
-            AllowedMethods: [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
-            CachedMethods: [GET, HEAD, OPTIONS]
-            Compress: true
-            ForwardedValues:
-              QueryString: true
-              Headers: [Authorization]
-              Cookies:
-                Forward: none
-
-  CloudFrontOAC:
-    Type: AWS::CloudFront::OriginAccessControl
-    Properties:
-      OriginAccessControlConfig:
-        Name: !Sub "${Application}-oac-${AppEnv}"
-        OriginAccessControlOriginType: s3
-        SigningBehavior: always
-        SigningProtocol: sigv4
-
+      HostedZoneId: !Ref HostedZoneId
+      Name: !If [IsProd, !Ref DomainName, !Sub "${AppEnv}.${DomainName}"]
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z2FDTNDATAQYW2  # CloudFront Fixed Zone ID
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
 
 Outputs:
   ApiUrl:
     Description: "API Gateway Endpoint URL"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/"
+    Value: !Sub "https://${BackendApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/"
   ApiDocsUrl:
     Description: "API Documentation URL (Swagger UI)"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/docs"
+    Value: !Sub "https://${BackendApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/docs"
   WebhookUrl:
     Description: "ClickUp Webhook URL"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/webhooks/clickup"
+    Value: !Sub "https://${BackendApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/webhooks/clickup"
   CloudFrontDomain:
     Description: "CloudFront Distribution Domain Name (Use for Route53 Alias)"
     Value: !GetAtt CloudFrontDistribution.DomainName
   FrontendBucketName:
     Description: "S3 Bucket for Frontend Assets"
     Value: !Ref FrontendBucket
-  CloudFrontDomain:
-    Description: "CloudFront Distribution Domain Name (Use for Route53 Alias)"
-    Value: !GetAtt CloudFrontDistribution.DomainName
