@@ -35,6 +35,9 @@ Globals:
   Api:
     StageName: !Ref AppEnv
 
+Conditions:
+  IsProd: !Equals [!Ref AppEnv, prod]
+
 Resources:
   # 1. API Gateway + Lambda (FastAPI)
   FastApiFunction:
@@ -98,9 +101,9 @@ Resources:
     Properties:
       DistributionConfig:
         Enabled: true
-        Comment: !Sub "Distribution for ${DomainName}"
+        Comment: !Sub "Distribution for ${DomainName} (${AppEnv})"
         Aliases:
-          - !Ref DomainName
+          - !If [IsProd, !Ref DomainName, !Sub "${AppEnv}.${DomainName}"]
         ViewerCertificate:
           AcmCertificateArn: !Ref CertificateArn
           SslSupportMethod: sni-only
