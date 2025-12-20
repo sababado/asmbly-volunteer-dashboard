@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  ACM Certificate for CloudFront (Must be deployed to us-east-1)
+
+Parameters:
+  DomainName:
+    Type: String
+    Description: The fully qualified domain name (e.g. voldash.asmbly.org)
+    Default: voldash.asmbly.org
+  Application:
+    Type: String
+    Default: asmbly-volunteer-dashboard
+  AppEnv:
+    Type: String
+    AllowedValues: [dev, staging, prod]
+    Default: dev
+
+Resources:
+  CloudFrontCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      ValidationMethod: DNS
+      Tags:
+        - Key: Application
+          Value: !Ref Application
+        - Key: Environment
+          Value: !Ref AppEnv
+
+Outputs:
+  CertificateArn:
+    Description: The ARN of the generated ACM Certificate
+    Value: !Ref CloudFrontCertificate
+    Export:
+      Name: !Sub "${Application}-CertificateArn-${AppEnv}"

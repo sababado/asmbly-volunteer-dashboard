@@ -62,3 +62,35 @@ Integration with external services is handled via modular adapters:
 *   **Infrastructure:** AWS SAM (`infra/` directory)
 *   **Database:** DynamoDB (`infra/dynamodb.yaml`)
 *   **API Spec:** OpenAPI (`infra/openapi.yaml`)
+
+## Infrastructure & Deployment
+
+We use a split-stack deployment to handle **Cross-Region Requirements** for custom domains.
+The Stack itself lives in `us-east-2` (Ohio), but the CloudFront Certificate must be in `us-east-1` (N. Virginia).
+
+### Deployment Workflow (voldash.asmbly.org)
+
+1.  **Step 1: Deploy Certificates (us-east-1)**
+    This stack creates the ACM Certificate in the required region.
+    ```bash
+    sam deploy -t infra/certs.yaml \
+      --stack-name asmbly-backend-certs \
+      --region us-east-1 \
+      --parameter-overrides DomainName=voldash.asmbly.org AppEnv=dev \
+      --resolve-s3
+    ```
+    *Action Required*: During deployment, go to the AWS Console -> ACM (us-east-1) and validate the certificate (e.g. click "Create records in Route 53").
+    *Note the Output*: Copy the `CertificateArn` from the outputs.
+
+2.  **Step 2: Deploy Main Stack (us-east-2)**
+    This deploys the App, DB, and CloudFront distribution using the cert from Step 1.
+    ```bash
+    sam deploy -t template.yaml \
+      --stack-name asmbly-backend-dev \
+      --region us-east-2 \
+      --parameter-overrides AppEnv=dev CertificateArn=<PASTE_ARN_HERE> \
+      --resolve-s3 --capabilities CAPABILITY_IAM
+    ```
+
+3.  **Step 3: Point DNS**
+    Go to Route 53 (or your DNS provider) and create a **CNAME** or **Alias (A)** record for `voldash.asmbly.org` pointing to the `CloudFrontDomain` value outputted by Step 2.
