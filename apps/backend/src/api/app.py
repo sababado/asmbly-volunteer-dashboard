@@ -20,5 +20,7 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+app.include_router(webhooks.router, prefix="/webhooks", tags=["webhooks"])
+
 # Mangum Adapter for AWS Lambda
-handler = Mangum(app, lifespan="off")
+

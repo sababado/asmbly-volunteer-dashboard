@@ -66,3 +66,6 @@ Outputs:
   ApiDocsUrl:
     Description: "API Documentation URL (Swagger UI)"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/docs"
+  WebhookUrl:
+    Description: "ClickUp Webhook URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${AppEnv}/webhooks/clickup"
