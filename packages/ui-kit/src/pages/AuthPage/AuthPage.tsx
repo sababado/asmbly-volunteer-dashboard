@@ -5,9 +5,30 @@ import { SocialLoginButton } from "@/design-system/molecules/SocialLoginButton/S
 import { AuthDivider } from "@/design-system/molecules/AuthDivider/AuthDivider"
 import { Lock } from "lucide-react"
 
-export const AuthPage = () => {
+export interface AuthPageProps {
+    onLogin?: (email: string) => void;
+    onSocialLogin?: () => void;
+    onBecomeMember?: () => void;
+    onTroubleLoggingIn?: () => void;
+    banner?: React.ReactNode;
+}
+
+export const AuthPage = ({
+    onLogin,
+    onSocialLogin,
+    onBecomeMember,
+    onTroubleLoggingIn,
+    banner
+}: AuthPageProps) => {
     return (
         <div className="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-white min-h-screen flex flex-col relative overflow-hidden">
+            {/* Development Banner (or other inserted content) */}
+            {banner && (
+                <div className="relative z-50 w-full">
+                    {banner}
+                </div>
+            )}
+
             {/* Background Layers */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-asmbly-navy/90 to-background-dark/95 z-10"></div>
@@ -33,21 +54,32 @@ export const AuthPage = () => {
                                 <span>Secure Login</span>
                             </div>
                             <div className="flex gap-4 justify-center text-xs mt-2 font-medium">
-                                <a className="hover:text-asmbly-teal transition-colors" href="#">Trouble logging in?</a>
+                                <button
+                                    onClick={onTroubleLoggingIn}
+                                    className="hover:text-asmbly-teal transition-colors"
+                                >
+                                    Trouble logging in?
+                                </button>
                                 <span className="opacity-30">•</span>
-                                <a className="hover:text-asmbly-teal transition-colors" href="#">Become a member</a>
+                                <button
+                                    onClick={onBecomeMember}
+                                    className="hover:text-asmbly-teal transition-colors"
+                                >
+                                    Become a member
+                                </button>
                             </div>
                         </>
                     )}
                 >
                     <div className="px-8 pb-4">
-                        <SocialLoginButton>Log in with Neon CRM</SocialLoginButton>
+                        <SocialLoginButton onClick={onSocialLogin}>Log in with Neon CRM</SocialLoginButton>
                     </div>
                     <AuthDivider />
                     <LoginForm
                         emailLabel="Email Address"
                         emailPlaceholder="maker@example.com"
                         buttonText="Send Magic Link"
+                        onSubmit={onLogin}
                     />
                 </AuthCard>
                 <p className="mt-6 text-white/40 text-xs text-center">

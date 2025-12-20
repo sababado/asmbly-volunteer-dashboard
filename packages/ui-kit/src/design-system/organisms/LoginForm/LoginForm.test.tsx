@@ -1,11 +1,25 @@
-import { render, screen } from '@testing-library/react';
-import { LoginForm } from './LoginForm';
-import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import { LoginForm } from './LoginForm'
 
 describe('LoginForm', () => {
-    it('renders correctly', () => {
-        render(<LoginForm emailLabel="Email Address" emailPlaceholder="test@example.com" buttonText="Send Magic Link" />);
-        expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /send magic link/i })).toBeInTheDocument();
-    });
-});
+    it('calls onSubmit with email when submitted', () => {
+        const handleSubmit = vi.fn()
+        render(
+            <LoginForm
+                emailLabel="Email"
+                emailPlaceholder="test@example.com"
+                buttonText="Login"
+                onSubmit={handleSubmit}
+            />
+        )
+
+        const input = screen.getByPlaceholderText('test@example.com')
+        fireEvent.change(input, { target: { value: 'user@example.com' } })
+
+        const button = screen.getByRole('button', { name: /Login/i })
+        fireEvent.click(button)
+
+        expect(handleSubmit).toHaveBeenCalledWith('user@example.com')
+    })
+})
