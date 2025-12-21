@@ -7,7 +7,7 @@ const mockTasks = Array(12).fill(null).map((_, i) => ({
     area: (i % 3 === 0 ? 'wood' : i % 3 === 1 ? 'metal' : 'electronics') as 'wood' | 'metal' | 'electronics',
     urgency: (i % 4 === 0 ? 'critical' : 'medium') as 'critical' | 'medium',
     duration: '30 mins',
-    status: 'open' as 'open',
+    status: 'open' as const,
     isNew: i === 0
 }));
 
