@@ -17,7 +17,7 @@ resolve_s3 = true
 s3_prefix = "asmbly-volunteer-dashboard-backend-staging"
 region = "us-east-2"
 capabilities = "CAPABILITY_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = "AppEnv=\"staging\" DomainName=\"staging.voldash.asmbly.org\" Application=\"asmbly-volunteer-dashboard\" CertificateArn=\"arn:aws:acm:us-east-1:110104886034:certificate/68f90ebe-0412-4d64-acda-ce74442e446c\" HostedZoneId=\"Z0362110BW3J7MF2QHCA\""
+parameter_overrides = "AppEnv=\"staging\" DomainName=\"voldash.asmbly.org\" Application=\"asmbly-volunteer-dashboard\" CertificateArn=\"arn:aws:acm:us-east-1:110104886034:certificate/68f90ebe-0412-4d64-acda-ce74442e446c\" HostedZoneId=\"Z0362110BW3J7MF2QHCA\""
 
 [prod]
 [prod.deploy.parameters]
