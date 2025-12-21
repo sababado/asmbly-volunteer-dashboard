@@ -24,6 +24,6 @@ export const Default: Story = {
 export const WithIcon: Story = {
     args: {
         placeholder: 'maker@example.com',
-        icon: React.createElement(Mail, { className: "h-4 w-4" }),
+        icon: React.createElement(Mail as any, { className: "h-4 w-4" }),
     }
 }

@@ -56,7 +56,7 @@ export const Gradient: Story = {
 export const WithIcon: Story = {
     args: {
         children: 'Login with Email',
-        leftIcon: React.createElement(Mail, { className: "h-4 w-4" }),
+        leftIcon: React.createElement(Mail as any, { className: "h-4 w-4" }),
     }
 }
 
