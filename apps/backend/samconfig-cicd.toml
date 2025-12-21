@@ -1,0 +1,9 @@
+version = 0.1
+
+[default]
+[default.deploy.parameters]
+stack_name = "asmbly-volunteer-dashboard-cicd"
+s3_prefix = "asmbly-volunteer-dashboard-cicd"
+region = "us-east-2"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM"

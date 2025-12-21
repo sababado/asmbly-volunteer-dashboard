@@ -56,9 +56,13 @@ Resources:
             Action:
               - s3:PutObject
               - s3:GetObject
+              - s3:ListBucket
+              - s3:DeleteObject
+              - s3:GetBucketLocation
               # Allow access to SAM artifact buckets and the Frontend bucket
             Resource: 
               - "arn:aws:s3:::aws-sam-cli-managed-default-samclisourcebucket-*"
+              - "arn:aws:s3:::aws-sam-cli-managed-default-samclisourcebucket-*/*"
               - "arn:aws:s3:::asmbly-volunteer-dashboard-frontend-*"
               - "arn:aws:s3:::asmbly-volunteer-dashboard-frontend-*/*"
           - Sid: AllowResourceCreation
