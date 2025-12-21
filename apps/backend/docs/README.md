@@ -93,4 +93,19 @@ The Stack itself lives in `us-east-2` (Ohio), but the CloudFront Certificate mus
     ```
 
 3.  **Step 3: Point DNS**
-    Go to Route 53 (or your DNS provider) and create a **CNAME** or **Alias (A)** record for `voldash.asmbly.org` pointing to the `CloudFrontDomain` value outputted by Step 2.
+
+### 4. CI/CD Setup (GitHub Actions)
+
+To allow GitHub Actions to deploy to AWS, we use a dedicated OIDC Role.
+
+**One-Time Setup:**
+Deploy the OIDC stack to create the IAM Role:
+```bash
+sam deploy \
+  --template-file apps/backend/template-cicd.yaml \
+  --stack-name asmbly-volunteer-dashboard-cicd \
+  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+  --region us-east-2 \
+  --parameter-overrides GitHubOrg=sababado GitHubRepo=asmbly-volunteer-dashboard
+```
+*Note*: This creates the role `GitHub-OIDC-asmbly-volunteer-dashboard-deploy` which is referenced in `.github/workflows/frontend.yml`.

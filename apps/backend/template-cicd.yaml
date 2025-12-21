@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Stack for the CI/CD infrastructure for asmbly-volunteer-dashboard.
+  Deploys an OIDC Provider (if not exists) and an IAM Role for GitHub Actions.
+
+Parameters:
+  GitHubOrg:
+    Type: String
+    Default: "sababado"
+    Description: GitHub Organization or Username
+  GitHubRepo:
+    Type: String
+    Default: "asmbly-volunteer-dashboard"
+    Description: GitHub Repository Name
+
+Resources:
+  GitHubOidcDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      # MUST BE UNIQUE in the AWS Account
+      RoleName: GitHub-OIDC-asmbly-volunteer-dashboard-deploy
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+              StringLike:
+                "token.actions.githubusercontent.com:sub": !Sub "repo:${GitHubOrg}/${GitHubRepo}:*"
+      ManagedPolicyArns:
+        - !Ref GitHubDeployPolicy
+      Tags:
+        - Key: Project
+          Value: asmbly-volunteer-dashboard
+
+  GitHubDeployPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      # MUST BE UNIQUE in the AWS Account
+      ManagedPolicyName: GitHub-OIDC-asmbly-volunteer-dashboard-deploy-policy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFormationStackOperations
+            Effect: Allow
+            Action:
+              - cloudformation:*
+            Resource: "*"
+          - Sid: AllowS3Access
+            Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+              # Allow access to SAM artifact buckets and the Frontend bucket
+            Resource: 
+              - "arn:aws:s3:::aws-sam-cli-managed-default-samclisourcebucket-*"
+              - "arn:aws:s3:::asmbly-volunteer-dashboard-frontend-*"
+              - "arn:aws:s3:::asmbly-volunteer-dashboard-frontend-*/*"
+          - Sid: AllowResourceCreation
+            Effect: Allow
+            Action:
+              - iam:*
+              - lambda:*
+              - apigateway:*
+              - ssm:*
+              - events:*
+              - route53:*
+              - acm:*
+              - dynamodb:*
+              - cloudfront:*
+            Resource: "*"
+
+Outputs:
+  RoleArn:
+    Description: "The ARN of the OIDC Role to use in GitHub Actions"
+    Value: !GetAtt GitHubOidcDeployRole.Arn
