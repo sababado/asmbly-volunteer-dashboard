@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 # from mangum import Mangum
 from src.core.config import settings
 from src.api import webhooks
@@ -6,7 +7,7 @@ from src.api import webhooks
 app = FastAPI(
     title="Asmbly Volunteer Dashboard API",
     version="1.0.0",
-    root_path=f"/{settings.APP_ENV}" if settings.APP_ENV else ""
+    root_path=f"/{settings.APP_ENV}" if settings.APP_ENV else "",
 )
 
 
@@ -15,13 +16,14 @@ async def root():
     return {
         "message": "Welcome to Asmbly Volunteer Dashboard API",
         "env": settings.APP_ENV,
-        "region": settings.AWS_REGION
+        "region": settings.AWS_REGION,
     }
 
 
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
 
 app.include_router(webhooks.router, prefix="/webhooks", tags=["webhooks"])
 

@@ -16,7 +16,8 @@ async def clickup_webhook(payload: ClickUpWebhookPayload):
         logger.info(
             f"Received ClickUp webhook: {
                 payload.model_dump_json(
-                    exclude_none=True)}")
+                    exclude_none=True)}"
+        )
 
         # Determine the event type and process accordingly
         # ClickUp sends 'event' field like 'taskCreated', 'taskUpdated', etc.
@@ -28,8 +29,7 @@ async def clickup_webhook(payload: ClickUpWebhookPayload):
             return {"message": "Received, but no tasks to process."}
 
         results = process_webhook_payload(payload)
-        return {"message": "Processed successfully",
-                "processed_count": len(results)}
+        return {"message": "Processed successfully", "processed_count": len(results)}
 
     except Exception as e:
         logger.error(f"Error processing webhook: {str(e)}")

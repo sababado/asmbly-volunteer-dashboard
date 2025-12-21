@@ -10,12 +10,12 @@ class DynamoService:
 
         if self.is_offline:
             self.dynamodb = boto3.resource(
-                'dynamodb',
-                region_name='localhost',
-                endpoint_url='http://localhost:8000'
+                "dynamodb",
+                region_name="localhost",
+                endpoint_url="http://localhost:8000",
             )
         else:
-            self.dynamodb = boto3.resource('dynamodb', region_name=self.region)
+            self.dynamodb = boto3.resource("dynamodb", region_name=self.region)
 
         # Table name logic (e.g., "asmbly-volunteer-dashboard-dev")
         # In a real app we might pass this from env vars
@@ -25,8 +25,8 @@ class DynamoService:
 
     def get_item(self, pk: str, sk: str):
         try:
-            response = self.table.get_item(Key={'PK': pk, 'SK': sk})
-            return response.get('Item')
+            response = self.table.get_item(Key={"PK": pk, "SK": sk})
+            return response.get("Item")
         except Exception as e:
             print(f"DynamoDB Get Error: {e}")
             return None

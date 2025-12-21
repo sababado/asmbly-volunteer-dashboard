@@ -1,7 +1,6 @@
-
 import json
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from pathlib import Path
 
 from src.domain.schemas import ClickUpWebhookPayload
@@ -23,8 +22,11 @@ class ClickUpService:
             current_file_path = Path(__file__).resolve()
             # apps/backend/src/services/clickup.py ->
             # apps/backend/configs/clickup_config.json
-            config_path = current_file_path.parent.parent.parent / \
-                "configs" / "clickup_config.json"
+            config_path = (
+                current_file_path.parent.parent.parent
+                / "configs"
+                / "clickup_config.json"
+            )
 
             if not config_path.exists():
                 logger.warning(f"Config file not found at {config_path}")
@@ -45,9 +47,10 @@ class ClickUpService:
             return self.field_definitions_cache[list_id]
 
         import requests
+
         url = f"https://api.clickup.com/api/v2/list/{list_id}/field"
         headers = {"Authorization": self.token}
-        
+
         try:
             resp = requests.get(url, headers=headers, timeout=10)
             if resp.status_code == 200:
@@ -64,38 +67,42 @@ class ClickUpService:
             logger.error(f"Error fetching fields for list {list_id}: {e}")
             return {}
 
-    def extract_custom_field_value(self, field: Any, field_def: Dict[str, Any] = None) -> Any:
+    def extract_custom_field_value(
+        self, field: Any, field_def: Dict[str, Any] = None
+    ) -> Any:
         """
         Helper to extract the actual value from a ClickUp Custom Field.
         Uses the fetched field definition to resolve Option UUIDs to names.
         """
-        value = getattr(field, 'value', None)
+        value = getattr(field, "value", None)
         if value is None:
             return None
 
-        # field.type is an INT in the webhook schema (e.g. 1 for Dropdown, 0 for URL/Text)
+        # field.type is an INT in the webhook schema
+        # (e.g. 1 for Dropdown, 0 for URL/Text).
         # But we verify against the API definition "type" string if available.
-        
+
         def_type = field_def.get("type") if field_def else None
 
         # DROPDOWN (type 1 usually, or "drop_down" string in API def)
-        if def_type == "drop_down" or getattr(field, 'type', None) == 1:
+        if def_type == "drop_down" or getattr(field, "type", None) == 1:
             # Value is likely an Option UUID (string) or Index (int)
-            # The API definition contains "type_config" -> "options" -> [{"id": "UUID", "name": "Name"}]
+            # The API definition contains "type_config" -> "options"
+            # -> [{"id": "UUID", "name": "Name"}]
             if field_def and "type_config" in field_def:
                 options = field_def["type_config"].get("options", [])
                 for opt in options:
                     # Match by ID (UUID) or OrderIndex
                     if opt.get("id") == value or opt.get("orderindex") == value:
                         return opt.get("name")
-            
+
             return str(value)
 
         # URL (type 0 usually) or just text
         # If value is a dict with 'url', extract it.
         if isinstance(value, dict) and "url" in value:
             return value.get("url")
-        
+
         return value
 
     def process_webhook_payload(self, payload: ClickUpWebhookPayload):
@@ -109,79 +116,71 @@ class ClickUpService:
 
         task = payload.payload
         processed_items = []
-        
+
         from src.services.dynamo import dynamo_service
         from src.domain.schemas import ProblemReportCreate
         import datetime
 
         # Iterate configs to find which list this task might belong to.
-        # The payload contains "lists": [{"list_id": "..."}] usually, but schema defines it as generic?
-        # PROMPT payload has: "lists": [{"list_id": "901310067725", "type": "home"}]
-        # So we can check that.
-        
-        task_list_id = None
-        # Access 'lists' from the task using getattr/dict access since schema might not have it explicitly defined yet
-        # or it's extra data. Schema has extra="ignore".
-        # But in the user provided JSON, 'lists' is a key in the 'payload' object (which maps to ClickUpTask).
-        # We need to ensure ClickUpTask schema allows this or we iterate config key matches.
-        
-        # We'll rely on the field map matching for now, OR we can try to fetch the list ID if we add it to the schema.
-        # For this execution, let's iterate our configs and if we can map the fields, we proceed.
+        # The payload contains "lists": [{"list_id": "901310067725", "type": "home"}]
+        # We can check that later if needed.
 
         for list_id, list_config in config.items():
-            # Optimization: if we could check list_id from payload, we would. 
-            
+            # Optimization: if we could check list_id from payload, we would.
+
             field_def_map = self.get_list_field_defs(list_id)
             field_map = list_config.get("field_map", {})
-            
+
             # Map Custom Fields
             # task.custom_fields is List[ClickUpCustomField]
             custom_fields_map = {f.id: f for f in task.custom_fields}
-            
+
             def get_mapped_value(config_key):
                 field_id = field_map.get(config_key)
                 if not field_id or field_id not in custom_fields_map:
                     return None
-                
+
                 f = custom_fields_map[field_id]
                 f_def = field_def_map.get(field_id)
                 return self.extract_custom_field_value(f, f_def)
 
             try:
-                # Check for required fields to "qualify" this task for this config
-                # E.g. if 'workspace' is required and missing, maybe it's not this list?
-                # For now, we trust the fields exist.
-                
+                # Check for required fields to "qualify" this task for config
+                # E.g. if 'workspace' is required and missing...
+
                 workspace_val = get_mapped_value("workspace") or "General"
-                
+
+                t_stat = task.status
+                status_str = t_stat if isinstance(t_stat, str) else str(t_stat)
+
                 report_data = ProblemReportCreate(
                     title=task.title,
                     description=task.description or "",
                     workspace=workspace_val,
                     problem_type=get_mapped_value("problem_type"),
-                    status=task.status if isinstance(task.status, str) else str(task.status),
+                    status=status_str,
                     urgency="medium",
                     contact_details=get_mapped_value("contact_details"),
-                    discourse_post_link=get_mapped_value("discourse_post_link"),
+                    discourse_post_link=(get_mapped_value("discourse_post_link")),
                     slack_post_link=get_mapped_value("slack_post_link"),
-                    clickup_task_id=task.id
+                    clickup_task_id=task.id,
                 )
 
                 item = report_data.model_dump()
-                item['PK'] = f"PROBLEM_REPORT#{task.id}"
-                item['SK'] = "METADATA"
-                item['created_at'] = datetime.datetime.now().isoformat()
-                
+                item["PK"] = f"PROBLEM_REPORT#{task.id}"
+                item["SK"] = "METADATA"
+                item["created_at"] = datetime.datetime.now().isoformat()
+
                 saved = dynamo_service.put_item(item)
                 if saved:
                     processed_items.append(task.id)
                     logger.info(f"Saved ProblemReport {task.id} to DynamoDB")
-                
-                # If success, break loop (assumes task belongs to only one configured list type)
+
+                # If success, break loop
                 break
 
             except Exception as e:
-                # If mapping failed (e.g. missing required field for this schema), continue to next config
+                # If mapping failed, continue to next config
                 logger.debug(f"Skipping config {list_id} for task {task.id}: {e}")
                 continue
 

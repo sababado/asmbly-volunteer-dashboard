@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List, Literal, Any, Dict
+from typing import Optional, List, Literal, Any
 
 # --- Security & Base ---
 
@@ -9,13 +9,14 @@ class BaseSchema(BaseModel):
     Base schema for all models to enforce security practices.
     Inherits Pydantic's default validation.
     """
+
     class Config:
         str_strip_whitespace = True
         # Ignore extra fields from external payloads by default
         extra = "ignore"
 
-# --- ClickUp Webhook Payloads ---
 
+# --- ClickUp Webhook Payloads ---
 
 
 class ClickUpCustomField(BaseSchema):
@@ -27,8 +28,9 @@ class ClickUpCustomField(BaseSchema):
 
 class ClickUpTask(BaseSchema):
     id: str
-    title: str = Field(..., alias="name")  # e.g. "Broken Laser", "Orientation Help"
-    description: str | None = Field(None, alias="text_content") # "text_content" usually holds description text
+    title: str = Field(..., alias="name")
+    # "text_content" usually holds description text
+    description: str | None = Field(None, alias="text_content")
     status: str = "open"  # open, in_progress, resolved, closed
     date_updated: str
     url: str
@@ -39,9 +41,11 @@ class ClickUpWebhookPayload(BaseSchema):
     """
     Represents the payload received from ClickUp webhooks.
     """
+
     event: Optional[str] = None
     trigger_id: Optional[str] = None
     payload: Optional[ClickUpTask] = None
+
 
 # --- Internal Domain Models ---
 
@@ -70,13 +74,13 @@ class ProblemReportResponse(ProblemReportBase):
     clickup_url: Optional[str] = None
     created_at: str
 
+
 # --- Task Schemas (Legacy/Stub) ---
 
 
 class TaskBase(BaseSchema):
     title: str = Field(..., description="Task title")
-    description: Optional[str] = Field(
-        None, description="Detailed description")
+    description: Optional[str] = Field(None, description="Detailed description")
     area: str = Field(..., description="Shop area (wood, metal, etc)")
     urgency: Literal["low", "medium", "high", "critical"] = "medium"
     status: str = "open"
@@ -96,6 +100,7 @@ class TaskResponse(TaskBase):
     id: str
     clickup_id: Optional[str] = None
     created_at: Optional[str] = None
+
 
 # --- Volunteer/User Schemas ---
 

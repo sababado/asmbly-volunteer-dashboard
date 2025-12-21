@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     Application Settings.
     Reads from environment variables first, then optionally from .env file.
     """
+
     APP_ENV: str = "dev"
     AWS_REGION: str = "us-east-2"
 
@@ -25,8 +26,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(case_sensitive=True)
 
 
-def get_secret(secret_name: str,
-               region_name: str = "us-east-2") -> Dict[str, Any]:
+def get_secret(secret_name: str, region_name: str = "us-east-2") -> Dict[str, Any]:
     """
     Fetches a secret from AWS Secrets Manager.
     """
@@ -37,14 +37,11 @@ def get_secret(secret_name: str,
 
     try:
         session = boto3.session.Session()
-        client = session.client(
-            service_name='secretsmanager',
-            region_name=region_name)
-        get_secret_value_response = client.get_secret_value(
-            SecretId=secret_name)
+        client = session.client(service_name="secretsmanager", region_name=region_name)
+        get_secret_value_response = client.get_secret_value(SecretId=secret_name)
 
-        if 'SecretString' in get_secret_value_response:
-            return json.loads(get_secret_value_response['SecretString'])
+        if "SecretString" in get_secret_value_response:
+            return json.loads(get_secret_value_response["SecretString"])
         return {}
     except Exception as e:
         print(f"Error fetching secret {secret_name}: {e}")
@@ -76,12 +73,11 @@ def get_settings() -> Settings:
 
     secrets_to_fetch = {
         f"{env_prefix}/neon_token": ["NEON_ORG_ID", "NEON_API_KEY"],
-        f"{env_prefix}/slack-maintenance-bot-token":
-            ["SLACK_MAINTENANCE_BOT_TOKEN"],
+        f"{env_prefix}/slack-maintenance-bot-token": ["SLACK_MAINTENANCE_BOT_TOKEN"],
         f"{env_prefix}/slack-signing-secret": ["SLACK_SIGNING_SECRET"],
         # This one didn't have a prefix in the screenshot list, but secret name
         # details showed it.
-        "clickup/api/token": ["CLICKUP_API_TOKEN"]
+        "clickup/api/token": ["CLICKUP_API_TOKEN"],
     }
 
     secret_values = {}
@@ -100,12 +96,13 @@ def get_settings() -> Settings:
             # Based on screenshot: NEON_ORG_ID is explicit.
             if key in data:
                 secret_values[key] = data[key]
-            elif key == "SLACK_MAINTENANCE_BOT_TOKEN" and \
-                    "SLACK_MAINTENANCE_BOT_TOKEN" in data:
+            elif (
+                key == "SLACK_MAINTENANCE_BOT_TOKEN"
+                and "SLACK_MAINTENANCE_BOT_TOKEN" in data
+            ):
                 # "SLACK_MAINTENANCE_BOT_TOKEN"
                 secret_values[key] = data[key]
-            elif key == "SLACK_SIGNING_SECRET" and \
-                    "SLACK_SIGNING_SECRET" in data:
+            elif key == "SLACK_SIGNING_SECRET" and "SLACK_SIGNING_SECRET" in data:
                 secret_values[key] = data[key]
             elif key == "CLICKUP_API_TOKEN" and "CLICKUP_API_TOKEN" in data:
                 secret_values[key] = data[key]

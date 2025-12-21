@@ -11,7 +11,7 @@ class SlackService:
     def get_headers(self):
         return {
             "Authorization": f"Bearer {self.token}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
     async def send_notification(self, channel: str, text: str):
@@ -27,7 +27,7 @@ class SlackService:
                 response = await client.post(
                     f"{self.BASE_URL}/chat.postMessage",
                     headers=self.get_headers(),
-                    json={"channel": channel, "text": text}
+                    json={"channel": channel, "text": text},
                 )
                 response.raise_for_status()
             except Exception as e:

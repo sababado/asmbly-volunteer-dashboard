@@ -60,25 +60,39 @@ This system uses a **"Cache-Aside / Materialized View"** strategy. ClickUp remai
 
 ### Data Models
 
-**1. Problem Report (Mirror)**
-* **PK:** `REPORT#<clickup_id>`
+**1. Tasks (Hybrid Source)**
+* **PK:** `TASK#<task_id>`  *(Note: Use ClickUp ID for synced tasks, UUID for portal-only)*
 * **SK:** `METADATA`
-* **Attributes:** Title, Status, Location, Points
+* **Attributes:**
+    * `Title` (String)
+    * `Source` ("CLICKUP" | "PORTAL")
+    * `Status` (String)
+    * `Points` (Number)
 
-**2. User Profile (Gamification)**
+**2. Volunteer Logs (Time Series)**
+* **PK:** `USER#<user_id>`
+* **SK:** `LOG#<iso_timestamp>`
+* **Attributes:**
+    * `Hours` (Number)
+    * `Date` (String YYYY-MM-DD)
+    * `Description` (String)
+    * `RelatedTaskID` (String, Optional)
+
+**3. User Profile (Gamification & Aggregates)**
 * **PK:** `USER#<user_id>`
 * **SK:** `PROFILE`
-* **Attributes:** Name, TotalPoints, Badges, Rank
+* **Attributes:**
+    * `Name`, `Email`
+    * `TotalPoints` (Number)
+    * `LifetimeHours` (Number) -- *Updated atomically on log entry*
+    * `Badges` (Set)
 
-**3. User Activity Log**
-* **PK:** `USER#<user_id>`
-* **SK:** `ACTION#<timestamp>`
-* **Attributes:** ActionType, ReportID, PointsEarned
-
-**4. Leaderboard**
-* **PK:** `LEADERBOARD`
-* **SK:** `CURRENT`
-* **Attributes:** TopUsers (JSON List)
+**4. Global Stats (Reporting)**
+* **PK:** `ORG_STATS`
+* **SK:** `MONTH#<yyyy-mm>`
+* **Attributes:**
+    * `TotalHoursLogged` (Number)
+    * `ActiveVolunteers` (Number)
 
 ---
 

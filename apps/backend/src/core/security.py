@@ -1,4 +1,3 @@
-
 from fastapi import Security
 from fastapi.security.api_key import APIKeyHeader
 from src.core.config import settings
@@ -26,6 +25,7 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
     # If using a separate frontend key, check that here.
 
     return api_key_header
+
 
 # Stub for extracting user user from token
 
