@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from mangum import Mangum
 from src.core.config import settings
+from src.api import webhooks
 
 app = FastAPI(
     title="Asmbly Volunteer Dashboard API",
