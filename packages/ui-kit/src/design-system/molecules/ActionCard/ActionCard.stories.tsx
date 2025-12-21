@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ActionCard } from './ActionCard';
 import { Calendar } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+
 
 const meta = {
     title: 'Molecules/ActionCard',
@@ -22,7 +22,7 @@ export const Default: Story = {
 export const ViewShopCalendar: Story = {
     args: {
         label: 'View Shop Calendar',
-        icon: Calendar as unknown as LucideIcon,
+        icon: Calendar as React.ElementType,
         href: '#',
     },
 };
