@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from './Input';
 import { Mail } from 'lucide-react';
@@ -23,6 +24,6 @@ export const Default: Story = {
 export const WithIcon: Story = {
     args: {
         placeholder: 'maker@example.com',
-        icon: <Mail className="h-4 w-4" /> as React.ReactNode,
+        icon: React.createElement(Mail, { className: "h-4 w-4" }),
     }
 }

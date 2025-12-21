@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Mail } from 'lucide-react';
@@ -55,7 +56,7 @@ export const Gradient: Story = {
 export const WithIcon: Story = {
     args: {
         children: 'Login with Email',
-        leftIcon: <Mail className="h-4 w-4" /> as React.ReactNode,
+        leftIcon: React.createElement(Mail, { className: "h-4 w-4" }),
     }
 }
 
