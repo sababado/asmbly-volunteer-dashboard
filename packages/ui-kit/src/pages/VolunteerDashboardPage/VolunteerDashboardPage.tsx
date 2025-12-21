@@ -3,9 +3,9 @@ import { DashboardLayout } from '../../design-system/templates/DashboardLayout/D
 import { DashboardHeader } from '../../design-system/organisms/DashboardHeader/DashboardHeader';
 import { TaskList } from '../../design-system/organisms/TaskList/TaskList';
 import { ImpactWidgets } from '../../design-system/organisms/ImpactWidgets/ImpactWidgets';
-import { SidebarItemProps } from '../../design-system/molecules/SidebarItem/SidebarItem';
-import { TaskListItemProps } from '../../design-system/molecules/TaskListItem/TaskListItem';
-import { ImpactWidgetsProps } from '../../design-system/organisms/ImpactWidgets/ImpactWidgets';
+import type { SidebarItemProps } from '../../design-system/molecules/SidebarItem/SidebarItem';
+import type { TaskListItemProps } from '../../design-system/molecules/TaskListItem/TaskListItem';
+import type { ImpactWidgetsProps } from '../../design-system/organisms/ImpactWidgets/ImpactWidgets';
 import { LayoutDashboard, CheckSquare, Trophy, Store, User } from 'lucide-react';
 
 export interface VolunteerDashboardPageProps {

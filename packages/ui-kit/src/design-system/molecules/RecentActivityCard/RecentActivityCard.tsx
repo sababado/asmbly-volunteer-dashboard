@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { RecentActivity } from '../../organisms/ImpactWidgets/ImpactWidgets';
+import type { RecentActivity } from '../../organisms/ImpactWidgets/ImpactWidgets';
 
 export interface RecentActivityCardProps extends React.HTMLAttributes<HTMLDivElement> {
     activities: RecentActivity[];

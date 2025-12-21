@@ -1,7 +1,8 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 
-import { ActivityItem, ActivityItemProps } from "../../molecules/ActivityItem/ActivityItem";
+import { ActivityItem } from "../../molecules/ActivityItem/ActivityItem";
+import type { ActivityItemProps } from "../../molecules/ActivityItem/ActivityItem";
 
 export interface ActivityFeedProps extends React.HTMLAttributes<HTMLDivElement> {
     title?: string;

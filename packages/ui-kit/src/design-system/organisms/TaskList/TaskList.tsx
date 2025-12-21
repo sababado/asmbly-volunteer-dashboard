@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { TaskListItem, TaskListItemProps } from '../../molecules/TaskListItem/TaskListItem';
+import { TaskListItem } from '../../molecules/TaskListItem/TaskListItem';
+import type { TaskListItemProps } from '../../molecules/TaskListItem/TaskListItem';
 import { Select } from '../../atoms/Select/Select';
 import { Input } from '../../atoms/Input/Input';
 import { Search } from 'lucide-react';

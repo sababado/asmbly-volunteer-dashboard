@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { LucideIcon, Bot } from "lucide-react";
+import { Bot } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export interface ActivityItemProps extends React.HTMLAttributes<HTMLDivElement> {
     authorName: string;

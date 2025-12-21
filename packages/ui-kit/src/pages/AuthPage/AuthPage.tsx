@@ -1,8 +1,8 @@
 
-import { AuthCard } from "@/design-system/organisms/AuthCard/AuthCard"
-import { LoginForm } from "@/design-system/organisms/LoginForm/LoginForm"
-import { SocialLoginButton } from "@/design-system/molecules/SocialLoginButton/SocialLoginButton"
-import { AuthDivider } from "@/design-system/molecules/AuthDivider/AuthDivider"
+import { AuthCard } from "../../design-system/organisms/AuthCard/AuthCard"
+import { LoginForm } from "../../design-system/organisms/LoginForm/LoginForm"
+import { SocialLoginButton } from "../../design-system/molecules/SocialLoginButton/SocialLoginButton"
+import { AuthDivider } from "../../design-system/molecules/AuthDivider/AuthDivider"
 import { Lock } from "lucide-react"
 
 export interface AuthPageProps {

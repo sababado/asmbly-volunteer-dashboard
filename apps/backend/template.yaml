@@ -131,7 +131,7 @@ Resources:
         Origins:
           # Frontend Origin (S3)
           - Id: FrontendOrigin
-            DomainName: !GetAtt FrontendBucket.DomainName
+            DomainName: !Sub "${FrontendBucket}.s3.${AWS::Region}.amazonaws.com"
             S3OriginConfig:
               OriginAccessIdentity: ""
             OriginAccessControlId: !GetAtt CloudFrontOAC.Id

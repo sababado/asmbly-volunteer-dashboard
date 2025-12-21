@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { SidebarItem, SidebarItemProps } from '../../molecules/SidebarItem/SidebarItem';
+import { SidebarItem } from '../../molecules/SidebarItem/SidebarItem';
+import type { SidebarItemProps } from '../../molecules/SidebarItem/SidebarItem';
 import { Logo } from '../../atoms/Logo/Logo';
 import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
 

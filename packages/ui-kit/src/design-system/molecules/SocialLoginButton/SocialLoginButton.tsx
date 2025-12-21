@@ -1,5 +1,6 @@
 
-import { Button, ButtonProps } from "../../atoms/Button/Button"
+import { Button } from "../../atoms/Button/Button"
+import type { ButtonProps } from "../../atoms/Button/Button"
 import { CreditCard } from "lucide-react"
 
 export const SocialLoginButton = ({ children, ...props }: ButtonProps) => {

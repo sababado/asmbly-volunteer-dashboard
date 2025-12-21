@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../../lib/utils';
-import { Sidebar, SidebarProps } from '../../organisms/Sidebar/Sidebar';
+import { Sidebar } from '../../organisms/Sidebar/Sidebar';
+import type { SidebarProps } from '../../organisms/Sidebar/Sidebar';
 
 export interface DashboardLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
     sidebarProps: SidebarProps;
