@@ -1,5 +1,6 @@
 import { VolunteerDashboardPage } from '@voldash/ui-kit';
 import { useNavigate } from 'react-router-dom';
+import { SIDEBAR_ITEMS } from '../config/navigation';
 
 
 const mockTasks = [
@@ -67,6 +68,7 @@ export const DashboardPage = () => {
     return (
         <VolunteerDashboardPage
             user={{ name: 'Alex' }}
+            sidebarItems={SIDEBAR_ITEMS}
             tasks={mockTasks}
             stats={mockStats}
             announcements={mockAnnouncements}
