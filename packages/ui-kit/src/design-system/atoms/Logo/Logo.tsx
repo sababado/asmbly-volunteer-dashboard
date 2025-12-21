@@ -12,7 +12,7 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
                 className={cn("mb-6 text-white p-3 bg-white/10 rounded-sm inline-flex", className)}
                 {...props}
             >
-                <Grid className="h-10 w-10 text-white" />
+                {React.createElement(Grid as React.ElementType, { className: "h-10 w-10 text-white" })}
             </div>
         )
     }

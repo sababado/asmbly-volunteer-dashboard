@@ -22,7 +22,7 @@ const TaskList = React.forwardRef<HTMLDivElement, TaskListProps>(
                 <div className="flex flex-col md:flex-row gap-4 p-4 bg-background shadow-sm border border-border">
                     <div className="flex-1 min-w-[200px]">
                         <Input
-                            icon={React.createElement(Search as any, { size: 18 })}
+                            icon={React.createElement(Search as React.ElementType, { size: 18 })}
                             placeholder="Search tasks..."
                             className="bg-muted border-border"
                         />

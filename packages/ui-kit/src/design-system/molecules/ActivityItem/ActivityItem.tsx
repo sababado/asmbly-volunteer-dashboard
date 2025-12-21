@@ -30,7 +30,7 @@ const ActivityItem = React.forwardRef<HTMLDivElement, ActivityItemProps>(
                         />
                     ) : (
                         <div className="size-10 rounded-full flex items-center justify-center bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 shrink-0 ring-2 ring-background">
-                            <Icon className="size-5" />
+                            {React.createElement(Icon as React.ElementType, { className: "size-5" })}
                         </div>
                     )}
 

@@ -20,7 +20,7 @@ const ToolPartList = React.forwardRef<HTMLDivElement, ToolPartListProps>(
                 {...props}
             >
                 <h3 className="text-lg font-display font-bold text-asmbly-navy dark:text-white mb-5 flex items-center gap-3">
-                    {React.createElement(Icon as any, { className: "size-6 text-asmbly-teal" })}
+                    {React.createElement(Icon as React.ElementType, { className: "size-6 text-asmbly-teal" })}
                     {title}
                 </h3>
                 <div className="flex flex-col gap-3 flex-1">

@@ -25,7 +25,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
                 title={isCollapsed ? label : undefined}
                 {...props}
             >
-                <Icon className={cn("shrink-0", isActive ? "text-brand-woodwork" : "text-current")} size={24} />
+                {React.createElement(Icon as React.ElementType, { className: cn("shrink-0", isActive ? "text-brand-woodwork" : "text-current"), size: 24 })}
                 {!isCollapsed && (
                     <span className="text-sm font-medium uppercase tracking-wide truncate">
                         {label}

@@ -41,7 +41,7 @@ const ReporterCard = React.forwardRef<HTMLDivElement, ReporterCardProps>(
                         className="ml-auto p-2.5 text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-muted border border-transparent hover:border-border"
                         aria-label="Chat with reporter"
                     >
-                        <MessageSquare className="size-5" />
+                        {React.createElement(MessageSquare as React.ElementType, { className: "size-5" })}
                     </button>
                 </div>
             </div>

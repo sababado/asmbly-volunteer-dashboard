@@ -1,4 +1,4 @@
-
+import * as React from "react"
 import { Input } from "../../atoms/Input/Input"
 import { Button } from "../../atoms/Button/Button"
 import { Mail, Sparkles } from "lucide-react"
@@ -30,14 +30,14 @@ export const LoginForm = ({ emailLabel, emailPlaceholder, buttonText, onSubmit }
                     name="email"
                     placeholder={emailPlaceholder}
                     type="email"
-                    icon={<Mail className="h-5 w-5" />}
+                    icon={React.createElement(Mail as React.ElementType, { className: "h-5 w-5" })}
                 />
             </div>
             <Button
                 type="submit"
                 variant="outline"
                 className="w-full gap-2 border-border text-foreground bg-transparent hover:bg-muted/50 uppercase"
-                leftIcon={<Sparkles className="h-[18px] w-[18px]" />}
+                leftIcon={React.createElement(Sparkles as React.ElementType, { className: "h-[18px] w-[18px]" })}
             >
                 <span className="truncate">{buttonText}</span>
             </Button>

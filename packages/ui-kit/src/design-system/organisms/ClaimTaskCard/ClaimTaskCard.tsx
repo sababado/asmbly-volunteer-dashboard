@@ -63,14 +63,14 @@ const ClaimTaskCard = React.forwardRef<HTMLDivElement, ClaimTaskCardProps>(
                             className="w-full flex items-center justify-center gap-2 bg-asmbly-yellow hover:bg-asmbly-yellow-hover text-asmbly-navy font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded transition-all active:scale-[0.98] shadow-md shadow-asmbly-yellow/20"
                         >
                             <span>Claim Task</span>
-                            <ArrowRight className="size-5" />
+                            {React.createElement(ArrowRight as React.ElementType, { className: "size-5" })}
                         </button>
                         <button
                             onClick={onComplete}
                             disabled={!isClaimed} // Assuming disabled if not claimed, per HTML example it was disabled
                             className="w-full flex items-center justify-center gap-2 bg-muted text-muted-foreground font-display font-bold text-sm uppercase tracking-wider py-4 px-4 rounded cursor-not-allowed border border-transparent disabled:opacity-70"
                         >
-                            <CheckCircle2 className="size-5" />
+                            {React.createElement(CheckCircle2 as React.ElementType, { className: "size-5" })}
                             <span>Mark as Complete</span>
                         </button>
                     </div>

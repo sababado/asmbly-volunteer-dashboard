@@ -43,7 +43,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 {...props}
             >
                 {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    React.createElement(Loader2 as React.ElementType, { className: "mr-2 h-4 w-4 animate-spin" })
                 ) : (
                     <>
                         {leftIcon && <span className="mr-2">{leftIcon}</span>}

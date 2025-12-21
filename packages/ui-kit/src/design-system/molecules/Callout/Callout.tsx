@@ -37,7 +37,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
                     <div className="flex flex-col gap-2">
                         {title && (
                             <h4 className="text-orange-800 dark:text-orange-300 font-bold font-display uppercase tracking-wide text-sm flex items-center gap-2 mb-1">
-                                {icon && <AlertTriangle className="size-4 fill-current" />}
+                                {icon && React.createElement(AlertTriangle as React.ElementType, { className: "size-4 fill-current" })}
                                 {title}
                             </h4>
                         )}

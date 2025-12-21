@@ -21,7 +21,7 @@ const ActionCard = React.forwardRef<HTMLAnchorElement, ActionCardProps>(
                 <span className="text-sm font-bold uppercase tracking-wide text-slate-700 group-hover:text-brand-purple leading-tight">
                     {label}
                 </span>
-                <Icon className="text-slate-400 group-hover:text-brand-purple transition-colors shrink-0" size={22} />
+                {React.createElement(Icon as React.ElementType, { className: "text-slate-400 group-hover:text-brand-purple transition-colors shrink-0", size: 22 })}
             </a>
         );
     }

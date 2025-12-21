@@ -21,7 +21,7 @@ const ToolPartItem = React.forwardRef<HTMLDivElement, ToolPartItemProps>(
                 {...props}
             >
                 <div className="bg-background dark:bg-muted p-2 rounded-lg shadow-sm">
-                    <Icon className="size-5 text-muted-foreground" />
+                    {React.createElement(Icon as React.ElementType, { className: "size-5 text-muted-foreground" })}
                 </div>
                 <div>
                     <p className="text-foreground font-bold text-sm">{name}</p>

@@ -22,7 +22,7 @@ const AssistanceCard = React.forwardRef<HTMLDivElement, AssistanceCardProps>(
                 <div className="absolute -right-6 -top-6 size-24 bg-white/5 rounded-full blur-xl" />
                 <div className="flex gap-4 relative z-10">
                     <div className="mt-1">
-                        {React.createElement(HelpCircle as any, { className: "size-8 text-asmbly-yellow" })}
+                        {React.createElement(HelpCircle as React.ElementType, { className: "size-8 text-asmbly-yellow" })}
                     </div>
                     <div>
                         <p className="font-bold font-display text-lg mb-2">Need assistance?</p>
@@ -38,7 +38,7 @@ const AssistanceCard = React.forwardRef<HTMLDivElement, AssistanceCardProps>(
                             className="text-asmbly-yellow hover:text-white text-sm font-bold font-display uppercase tracking-wide hover:underline transition-colors flex items-center gap-1"
                         >
                             {actionText}
-                            {React.createElement(ArrowRight as any, { className: "size-4" })}
+                            {React.createElement(ArrowRight as React.ElementType, { className: "size-4" })}
                         </button>
                     </div>
                 </div>

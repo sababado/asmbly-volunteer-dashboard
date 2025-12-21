@@ -68,7 +68,7 @@ const ImpactWidgets = React.forwardRef<HTMLDivElement, ImpactWidgetsProps>(
                     <ActionCard
                         label="View Shop Calendar"
                         href="#"
-                        icon={Calendar}
+                        icon={Calendar as unknown as React.ElementType}
                     />
                     <ActionCard
                         label="Report an Issue"

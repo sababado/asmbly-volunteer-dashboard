@@ -27,7 +27,7 @@ const AnnouncementBanner = React.forwardRef<HTMLDivElement, AnnouncementBannerPr
                             "p-3 rounded-full h-fit shrink-0",
                             variant === 'warning' ? "bg-brand-woodwork/10 text-brand-woodwork" : "bg-brand-metal/10 text-brand-metal"
                         )}>
-                            <AlertTriangle size={28} />
+                            {React.createElement(AlertTriangle as React.ElementType, { size: 28 })}
                         </div>
                         <div className="flex flex-col gap-2">
                             <h3 className="text-lg font-display font-bold text-primary uppercase tracking-wide">

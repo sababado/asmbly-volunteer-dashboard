@@ -81,7 +81,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
 
                     <div className="flex flex-wrap gap-2 items-center mt-auto pt-2">
                         <Badge variant="default" className="gap-1.5">
-                            {React.createElement(getAreaIcon(area), { size: 14 })}
+                            {React.createElement(getAreaIcon(area) as React.ElementType, { size: 14 })}
                             <span className="capitalize">{area}shop</span>
                             {/* Simple capitalization, can map properly if needed */}
                         </Badge>
@@ -92,7 +92,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
                         </Badge>
 
                         <Badge variant="default" className="gap-1.5">
-                            <Clock size={14} />
+                            {React.createElement(Clock as React.ElementType, { size: 14 })}
                             {duration}
                         </Badge>
                     </div>
@@ -115,7 +115,7 @@ const TaskListItem = React.forwardRef<HTMLDivElement, TaskListItemProps>(
                             rel="noopener noreferrer"
                             className="hidden md:flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground hover:text-primary transition-colors"
                         >
-                            View in ClickUp <ExternalLink size={12} />
+                            View in ClickUp {React.createElement(ExternalLink as React.ElementType, { size: 12 })}
                         </a>
                     )}
                 </div>

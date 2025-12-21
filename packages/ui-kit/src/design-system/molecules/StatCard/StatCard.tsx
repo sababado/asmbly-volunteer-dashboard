@@ -25,7 +25,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
                 {...props}
             >
                 <div className={cn("size-14 flex items-center justify-center shrink-0 rounded-sm", iconBgClass)}>
-                    <Icon size={28} />
+                    {React.createElement(Icon as React.ElementType, { size: 28 })}
                 </div>
                 <div className="flex flex-col">
                     <span className="text-4xl font-display font-bold text-white leading-none">

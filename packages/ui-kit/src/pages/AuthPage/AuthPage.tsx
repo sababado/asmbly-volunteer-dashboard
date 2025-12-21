@@ -50,7 +50,7 @@ export const AuthPage = ({
                     footer={(
                         <>
                             <div className="flex items-center justify-center gap-1.5 text-[11px]  dark:text-blue-300/60 mb-2 uppercase tracking-wide font-semibold">
-                                {React.createElement(Lock as any, { className: "h-[14px] w-[14px]" })}
+                                {React.createElement(Lock as React.ElementType, { className: "h-[14px] w-[14px]" })}
                                 <span>Secure Login</span>
                             </div>
                             <div className="flex gap-4 justify-center text-xs mt-2 font-medium">
