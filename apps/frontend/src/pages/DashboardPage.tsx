@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const mockTasks = [
     {
+        id: '1',
         title: 'Replace Blades on Planer',
         description: 'The blades are showing signs of wear and tear.',
         area: 'wood' as const,
@@ -12,6 +13,7 @@ const mockTasks = [
         status: 'ready' as const,
     },
     {
+        id: '2',
         title: 'Empty Dust Collector Bins',
         description: 'Bins 2 and 4 are nearing capacity.',
         area: 'wood' as const,
@@ -20,6 +22,7 @@ const mockTasks = [
         status: 'open' as const,
     },
     {
+        id: '3',
         title: 'Organize Welding Table',
         description: 'Sort clamps and clean the surface.',
         area: 'metal' as const,
@@ -30,12 +33,21 @@ const mockTasks = [
 ];
 
 const mockStats = {
+    hoursLogged: 12.5,
+    tasksCompleted: 5,
+    currentStreak: 3,
+};
+
+const mockActivities = [
+    { id: '1', user: 'Alex', action: 'completed', target: 'Safety Check', time: '2 hours ago' },
+    { id: '2', user: 'Sam', action: 'claimed', target: 'Dust Cleanup', time: '5 hours ago' }
+];
+
+const mockAnnouncements: any[] = []; // Explicitly empty for now or populate
+
+const mockImpactStats = {
     hours: 12.5,
     tasksCompleted: 5,
-    monthlyGoal: 20, // This logic is internal to widget but prop expects direct values?
-    // Wait, ImpactWidgetsProps has: hours, tasksCompleted, goalProgress, recentActivity.
-    // It does NOT have monthlyGoal in props (it's hardcoded in the component text "Monthly Goal: 20hrs").
-    // So I should remove monthlyGoal and add goalProgress.
     goalProgress: 65,
     recentActivity: [
         { id: '1', text: 'Completed "Organize CNC Bits"', time: 'YESTERDAY • 2 HRS CREDITED', type: 'completed' as const, color: 'bg-accent-teal' },
@@ -50,7 +62,11 @@ export const DashboardPage = () => {
         <VolunteerDashboardPage
             user={{ name: 'Alex' }}
             tasks={mockTasks}
-            impactStats={mockStats}
+            stats={mockStats}
+            announcements={mockAnnouncements}
+            recentActivity={mockActivities}
+            onClaimTask={(id) => console.log('claim', id)}
+            impactStats={mockImpactStats}
             onViewAllTasks={() => navigate('/tasks')}
         />
     );

@@ -19,8 +19,16 @@ const mockTask = {
     id: "1",
     title: "Fix the Laser Cutter Exhaust",
     description: "The exhaust fan on the laser cutter is making a loud grinding noise and seems to be losing suction. Please inspect the motor and the ducting for any obstructions or damage. This needs to be addressed before heavy usage this weekend.",
+    area: "laser" as const,
+    urgency: "high" as const,
+    status: "open" as const,
+    created: "2023-10-15T10:00:00Z",
+    reporter: {
+        name: "Jane Doe",
+        avatar: "https://i.pravatar.cc/150?u=jane"
+    },
     tags: [
-        { label: "Maintenance", type: "default" } as const,
+        { label: "Maintenance", type: "info" } as const,
         { label: "High Priority", type: "warning" } as const,
     ],
     warning: "Critical for safe operation. Do not use machine until resolved.",

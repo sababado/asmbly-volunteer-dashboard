@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LayoutDashboard, CheckSquare, Trophy, Store, User, Search, Grid, List as ListIcon, X } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Trophy, User, Search, Grid, List as ListIcon, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { DashboardLayout } from '../../design-system/templates/DashboardLayout/DashboardLayout';
 import { TaskList } from '../../design-system/organisms/TaskList/TaskList';
@@ -27,7 +27,6 @@ const defaultSidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
     { icon: CheckSquare, label: 'All Tasks', href: '/tasks' }, // "My Tasks" renamed or just active link logic? Design says "ALL TASKS" in nav
     { icon: Trophy, label: 'Leaderboard', href: '/leaderboard' },
-    { icon: Store, label: 'Shop Areas', href: '/shops' },
     { icon: User, label: 'Profile', href: '/profile' },
 ];
 

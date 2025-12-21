@@ -58,5 +58,13 @@ export const Default: Story = {
         user: { name: 'Alex' },
         tasks: mockTasks,
         impactStats: mockImpact,
+        stats: {
+            hoursLogged: 12.5,
+            tasksCompleted: 5,
+            currentStreak: 3
+        },
+        announcements: [],
+        recentActivity: [],
+        onClaimTask: () => alert('Claim task'),
     },
 };

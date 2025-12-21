@@ -16,7 +16,7 @@ import type { SidebarItemProps } from "../../design-system/molecules/SidebarItem
 import { Button } from "../../design-system/atoms/Button/Button";
 import { ImageGrid } from "../../design-system/molecules/ImageGrid/ImageGrid";
 import { Callout } from "../../design-system/molecules/Callout/Callout";
-import { ArrowLeft, LayoutDashboard, CheckSquare, Trophy, Store, User } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, CheckSquare, Trophy, User } from "lucide-react";
 
 export interface TaskDetailsPageProps {
     /**
@@ -27,6 +27,9 @@ export interface TaskDetailsPageProps {
      * Active path for the sidebar
      */
     activePath?: string;
+    /**
+     * User's logout handler
+     */
     /**
      * User's logout handler
      */
@@ -42,44 +45,39 @@ export interface TaskDetailsPageProps {
         id: string;
         title: string;
         description: string;
-        tags?: { label: string; type: "default" | "warning" }[];
-        images?: { id: number; src: string; alt: string }[];
+        area: string;
+        urgency: "low" | "medium" | "high" | "critical";
+        status: "open" | "in-progress" | "review" | "completed";
+        created: string;
+        deadline?: string;
+        location?: string;
+        estimatedTime?: string;
+        reporter: {
+            name: string;
+            avatar?: string;
+        };
+        requirements?: string[];
+        tags?: { label: string; type: "warning" | "info" }[];
         warning?: string;
+        images?: { src: string; alt: string }[];
     };
-    /**
-     * Claim card props
-     */
-    claimCard: Omit<ClaimTaskCardProps, "className">;
-    /**
-     * Reporter information
-     */
-    reporter: Omit<ReporterCardProps, "className">;
-    /**
-     * Tools and parts required
-     */
-    toolsParts?: (ToolPartItemProps & { id: string })[];
-    /**
-     * Activity feed items
-     */
-    activity?: (ActivityItemProps & { id: string })[];
-    /**
-     * Assistance card customization
-     */
-    assistance?: Omit<AssistanceCardProps, "className">;
+    claimCard: ClaimTaskCardProps;
+    reporter: ReporterCardProps;
+    toolsParts?: ToolPartItemProps[];
+    activity?: ActivityItemProps[];
+    assistance?: AssistanceCardProps;
 }
 
 const defaultSidebarItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: CheckSquare, label: "My Tasks", href: "/tasks" },
     { icon: Trophy, label: "Leaderboard", href: "/leaderboard" },
-    { icon: Store, label: "Shop Areas", href: "/shops" },
     { icon: User, label: "Profile", href: "/profile" },
 ];
 
 const TaskDetailsPage: React.FC<TaskDetailsPageProps> = ({
     sidebarItems = defaultSidebarItems,
     activePath = "/tasks",
-    onLogout,
     onBack,
     task,
     claimCard,
@@ -87,6 +85,7 @@ const TaskDetailsPage: React.FC<TaskDetailsPageProps> = ({
     toolsParts = [],
     activity = [],
     assistance,
+    onLogout,
 }) => {
     // Construct sub-components
     const breadcrumbs = (
@@ -143,7 +142,7 @@ const TaskDetailsPage: React.FC<TaskDetailsPageProps> = ({
                     <h3 className="text-xl font-display font-bold uppercase text-asmbly-navy dark:text-white">
                         Attached Images
                     </h3>
-                    <ImageGrid images={task.images} />
+                    <ImageGrid images={task.images.map((img, i) => ({ ...img, id: i }))} />
                 </div>
             )}
         </div>

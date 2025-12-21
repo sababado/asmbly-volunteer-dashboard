@@ -14,6 +14,14 @@ describe('VolunteerDashboardPage', () => {
                     goalProgress: 0,
                     recentActivity: []
                 }}
+                stats={{
+                    hoursLogged: 0,
+                    tasksCompleted: 0,
+                    currentStreak: 0
+                }}
+                announcements={[]}
+                recentActivity={[]}
+                onClaimTask={() => { }}
             />
         );
         expect(screen.getByText(/Welcome back, Alex/i)).toBeInTheDocument();
