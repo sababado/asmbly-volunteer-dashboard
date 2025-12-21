@@ -17,7 +17,7 @@ describe('VolunteerDashboardPage', () => {
             />
         );
         expect(screen.getByText(/Welcome back, Alex/i)).toBeInTheDocument();
-        expect(screen.getByText(/Open Tasks/i)).toBeInTheDocument();
+        expect(screen.getByText(/LATEST TASKS/i)).toBeInTheDocument();
         expect(screen.getByText(/Your Impact/i)).toBeInTheDocument();
     });
 });

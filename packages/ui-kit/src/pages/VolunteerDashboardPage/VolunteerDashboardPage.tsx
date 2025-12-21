@@ -15,7 +15,9 @@ export interface VolunteerDashboardPageProps {
     sidebarItems?: Omit<SidebarItemProps, 'isCollapsed'>[];
     tasks: TaskListItemProps[];
     impactStats: Omit<ImpactWidgetsProps, 'className'>;
+    onViewAllTasks?: () => void;
 }
+
 
 const defaultSidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
@@ -29,7 +31,8 @@ const VolunteerDashboardPage: React.FC<VolunteerDashboardPageProps> = ({
     user,
     sidebarItems = defaultSidebarItems,
     tasks,
-    impactStats
+    impactStats,
+    onViewAllTasks
 }) => {
     return (
         <DashboardLayout
@@ -47,7 +50,7 @@ const VolunteerDashboardPage: React.FC<VolunteerDashboardPageProps> = ({
 
                 <div className="flex flex-col xl:flex-row gap-8 items-start">
                     <div className="flex-1 w-full xl:min-w-0">
-                        <TaskList tasks={tasks} />
+                        <TaskList tasks={tasks} onViewAllClick={onViewAllTasks} />
                     </div>
                     <div className="w-full xl:w-[380px] shrink-0">
                         <ImpactWidgets {...impactStats} />

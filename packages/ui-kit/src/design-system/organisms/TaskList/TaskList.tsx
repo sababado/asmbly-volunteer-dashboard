@@ -4,14 +4,17 @@ import { TaskListItem } from '../../molecules/TaskListItem/TaskListItem';
 import type { TaskListItemProps } from '../../molecules/TaskListItem/TaskListItem';
 import { Select } from '../../atoms/Select/Select';
 import { Input } from '../../atoms/Input/Input';
-import { Search } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
+import { Button } from '../../atoms/Button/Button';
 
 export interface TaskListProps extends React.HTMLAttributes<HTMLDivElement> {
     tasks: TaskListItemProps[];
+    onViewAllClick?: () => void;
 }
 
+
 const TaskList = React.forwardRef<HTMLDivElement, TaskListProps>(
-    ({ className, tasks, ...props }, ref) => {
+    ({ className, tasks, onViewAllClick, ...props }, ref) => {
         return (
             <div
                 ref={ref}
@@ -49,9 +52,17 @@ const TaskList = React.forwardRef<HTMLDivElement, TaskListProps>(
                 {/* Header */}
                 <div className="flex items-end justify-between px-1 border-b border-border pb-2">
                     <h2 className="text-xl font-display font-bold text-primary uppercase relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-secondary">
-                        Open Tasks
+                        LATEST TASKS
                     </h2>
-                    <span className="text-sm text-muted-foreground font-medium">Showing {tasks.length} tasks</span>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-primary hover:text-primary/80 font-bold text-xs uppercase tracking-wider gap-2 px-0 hover:bg-transparent"
+                        onClick={onViewAllClick}
+                    >
+                        VIEW ALL TASKS
+                        <ArrowRight size={16} />
+                    </Button>
                 </div>
 
                 {/* List */}

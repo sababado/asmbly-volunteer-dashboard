@@ -45,5 +45,6 @@ const mockTasks: TaskListItemProps[] = [
 export const Default: Story = {
     args: {
         tasks: mockTasks,
+        onViewAllClick: () => console.log('View All clicked'),
     },
 };

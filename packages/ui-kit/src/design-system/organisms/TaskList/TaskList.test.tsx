@@ -19,7 +19,7 @@ describe('TaskList', () => {
     it('renders tasks and filters', () => {
         render(<TaskList tasks={mockTasks} />);
         expect(screen.getByText('Task 1')).toBeInTheDocument();
-        expect(screen.getByText('Open Tasks')).toBeInTheDocument();
+        expect(screen.getByText('LATEST TASKS')).toBeInTheDocument();
         expect(screen.getByRole('textbox')).toBeInTheDocument(); // Search
     });
 });
