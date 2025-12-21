@@ -44,7 +44,7 @@ const ExampleHeader = () => (
 
 const ExampleBreadcrumbs = () => (
     <Button variant="ghost" className="pl-0 gap-2 text-muted-foreground hover:text-foreground">
-        {React.createElement(ArrowLeft as React.ElementType, { className: "w-4 h-4" })}
+        {React.createElement(ArrowLeft as unknown as React.ElementType, { className: "w-4 h-4" })}
         Back to Dashboard
     </Button>
 );

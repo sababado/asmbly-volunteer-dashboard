@@ -12,7 +12,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "lint": "eslint . --max-warnings 0",
+        "lint": "eslint . --max-warnings 0 && npm run check:icons",
+        "check:icons": "node scripts/check-lucide-icons.js",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",

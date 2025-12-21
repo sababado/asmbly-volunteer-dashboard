@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ActivityFeed } from './ActivityFeed';
 import { ActivityItem } from '../../molecules/ActivityItem/ActivityItem';
 import { Bot } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const meta = {
     title: 'Organisms/ActivityFeed',
@@ -30,7 +31,7 @@ export const Default: Story = {
                     variant="system"
                     authorName="ClickUp Bot"
                     timestamp="5 hours ago"
-                    icon={Bot}
+                    icon={Bot as unknown as LucideIcon}
                 >
                     Task created automatically from Incident Report #221. Priority set to <span className="text-red-600 dark:text-red-400 font-bold">High</span>.
                 </ActivityItem>
@@ -54,7 +55,7 @@ export const WithItems: Story = {
                 variant: "system",
                 authorName: "ClickUp Bot",
                 timestamp: "5 hours ago",
-                icon: Bot,
+                icon: Bot as unknown as LucideIcon,
                 children: <span>Task created automatically from Incident Report #221. Priority set to <span className="text-red-600 dark:text-red-400 font-bold">High</span>.</span>,
             },
         ],

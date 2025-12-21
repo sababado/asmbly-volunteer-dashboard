@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ToolPartItem } from './ToolPartItem';
 import { Wrench, Settings, Key } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const meta = {
     title: 'Molecules/ToolPartItem',
@@ -16,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        icon: Wrench,
+        icon: Wrench as unknown as LucideIcon,
         name: '10mm Wrench',
         detail: 'For arbor nut',
     },
@@ -24,7 +25,7 @@ export const Default: Story = {
 
 export const WithHighlight: Story = {
     args: {
-        icon: Settings,
+        icon: Settings as unknown as LucideIcon,
         name: 'Brake Cartridge (Standard)',
         detail: 'In Stock • Bin A4',
         detailColor: 'teal',
@@ -33,7 +34,7 @@ export const WithHighlight: Story = {
 
 export const KeyItem: Story = {
     args: {
-        icon: Key,
+        icon: Key as unknown as LucideIcon,
         name: 'Cabinet Key #4',
         detail: 'Ask Duty Officer',
     },

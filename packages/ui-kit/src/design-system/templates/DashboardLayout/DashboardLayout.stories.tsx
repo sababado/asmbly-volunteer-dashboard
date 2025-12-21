@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DashboardLayout } from './DashboardLayout';
 import { LayoutDashboard } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const meta = {
     title: 'Templates/DashboardLayout',
@@ -16,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 const mockSidebarProps = {
     items: [
-        { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
+        { icon: LayoutDashboard as unknown as LucideIcon, label: 'Dashboard', href: '/dashboard' },
     ],
     activePath: '/dashboard',
 };

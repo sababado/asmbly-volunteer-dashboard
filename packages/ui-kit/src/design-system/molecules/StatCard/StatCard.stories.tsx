@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StatCard } from './StatCard';
 import { Timer, CheckCircle } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const meta = {
     title: 'Molecules/StatCard',
@@ -24,7 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Hours: Story = {
     args: {
-        icon: Timer,
+        icon: Timer as unknown as LucideIcon,
         value: 12.5,
         label: 'Hours this month',
         variant: 'secondary',
@@ -33,7 +34,7 @@ export const Hours: Story = {
 
 export const Tasks: Story = {
     args: {
-        icon: CheckCircle,
+        icon: CheckCircle as unknown as LucideIcon,
         value: 5,
         label: 'Tasks Completed',
         variant: 'accent-teal',

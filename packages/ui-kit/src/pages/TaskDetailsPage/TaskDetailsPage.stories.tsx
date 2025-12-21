@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { TaskDetailsPage } from "./TaskDetailsPage";
 import { Wrench, Settings } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const meta = {
     title: "Pages/TaskDetailsPage",
@@ -30,9 +31,9 @@ const mockTask = {
 };
 
 const mockToolsParts = [
-    { id: "1", icon: Wrench, name: "Philips Screwdriver", detail: "Tool" },
-    { id: "2", icon: Settings, name: "Replacement Filter", detail: "1x • Closet B", detailColor: "teal" as const },
-    { id: "3", icon: Wrench, name: "Ladder", detail: "Workshop Main" },
+    { id: "1", icon: Wrench as unknown as LucideIcon, name: "Philips Screwdriver", detail: "Tool" },
+    { id: "2", icon: Settings as unknown as LucideIcon, name: "Replacement Filter", detail: "1x • Closet B", detailColor: "teal" as const },
+    { id: "3", icon: Wrench as unknown as LucideIcon, name: "Ladder", detail: "Workshop Main" },
 ];
 
 const mockActivity = [

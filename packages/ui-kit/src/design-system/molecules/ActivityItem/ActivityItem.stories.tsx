@@ -15,7 +15,7 @@ const meta = {
     decorators: [
         (Story) => (
             <div className="pl-6 border-l-2 border-slate-200 dark:border-white/10 ml-4 py-4">
-                {React.createElement(Story as React.ElementType)}
+                {React.createElement(Story as unknown as React.ElementType)}
             </div>
         ),
     ],

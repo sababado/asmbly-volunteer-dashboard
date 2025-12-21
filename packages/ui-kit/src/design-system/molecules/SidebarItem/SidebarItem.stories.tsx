@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { SidebarItem } from './SidebarItem';
 import { LayoutDashboard, CheckSquare } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const meta = {
     title: 'Molecules/SidebarItem',
@@ -25,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        icon: LayoutDashboard,
+        icon: LayoutDashboard as unknown as LucideIcon,
         label: 'Dashboard',
         href: '#',
     },
@@ -33,7 +34,7 @@ export const Default: Story = {
 
 export const Active: Story = {
     args: {
-        icon: LayoutDashboard,
+        icon: LayoutDashboard as unknown as LucideIcon,
         label: 'Dashboard',
         isActive: true,
         href: '#',
@@ -42,7 +43,7 @@ export const Active: Story = {
 
 export const Collapsed: Story = {
     args: {
-        icon: CheckSquare,
+        icon: CheckSquare as unknown as LucideIcon,
         label: 'My Tasks',
         isCollapsed: true,
         href: '#',
