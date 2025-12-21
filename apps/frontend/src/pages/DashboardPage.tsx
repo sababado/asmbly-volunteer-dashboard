@@ -43,7 +43,13 @@ const mockActivities = [
     { id: '2', user: 'Sam', action: 'claimed', target: 'Dust Cleanup', time: '5 hours ago' }
 ];
 
-const mockAnnouncements: any[] = []; // Explicitly empty for now or populate
+const mockAnnouncements: Array<{
+    id: string;
+    title: string;
+    message: string;
+    type: 'info' | 'warning' | 'success';
+    date: string;
+}> = [];
 
 const mockImpactStats = {
     hours: 12.5,
