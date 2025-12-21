@@ -1,10 +1,12 @@
 from src.core.config import settings
 
+
 class NeonService:
     """
     Adapter for Neon CRM (future integration).
     Currently acts as a placeholder for validation logic.
     """
+
     def __init__(self):
         self.org_id = settings.NEON_ORG_ID
         self.api_key = settings.NEON_API_KEY
@@ -16,8 +18,9 @@ class NeonService:
         """
         if not self.api_key:
             return False
-            
+
         # TODO: Implement actual API call to Neon
         return True
+
 
 neon_service = NeonService()

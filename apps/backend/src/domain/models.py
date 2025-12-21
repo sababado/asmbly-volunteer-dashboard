@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional
+# from typing import Optional
 from datetime import datetime
+
 
 @dataclass
 class TaskModel:
@@ -15,5 +16,5 @@ class TaskModel:
     area: str
     status: str
     updated_at: datetime
-    
+
     # ... other fields mapped from DynamoDB items

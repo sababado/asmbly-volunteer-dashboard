@@ -10,6 +10,8 @@ import { AssistanceCard } from "../../molecules/AssistanceCard/AssistanceCard";
 import { ImageGrid } from "../../molecules/ImageGrid/ImageGrid";
 import { Callout } from "../../molecules/Callout/Callout";
 import { ArrowLeft, Wrench, Settings } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import React from 'react';
 
 const meta = {
     title: "Templates/TaskDetailsTemplate",
@@ -42,7 +44,7 @@ const ExampleHeader = () => (
 
 const ExampleBreadcrumbs = () => (
     <Button variant="ghost" className="pl-0 gap-2 text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="w-4 h-4" />
+        {React.createElement(ArrowLeft as React.ElementType, { className: "w-4 h-4" })}
         Back to Dashboard
     </Button>
 );
@@ -76,9 +78,9 @@ const ExampleMainContent = () => (
 
 const ExampleToolList = () => (
     <ToolPartList>
-        <ToolPartItem icon={Wrench} name="Philips Screwdriver" detail="Tool" />
-        <ToolPartItem icon={Settings} name="Replacement Filter" detail="1x • Storage Closet B" detailColor="teal" />
-        <ToolPartItem icon={Wrench} name="Ladder" detail="Workshop Main" />
+        <ToolPartItem icon={Wrench as unknown as LucideIcon} name="Philips Screwdriver" detail="Tool" />
+        <ToolPartItem icon={Settings as unknown as LucideIcon} name="Replacement Filter" detail="1x • Storage Closet B" detailColor="teal" />
+        <ToolPartItem icon={Wrench as unknown as LucideIcon} name="Ladder" detail="Workshop Main" />
     </ToolPartList>
 );
 

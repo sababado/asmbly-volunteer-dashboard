@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from mangum import Mangum
+# from mangum import Mangum
 from src.core.config import settings
 from src.api import webhooks
 
@@ -9,6 +9,7 @@ app = FastAPI(
     root_path=f"/{settings.APP_ENV}" if settings.APP_ENV else ""
 )
 
+
 @app.get("/")
 async def root():
     return {
@@ -17,6 +18,7 @@ async def root():
         "region": settings.AWS_REGION
     }
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
@@ -24,4 +26,3 @@ async def health_check():
 app.include_router(webhooks.router, prefix="/webhooks", tags=["webhooks"])
 
 # Mangum Adapter for AWS Lambda
-

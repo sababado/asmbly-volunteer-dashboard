@@ -21,7 +21,7 @@ export const Default: Story = {
 export const ViewShopCalendar: Story = {
     args: {
         label: 'View Shop Calendar',
-        icon: Calendar,
+        icon: Calendar as React.ElementType,
         href: '#',
     },
 };

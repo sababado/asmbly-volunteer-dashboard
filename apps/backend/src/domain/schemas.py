@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 from typing import Optional, List, Literal, Any, Dict
 
 # --- Security & Base ---
+
 
 class BaseSchema(BaseModel):
     """
@@ -10,9 +11,11 @@ class BaseSchema(BaseModel):
     """
     class Config:
         str_strip_whitespace = True
-        extra = "ignore" # Ignore extra fields from external payloads by default
+        # Ignore extra fields from external payloads by default
+        extra = "ignore"
 
 # --- ClickUp Webhook Payloads ---
+
 
 class ClickUpCustomField(BaseSchema):
     id: str
@@ -21,16 +24,16 @@ class ClickUpCustomField(BaseSchema):
     value: Optional[Any] = None
     type_config: Optional[Dict[str, Any]] = None
 
+
 class ClickUpTask(BaseSchema):
     id: str
-    name: str
-    text_content: Optional[str] = None
-    description: Optional[str] = None
-    status: Dict[str, Any]
-    date_created: str
+    title: str  # e.g. "Broken Laser", "Orientation Help"
+    description: str | None = None
+    status: str = "open"  # open, in_progress, resolved, closed
     date_updated: str
     url: str
     custom_fields: List[ClickUpCustomField] = []
+
 
 class ClickUpWebhookPayload(BaseSchema):
     """
@@ -39,12 +42,15 @@ class ClickUpWebhookPayload(BaseSchema):
     """
     event: Optional[str] = None
     task_id: Optional[str] = None
-    # For the 'task created/updated' events, ClickUp often sends the task data directly 
-    # or inside a 'history_items' structure depending on webhook verification vs event.
-    # Based on user context, we are parsing a "full problem report entry" which looks like a list of tasks.
+    # For the 'task created/updated' events, ClickUp often sends the task
+    # data directly or inside a 'history_items' structure depending on
+    # webhook verification vs event.
+    # Based on user context, we are parsing a "full problem report entry"
+    # which looks like a list of tasks.
     tasks: Optional[List[ClickUpTask]] = []
 
 # --- Internal Domain Models ---
+
 
 class ProblemReportBase(BaseSchema):
     title: str = Field(..., max_length=200)
@@ -53,14 +59,16 @@ class ProblemReportBase(BaseSchema):
     problem_type: Optional[str] = None
     urgency: Literal["low", "medium", "high", "critical"] = "medium"
     status: str = "open"
-    
+
     # Mapped from Custom Fields
     contact_details: Optional[str] = None
     discourse_post_link: Optional[str] = None
     slack_post_link: Optional[str] = None
 
+
 class ProblemReportCreate(ProblemReportBase):
     clickup_task_id: str
+
 
 class ProblemReportResponse(ProblemReportBase):
     id: str
@@ -70,20 +78,25 @@ class ProblemReportResponse(ProblemReportBase):
 
 # --- Task Schemas (Legacy/Stub) ---
 
+
 class TaskBase(BaseSchema):
     title: str = Field(..., description="Task title")
-    description: Optional[str] = Field(None, description="Detailed description")
+    description: Optional[str] = Field(
+        None, description="Detailed description")
     area: str = Field(..., description="Shop area (wood, metal, etc)")
     urgency: Literal["low", "medium", "high", "critical"] = "medium"
     status: str = "open"
 
+
 class TaskCreate(TaskBase):
     pass
+
 
 class TaskUpdate(BaseSchema):
     title: Optional[str] = None
     status: Optional[str] = None
     urgency: Optional[str] = None
+
 
 class TaskResponse(TaskBase):
     id: str
@@ -92,9 +105,11 @@ class TaskResponse(TaskBase):
 
 # --- Volunteer/User Schemas ---
 
+
 class UserBase(BaseSchema):
     email: str
     name: str
+
 
 class UserResponse(UserBase):
     neon_id: str

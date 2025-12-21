@@ -1,6 +1,7 @@
 import httpx
 from src.core.config import settings
 
+
 class SlackService:
     BASE_URL = "https://slack.com/api"
 
@@ -18,8 +19,8 @@ class SlackService:
         Sends a message to a Slack channel.
         """
         if not self.token:
-             print("Warning: No Slack Token. Skipping Notification.")
-             return
+            print("Warning: No Slack Token. Skipping Notification.")
+            return
 
         async with httpx.AsyncClient() as client:
             try:
@@ -31,5 +32,6 @@ class SlackService:
                 response.raise_for_status()
             except Exception as e:
                 print(f"Failed to send Slack message: {e}")
+
 
 slack_service = SlackService()

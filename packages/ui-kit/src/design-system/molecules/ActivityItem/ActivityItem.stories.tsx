@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ActivityItem } from "./ActivityItem";
 import { CheckCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import React from "react";
 
 const meta = {
     title: "Molecules/ActivityItem",
@@ -13,7 +15,7 @@ const meta = {
     decorators: [
         (Story) => (
             <div className="pl-6 border-l-2 border-slate-200 dark:border-white/10 ml-4 py-4">
-                <Story />
+                {React.createElement(Story as React.ElementType)}
             </div>
         ),
     ],
@@ -50,7 +52,7 @@ export const CustomIcon: Story = {
         variant: "system",
         authorName: "Completed",
         timestamp: "Yesterday",
-        icon: CheckCircle,
+        icon: CheckCircle as unknown as LucideIcon,
         children: "Task marked as complete by Jane Doe",
     },
 };
