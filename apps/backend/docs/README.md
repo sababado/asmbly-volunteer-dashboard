@@ -3,7 +3,7 @@
 This service acts as the **"Translation Layer"** and **"Traffic Controller"** for the Asmbly Volunteer Dashboard. It is built with a **Serverless First** mindset using Python (FastAPI/Lambda) and Amazon DynamoDB.
 
 ## Architecture Principles
-
+ 
 ### 1. Clean Architecture
 We adhere to the "Clean Code" approach to ensure the core business logic is independent of frameworks and external agencies.
 

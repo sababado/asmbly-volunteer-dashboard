@@ -11,7 +11,7 @@ A shared React component library for the Asmbly Volunteer Dashboard, built with 
 - **Storybook**: Interactive documentation (run `npm run storybook`).
 
 ## Components
-
+ 
 ### Atoms
 - `Badge` (Status, Area indicators)
 - `Button` (Primary, Secondary, Outline, Ghost, Danger)
