@@ -103,9 +103,7 @@ Deploy the OIDC stack to create the IAM Role:
 ```bash
 sam deploy \
   --template-file apps/backend/template-cicd.yaml \
-  --stack-name asmbly-volunteer-dashboard-cicd \
-  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-  --region us-east-2 \
-  --parameter-overrides GitHubOrg=sababado GitHubRepo=asmbly-volunteer-dashboard
+  --config-file apps/backend/samconfig-cicd.toml
 ```
+**Note:** We use `samconfig-cicd.toml` to store the stack name (`asmbly-volunteer-dashboard-cicd`), region, and capabilities.
 *Note*: This creates the role `GitHub-OIDC-asmbly-volunteer-dashboard-deploy` which is referenced in `.github/workflows/frontend.yml`.
