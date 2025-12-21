@@ -1,0 +1,93 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - staging
+    paths:
+      - 'apps/backend/**'
+      - '.github/workflows/backend.yml'
+
+jobs:
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r apps/backend/requirements.txt
+
+      - name: Run Tests
+        working-directory: apps/backend
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          # Currently running the existing webhook processing test script
+          python scripts/test_webhook_processing.py
+
+  deploy-backend:
+    name: Deploy Backend
+    needs: test-backend
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup AWS SAM
+        uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::110104886034:role/GitHub-OIDC-asmbly-volunteer-dashboard-deploy
+          aws-region: us-east-2
+
+      - name: Determine Environment
+        id: env-state
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENV_NAME=prod" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+            echo "ENV_NAME=staging" >> $GITHUB_ENV
+          else
+            echo "ENV_NAME=dev" >> $GITHUB_ENV
+          fi
+
+      - name: Build Backend
+        working-directory: apps/backend
+        run: sam build
+
+      - name: Deploy Backend
+        working-directory: apps/backend
+        run: |
+          # Use config-env to pick up the correct [env.deploy.parameters] from samconfig.toml
+          # Fallback to dev/default for dev branch
+          CONFIG_ENV=${{ env.ENV_NAME }}
+          if [ "$CONFIG_ENV" == "dev" ]; then
+             CONFIG_ENV="default"
+          fi
+          
+          sam deploy \
+            --config-env $CONFIG_ENV \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset

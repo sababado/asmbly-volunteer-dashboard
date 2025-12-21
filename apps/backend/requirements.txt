@@ -6,3 +6,4 @@ pydantic-settings
 httpx
 uvicorn
 python-multipart
+requests
