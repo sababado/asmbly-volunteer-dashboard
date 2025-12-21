@@ -23,6 +23,8 @@ export * from "./design-system/molecules/ToolPartItem/ToolPartItem";
 export * from "./design-system/molecules/ActivityItem/ActivityItem";
 export * from "./design-system/molecules/ReporterCard/ReporterCard";
 export * from "./design-system/molecules/AssistanceCard/AssistanceCard";
+export * from "./design-system/molecules/Modal/Modal";
+
 
 // Organisms
 export * from "./design-system/organisms/LoginForm/LoginForm";
@@ -34,6 +36,8 @@ export * from "./design-system/organisms/ImpactWidgets/ImpactWidgets";
 export * from "./design-system/organisms/ToolPartList/ToolPartList";
 export * from "./design-system/organisms/ActivityFeed/ActivityFeed";
 export * from "./design-system/organisms/ClaimTaskCard/ClaimTaskCard";
+export * from "./design-system/organisms/NotImplementedModal/NotImplementedModal";
+
 
 // Templates
 export * from "./design-system/templates/DashboardLayout/DashboardLayout";
