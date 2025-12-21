@@ -91,7 +91,7 @@ const TaskDetailsPage: React.FC<TaskDetailsPageProps> = ({
     // Construct sub-components
     const breadcrumbs = (
         <Button variant="ghost" onClick={onBack} className="pl-0 gap-2 text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="w-4 h-4" />
+            {React.createElement(ArrowLeft as any, { className: "w-4 h-4" })}
             Back to Dashboard
         </Button>
     );

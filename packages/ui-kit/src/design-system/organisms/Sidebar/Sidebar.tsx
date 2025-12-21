@@ -60,7 +60,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
                             )}
                             title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                         >
-                            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+                            {isCollapsed ? React.createElement(ChevronRight as any, { size: 20 }) : React.createElement(ChevronLeft as any, { size: 20 })}
                             {!isCollapsed && <span className="text-sm font-medium uppercase tracking-wide">Collapse</span>}
                         </button>
 
@@ -72,7 +72,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
                             )}
                             title="Log Out"
                         >
-                            <LogOut size={20} />
+                            <span title="Log Out">
+                                {React.createElement(LogOut as any, { size: 20 })}
+                            </span>
                             {!isCollapsed && <span className="text-sm font-medium uppercase tracking-wide">Log Out</span>}
                         </button>
                     </div>
