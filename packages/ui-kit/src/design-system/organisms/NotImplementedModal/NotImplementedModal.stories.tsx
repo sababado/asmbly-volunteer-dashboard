@@ -26,7 +26,11 @@ const NotImplementedWithTrigger = () => {
 };
 
 export const Default: Story = {
-    render: () => <NotImplementedWithTrigger />
+    render: () => <NotImplementedWithTrigger />,
+    args: {
+        isOpen: false,
+        onClose: () => { }
+    }
 };
 
 export const Open: Story = {

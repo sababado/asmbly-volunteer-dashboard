@@ -2,42 +2,35 @@ import * as React from 'react';
 import { Hammer } from 'lucide-react';
 import { Modal } from '../../molecules/Modal/Modal';
 import { Button } from '../../atoms/Button/Button';
-import { cn } from '../../../lib/utils';
 
 export interface NotImplementedModalProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-const NotImplementedModal: React.FC<NotImplementedModalProps> = ({ isOpen, onClose }) => {
+export const NotImplementedModal: React.FC<NotImplementedModalProps> = ({
+    isOpen,
+    onClose
+}) => {
     return (
-        <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            className="text-center max-w-[480px] p-0 overflow-visible"
-            showCloseButton={true}
-        >
-            <div className="px-10 py-12 flex flex-col items-center">
-                {/* Icon Circle */}
-                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-asmbly-yellow/10">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-asmbly-yellow text-white shadow-sm">
-                        <Hammer size={32} strokeWidth={2.5} className="fill-white" />
-                    </div>
+        <Modal isOpen={isOpen} onClose={onClose} className="max-w-[480px]">
+            <div className="flex flex-col items-center text-center p-8 sm:p-10">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-brand-gold/20">
+                    <Hammer className="h-10 w-10 text-brand-gold" />
                 </div>
 
-                <h3 className="mb-3 text-2xl font-display font-bold text-asmbly-navy uppercase tracking-wide">
+                <h3 className="mb-3 text-2xl font-display font-bold uppercase tracking-wide text-primary">
                     Not Yet Implemented
                 </h3>
 
-                <p className="mb-8 text-center text-slate-600 leading-relaxed max-w-[320px]">
+                <p className="mb-8 text-muted-foreground leading-relaxed">
                     This feature is currently on our workbench! We're still hammering out the details. Please check back later.
                 </p>
 
                 <Button
                     onClick={onClose}
-                    variant="primary" // Assuming primary is yellow based on context or brand, if not might need 'default'
+                    className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-bold tracking-wide uppercase"
                     size="lg"
-                    className="w-full bg-asmbly-yellow hover:bg-asmbly-yellow/90 text-asmbly-navy font-bold uppercase tracking-wider"
                 >
                     Got It
                 </Button>
@@ -45,6 +38,3 @@ const NotImplementedModal: React.FC<NotImplementedModalProps> = ({ isOpen, onClo
         </Modal>
     );
 };
-NotImplementedModal.displayName = "NotImplementedModal";
-
-export { NotImplementedModal };

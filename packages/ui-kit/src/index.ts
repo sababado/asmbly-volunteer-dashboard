@@ -25,7 +25,6 @@ export * from "./design-system/molecules/ReporterCard/ReporterCard";
 export * from "./design-system/molecules/AssistanceCard/AssistanceCard";
 export * from "./design-system/molecules/Modal/Modal";
 
-
 // Organisms
 export * from "./design-system/organisms/LoginForm/LoginForm";
 export * from "./design-system/organisms/AuthCard/AuthCard";
@@ -37,7 +36,7 @@ export * from "./design-system/organisms/ToolPartList/ToolPartList";
 export * from "./design-system/organisms/ActivityFeed/ActivityFeed";
 export * from "./design-system/organisms/ClaimTaskCard/ClaimTaskCard";
 export * from "./design-system/organisms/NotImplementedModal/NotImplementedModal";
-
+export * from "./design-system/organisms/TaskFilterSidebar/TaskFilterSidebar";
 
 // Templates
 export * from "./design-system/templates/DashboardLayout/DashboardLayout";
@@ -47,3 +46,4 @@ export * from "./design-system/templates/TaskDetailsTemplate/TaskDetailsTemplate
 export * from "./pages/AuthPage/AuthPage";
 export * from "./pages/VolunteerDashboardPage/VolunteerDashboardPage";
 export * from "./pages/TaskDetailsPage/TaskDetailsPage";
+export * from "./pages/VolunteerAllTasksPage/VolunteerAllTasksPage";

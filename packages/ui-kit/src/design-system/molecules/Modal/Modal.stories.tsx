@@ -35,5 +35,10 @@ const ModalWithTrigger = () => {
 };
 
 export const Default: Story = {
-    render: () => <ModalWithTrigger />
+    render: () => <ModalWithTrigger />,
+    args: {
+        isOpen: false,
+        onClose: () => { },
+        children: 'Content'
+    }
 };

@@ -1,4 +1,5 @@
 import { VolunteerDashboardPage } from '@voldash/ui-kit';
+import { useNavigate } from 'react-router-dom';
 
 
 const mockTasks = [
@@ -43,14 +44,14 @@ const mockStats = {
 };
 
 export const DashboardPage = () => {
-    // const navigate = useNavigate(); // In real app
+    const navigate = useNavigate();
 
     return (
         <VolunteerDashboardPage
             user={{ name: 'Alex' }}
             tasks={mockTasks}
             impactStats={mockStats}
-            onViewAllTasks={() => console.log('Navigate to all tasks')}
+            onViewAllTasks={() => navigate('/tasks')}
         />
     );
 };
