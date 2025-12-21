@@ -17,37 +17,31 @@ class BaseSchema(BaseModel):
 # --- ClickUp Webhook Payloads ---
 
 
+
 class ClickUpCustomField(BaseSchema):
-    id: str
-    name: str
-    type: str
+    id: str = Field(..., alias="field_id")
     value: Optional[Any] = None
-    type_config: Optional[Dict[str, Any]] = None
+    # In the new payload, 'type' is an int (e.g. 0, 1), not a string
+    type: Optional[int] = None
 
 
 class ClickUpTask(BaseSchema):
     id: str
-    title: str  # e.g. "Broken Laser", "Orientation Help"
-    description: str | None = None
+    title: str = Field(..., alias="name")  # e.g. "Broken Laser", "Orientation Help"
+    description: str | None = Field(None, alias="text_content") # "text_content" usually holds description text
     status: str = "open"  # open, in_progress, resolved, closed
     date_updated: str
     url: str
-    custom_fields: List[ClickUpCustomField] = []
+    custom_fields: List[ClickUpCustomField] = Field(..., alias="fields")
 
 
 class ClickUpWebhookPayload(BaseSchema):
     """
     Represents the payload received from ClickUp webhooks.
-    Ideally matches the structure containing 'tasks' or a single 'task'.
     """
     event: Optional[str] = None
-    task_id: Optional[str] = None
-    # For the 'task created/updated' events, ClickUp often sends the task
-    # data directly or inside a 'history_items' structure depending on
-    # webhook verification vs event.
-    # Based on user context, we are parsing a "full problem report entry"
-    # which looks like a list of tasks.
-    tasks: Optional[List[ClickUpTask]] = []
+    trigger_id: Optional[str] = None
+    payload: Optional[ClickUpTask] = None
 
 # --- Internal Domain Models ---
 
@@ -55,7 +49,7 @@ class ClickUpWebhookPayload(BaseSchema):
 class ProblemReportBase(BaseSchema):
     title: str = Field(..., max_length=200)
     description: Optional[str] = Field(None, max_length=5000)
-    area: str
+    workspace: str
     problem_type: Optional[str] = None
     urgency: Literal["low", "medium", "high", "critical"] = "medium"
     status: str = "open"
