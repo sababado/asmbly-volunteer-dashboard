@@ -4,6 +4,11 @@ from mangum import Mangum
 from src.core.config import settings
 from src.api import webhooks
 from src.api.routes import tasks
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Asmbly Volunteer Dashboard API",

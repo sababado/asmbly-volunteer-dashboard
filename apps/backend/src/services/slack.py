@@ -1,12 +1,14 @@
 import httpx
-from src.core.config import settings
+# from src.core.config import settings
 
 
 class SlackService:
     BASE_URL = "https://slack.com/api"
 
     def __init__(self):
-        self.token = settings.SLACK_MAINTENANCE_BOT_TOKEN
+        # Token removed from settings for now to clean up secrets.
+        # Restore this when ready to implement Slack integration.
+        self.token = None # settings.SLACK_MAINTENANCE_BOT_TOKEN
 
     def get_headers(self):
         return {

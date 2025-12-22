@@ -18,9 +18,6 @@ class Settings(BaseSettings):
     # Secrets (populated from AWS Secrets Manager)
     NEON_ORG_ID: Optional[str] = None
     NEON_API_KEY: Optional[str] = None
-    # Slack
-    SLACK_MAINTENANCE_BOT_TOKEN: Optional[str] = None
-    SLACK_SIGNING_SECRET: Optional[str] = None
     CLICKUP_API_TOKEN: Optional[str] = None
 
     model_config = SettingsConfigDict(case_sensitive=True)
@@ -45,7 +42,9 @@ def get_secret(secret_name: str, region_name: str = "us-east-2") -> Dict[str, An
         return {}
     except Exception as e:
         print(f"Error fetching secret {secret_name}: {e}")
-        return {}
+        # Re-raising to ensure we error out if a required secret is missing
+        # (User requested "error out if secrets aren't found")
+        raise e
 
 
 @lru_cache()
@@ -73,8 +72,6 @@ def get_settings() -> Settings:
 
     secrets_to_fetch = {
         f"{env_prefix}/neon_token": ["NEON_ORG_ID", "NEON_API_KEY"],
-        f"{env_prefix}/slack-maintenance-bot-token": ["SLACK_MAINTENANCE_BOT_TOKEN"],
-        f"{env_prefix}/slack-signing-secret": ["SLACK_SIGNING_SECRET"],
         # This one didn't have a prefix in the screenshot list, but secret name
         # details showed it.
         "clickup/api/token": ["CLICKUP_API_TOKEN"],
@@ -95,14 +92,6 @@ def get_settings() -> Settings:
             # Sometimes keys in the secret might lower/upper case match?
             # Based on screenshot: NEON_ORG_ID is explicit.
             if key in data:
-                secret_values[key] = data[key]
-            elif (
-                key == "SLACK_MAINTENANCE_BOT_TOKEN"
-                and "SLACK_MAINTENANCE_BOT_TOKEN" in data
-            ):
-                # "SLACK_MAINTENANCE_BOT_TOKEN"
-                secret_values[key] = data[key]
-            elif key == "SLACK_SIGNING_SECRET" and "SLACK_SIGNING_SECRET" in data:
                 secret_values[key] = data[key]
             elif key == "CLICKUP_API_TOKEN" and "CLICKUP_API_TOKEN" in data:
                 secret_values[key] = data[key]
