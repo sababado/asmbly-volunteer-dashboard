@@ -70,7 +70,7 @@ npm run storybook
 
 #### From the Project Root
 ```bash
-npm run storybook -w @asmbly/ui-kit
+npm run storybook -w @voldash/ui-kit
 ```
 
 

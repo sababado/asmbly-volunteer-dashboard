@@ -6,7 +6,7 @@
         "packages/*"
     ],
     "scripts": {
-        "dev": "concurrently \"npm run dev -w @asmbly/frontend\" \"npm run storybook -w @asmbly/ui-kit\"",
+        "dev": "concurrently \"npm run dev -w @asmbly/frontend\" \"npm run storybook -w @voldash/ui-kit\"",
         "build": "npm run build --workspaces --if-present",
         "lint": "npm run lint --workspaces --if-present",
         "test": "npm run test --workspaces --if-present"

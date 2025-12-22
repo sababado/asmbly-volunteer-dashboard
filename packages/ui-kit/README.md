@@ -1,4 +1,4 @@
-# @asmbly/ui-kit
+# @voldash/ui-kit
 
 UI Component Library for the Asmbly Volunteer Dashboard.
 
