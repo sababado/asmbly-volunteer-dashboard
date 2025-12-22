@@ -39,5 +39,27 @@ class DynamoService:
             print(f"DynamoDB Put Error: {e}")
             return False
 
+    def get_open_tasks(self):
+        """
+        Queries the StatusIndex for all tasks where status = 'open'.
+        STRICTLY uses Query, never Scan.
+        """
+        try:
+            from boto3.dynamodb.conditions import Key
+
+            # Query GSI: status = 'open'
+            # We sort by created_at (SK of the GSI) descending if we want latest first,
+            # or ascending (ScanIndexForward=True) depending on needs.
+            # Defaulting to ScanIndexForward=False (Newest first)
+            response = self.table.query(
+                IndexName="StatusIndex",
+                KeyConditionExpression=Key("status").eq("open"),
+                ScanIndexForward=False,
+            )
+            return response.get("Items", [])
+        except Exception as e:
+            print(f"DynamoDB Query Error: {e}")
+            return []
+
 
 dynamo_service = DynamoService()

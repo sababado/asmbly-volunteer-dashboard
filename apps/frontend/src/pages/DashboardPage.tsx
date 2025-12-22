@@ -1,37 +1,10 @@
 import { VolunteerDashboardPage } from '@voldash/ui-kit';
 import { useNavigate } from 'react-router-dom';
+import { useTasks } from '../hooks/useTasks';
 import { SIDEBAR_ITEMS } from '../config/navigation';
 
 
-const mockTasks = [
-    {
-        id: '1',
-        title: 'Replace Blades on Planer',
-        description: 'The blades are showing signs of wear and tear.',
-        area: 'wood' as const,
-        urgency: 'high' as const,
-        duration: '30 mins',
-        status: 'ready' as const,
-    },
-    {
-        id: '2',
-        title: 'Empty Dust Collector Bins',
-        description: 'Bins 2 and 4 are nearing capacity.',
-        area: 'wood' as const,
-        urgency: 'medium' as const,
-        duration: '15 mins',
-        status: 'open' as const,
-    },
-    {
-        id: '3',
-        title: 'Organize Welding Table',
-        description: 'Sort clamps and clean the surface.',
-        area: 'metal' as const,
-        urgency: 'low' as const,
-        duration: '1 hr',
-        status: 'open' as const,
-    },
-];
+
 
 const mockStats = {
     hoursLogged: 12.5,
@@ -64,12 +37,27 @@ const mockImpactStats = {
 
 export const DashboardPage = () => {
     const navigate = useNavigate();
+    const { tasks } = useTasks();
+
+    // Mapping backend tasks to UI Kit props
+    const taskListItems = tasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        description: t.description || '',
+        area: (t.workspace.toLowerCase() === 'woodshop' ? 'wood' :
+            t.workspace.toLowerCase() === 'metalshop' ? 'metal' :
+                'general') as any, // Simple mapping fallback
+        urgency: t.urgency,
+        duration: 'N/A', // Not yet in backend
+        status: (t.status === 'open' ? 'open' : 'ready') as any,
+        onClickUpLink: `https://app.clickup.com/t/${t.clickup_task_id}`
+    }));
 
     return (
         <VolunteerDashboardPage
             user={{ name: 'Alex' }}
             sidebarItems={SIDEBAR_ITEMS}
-            tasks={mockTasks}
+            tasks={taskListItems}
             stats={mockStats}
             announcements={mockAnnouncements}
             recentActivity={mockActivities}

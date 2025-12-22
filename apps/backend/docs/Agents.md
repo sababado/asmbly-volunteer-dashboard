@@ -29,4 +29,8 @@ We strictly follow an **API First** methodology.
 *   **Migrations:** Always use Alembic.
 
 ## 5. Documentation Standards
-*   **Location:** ALL documentation must be saved in apps/backend/docs/.
+*   **Documentation:** ALL documentation must be saved in apps/backend/docs/.
+
+## 6. Performance & Cost Guidelines
+*   **Database:** DynamoDB `Scan` operations are STRICTLY FORBIDDEN in production code. Always use `Query`.
+*   **Access Patterns:** Ensure schema supports required access patterns via appropriate Keys or GSIs.
