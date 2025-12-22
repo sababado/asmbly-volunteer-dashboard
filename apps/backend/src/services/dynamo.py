@@ -17,10 +17,16 @@ class DynamoService:
         else:
             self.dynamodb = boto3.resource("dynamodb", region_name=self.region)
 
-        # Table name logic (e.g., "asmbly-volunteer-dashboard-dev")
-        # In a real app we might pass this from env vars
-        app_name = "asmbly-volunteer-dashboard"
-        self.table_name = f"{app_name}-{settings.APP_ENV}"
+        # Table name logic
+        # 1. Prefer explicit env var (passed from CloudFormation)
+        # 2. Fallback to constructing it (e.g. for local offline or legacy)
+        self.table_name = os.getenv("TABLE_NAME")
+        
+        if not self.table_name:
+             app_name = "asmbly-volunteer-dashboard"
+             self.table_name = f"{app_name}-{settings.APP_ENV}"
+        
+        print(f"DynamoService using table: {self.table_name}")
         self.table = self.dynamodb.Table(self.table_name)
 
     def get_item(self, pk: str, sk: str):

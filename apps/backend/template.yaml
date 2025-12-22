@@ -42,6 +42,7 @@ Globals:
     Environment:
       Variables:
         APP_ENV: !Ref AppEnv
+        TABLE_NAME: !GetAtt DatabaseLayer.Outputs.TableName
 
 Conditions:
   IsProd: !Equals [!Ref AppEnv, prod]

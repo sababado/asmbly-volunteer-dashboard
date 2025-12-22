@@ -27,7 +27,6 @@ Resources:
           Value: !Ref Application
         - Key: Environment
           Value: !Ref AppEnv
-      TableName: !Sub "VolunteerTable-${AppEnv}"
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         - AttributeName: PK
