@@ -64,6 +64,8 @@ Resources:
     Properties:
       CodeUri: .
       Handler: src.api.app.handler  # Mangum adapter
+      Policies:
+        - SecretsManagerReadWrite
       Events:
         Api:
           Type: Api

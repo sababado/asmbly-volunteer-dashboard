@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from src.domain.schemas import ClickUpWebhookPayload
 from src.services.clickup import process_webhook_payload
 import logging
+import json
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -13,20 +14,14 @@ async def clickup_webhook(payload: ClickUpWebhookPayload):
     Endpoint to receive webhooks from ClickUp.
     """
     try:
-        logger.info(
-            f"Received ClickUp webhook: {
-                payload.model_dump_json(
-                    exclude_none=True)}"
-        )
+        # Log summary for observability without dumping huge JSON
+        task_ids = [t.id for t in payload.tasks] if payload.tasks else []
+        logger.info(f"Received ClickUp webhook. EventID: {payload.webhook_id}, Tasks: {task_ids}")
 
-        # Determine the event type and process accordingly
-        # ClickUp sends 'event' field like 'taskCreated', 'taskUpdated', etc.
-        # We are mainly interested in task creation or updates that might
-        # represent a problem report.
-
+        # Check for empty tasks (e.g. test events or unrelated updates)
         if not payload.tasks:
-            logger.info("No tasks found in payload.")
-            return {"message": "Received, but no tasks to process."}
+            logger.info("No tasks found in payload. Treating as test or irrelevant event.")
+            return {"message": "Received, but no tasks to process", "processed_count": 0}
 
         results = process_webhook_payload(payload)
         return {"message": "Processed successfully", "processed_count": len(results)}

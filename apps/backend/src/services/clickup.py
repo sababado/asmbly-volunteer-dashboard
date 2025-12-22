@@ -148,8 +148,10 @@ class ClickUpService:
                 # Check for required fields to "qualify" this task for config
                 # E.g. if 'workspace' is required and missing...
 
-                workspace_val = get_mapped_value("workspace") or "General"
+                logger.info(f"Attempting to map Task {task.id} using Config {list_id}")
 
+                workspace_val = get_mapped_value("workspace") or "General"
+                
                 t_stat = task.status
                 status_str = t_stat if isinstance(t_stat, str) else str(t_stat)
 
@@ -170,11 +172,15 @@ class ClickUpService:
                 item["PK"] = f"PROBLEM_REPORT#{task.id}"
                 item["SK"] = "METADATA"
                 item["created_at"] = datetime.datetime.now().isoformat()
+                
+                logger.info(f"Successfully mapped Task {task.id} to ProblemReport. Saving to DynamoDB...")
 
                 saved = dynamo_service.put_item(item)
                 if saved:
                     processed_items.append(task.id)
                     logger.info(f"Saved ProblemReport {task.id} to DynamoDB")
+                else:
+                    logger.error(f"Failed to save ProblemReport {task.id} to DynamoDB")
 
                 # If success, break loop
                 break

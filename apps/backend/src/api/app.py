@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-# from mangum import Mangum
+from mangum import Mangum
 from src.core.config import settings
 from src.api import webhooks
 from src.api.routes import tasks
@@ -30,3 +30,4 @@ app.include_router(webhooks.router, prefix="/webhooks", tags=["webhooks"])
 app.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
 
 # Mangum Adapter for AWS Lambda
+handler = Mangum(app)
