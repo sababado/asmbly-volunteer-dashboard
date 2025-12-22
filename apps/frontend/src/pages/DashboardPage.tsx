@@ -46,10 +46,10 @@ export const DashboardPage = () => {
         description: t.description || '',
         area: (t.workspace.toLowerCase() === 'woodshop' ? 'wood' :
             t.workspace.toLowerCase() === 'metalshop' ? 'metal' :
-                'general') as any, // Simple mapping fallback
+                'general') as 'wood' | 'metal' | 'general', // Simple mapping fallback
         urgency: t.urgency,
         duration: 'N/A', // Not yet in backend
-        status: (t.status === 'open' ? 'open' : 'ready') as any,
+        status: (t.status === 'open' ? 'open' : 'ready') as 'open' | 'ready',
         onClickUpLink: `https://app.clickup.com/t/${t.clickup_task_id}`
     }));
 

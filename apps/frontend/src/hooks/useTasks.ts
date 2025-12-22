@@ -13,6 +13,16 @@ export interface Task {
     clickup_task_id: string;
 }
 
+interface ProblemReportResponse {
+    id: string;
+    title: string;
+    description: string;
+    workspace: string; // 'woodshop', 'metalshop', etc.
+    urgency: 'low' | 'medium' | 'high' | 'critical';
+    status: string;
+    clickup_task_id: string;
+}
+
 export function useTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
@@ -30,13 +40,13 @@ export function useTasks() {
                     throw new Error(`Failed to fetch tasks: ${response.statusText}`);
                 }
 
-                const data = await response.json();
+                const data: ProblemReportResponse[] = await response.json();
 
                 // Map Backend Response (ProblemReportResponse) to Frontend Task
                 // Backend: title, description, workspace, urgency, status, id, clickup_task_id
                 // Frontend (UI Kit): id, title, description, area, urgency, duration?, status
 
-                const mappedTasks: Task[] = data.map((item: any) => ({
+                const mappedTasks: Task[] = data.map((item) => ({
                     id: item.id, // DynamoDB PK (PROBLEM_REPORT#...) or just ID
                     title: item.title,
                     description: item.description,
@@ -47,9 +57,13 @@ export function useTasks() {
                 }));
 
                 setTasks(mappedTasks);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Error fetching tasks:", err);
-                setError(err.message || 'Unknown error');
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unknown error occurred');
+                }
             } finally {
                 setLoading(false);
             }
