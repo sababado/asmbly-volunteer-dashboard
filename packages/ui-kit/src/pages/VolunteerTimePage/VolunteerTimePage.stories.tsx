@@ -1,10 +1,23 @@
-import { DashboardLayout, VolunteerTimePage, type VolunteerLog } from '@voldash/ui-kit';
+import type { Meta, StoryObj } from '@storybook/react';
+import { VolunteerTimePage } from './VolunteerTimePage';
+import { Checkbox } from '../../design-system/atoms/Checkbox/Checkbox';
 import { Clock } from 'lucide-react';
-import { SIDEBAR_ITEMS } from '../config/navigation';
-import { Checkbox } from '@voldash/ui-kit'; // Need to export Checkbox if I use it in footer content, or pass JSX
+import * as React from 'react';
 
-// Dummy Data
-const dummyLogs: VolunteerLog[] = [
+const ClockIcon = Clock as React.ElementType;
+
+const meta = {
+    title: 'Pages/VolunteerTimePage',
+    component: VolunteerTimePage,
+    parameters: {
+        layout: 'fullscreen',
+    },
+} satisfies Meta<typeof VolunteerTimePage>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const dummyLogs = [
     {
         id: '1',
         date: 'Oct 24, 2024',
@@ -13,7 +26,7 @@ const dummyLogs: VolunteerLog[] = [
         description: 'Maintenance Task #4023 • Replaced dull blades with new carbide set.',
         area: 'WOODSHOP',
         duration: 2.5,
-        status: 'APPROVED',
+        status: 'APPROVED' as const,
     },
     {
         id: '2',
@@ -23,7 +36,7 @@ const dummyLogs: VolunteerLog[] = [
         description: 'General Volunteer • Assisted instructor with safety demo.',
         area: 'CLASSES',
         duration: 4.0,
-        status: 'APPROVED',
+        status: 'APPROVED' as const,
     },
     {
         id: '3',
@@ -33,27 +46,7 @@ const dummyLogs: VolunteerLog[] = [
         description: 'Maintenance Task #3991 • Sorted clamps and cleaned surface.',
         area: 'METAL SHOP',
         duration: 1.0,
-        status: 'PENDING',
-    },
-    {
-        id: '4',
-        date: 'Oct 15, 2024',
-        time: '11:30 AM',
-        title: 'DEEP CLEAN 3D PRINTERS',
-        description: 'Maintenance Task #3880 • Cleaned beds and nozzles for Prusa bank.',
-        area: '3D PRINT',
-        duration: 1.5,
-        status: 'APPROVED',
-    },
-    {
-        id: '5',
-        date: 'Oct 12, 2024',
-        time: '4:00 PM',
-        title: 'LASER CUTTER LENS CLEANING',
-        description: 'Self-Reported • Weekly maintenance on Red and Blue lasers.',
-        area: 'LASERS',
-        duration: 0.5,
-        status: 'APPROVED',
+        status: 'PENDING' as const,
     },
 ];
 
@@ -65,8 +58,8 @@ const rewards = [
         progress: 8.5,
         goal: 12,
         footerContent: (
-            <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                <Clock className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium">
+                <ClockIcon className="w-4 h-4" />
                 <span>3.5 hours remaining this month</span>
             </div>
         )
@@ -83,7 +76,7 @@ const rewards = [
                 <Checkbox id="req1" />
                 <label htmlFor="req1" className="text-sm font-bold uppercase text-asmbly-navy leading-none cursor-pointer">
                     LEAD 1 CSI SESSION
-                    <span className="block text-xs text-gray-500 font-normal normal-case mt-1">Not yet completed</span>
+                    <span className="block text-xs text-muted-foreground font-normal normal-case mt-1">Not yet completed</span>
                 </label>
             </div>
         )
@@ -110,29 +103,15 @@ const metrics = [
     }
 ];
 
-export const MyVolunteerTimePage = () => {
-    return (
-        <DashboardLayout
-            sidebarProps={{
-                items: SIDEBAR_ITEMS,
-                activePath: '/volunteer-time',
-                onLogout: () => console.log('logout')
-            }}
-        >
-            <VolunteerTimePage
-                rewards={rewards}
-                metrics={metrics}
-                logs={dummyLogs}
-                stats={{
-                    totalRecords: 42,
-                    totalPages: 5,
-                    currentPage: 1
-                }}
-                onSearch={(val) => console.log('Search:', val)}
-                onMonthChange={(val) => console.log('Month:', val)}
-                onExport={() => console.log('Export CSV')}
-                onPageChange={(page) => console.log('Page:', page)}
-            />
-        </DashboardLayout>
-    );
+export const Default: Story = {
+    args: {
+        rewards,
+        metrics,
+        logs: dummyLogs,
+        stats: {
+            totalRecords: 42,
+            totalPages: 5,
+            currentPage: 1
+        }
+    },
 };

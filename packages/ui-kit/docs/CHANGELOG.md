@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2025-12-21)
+
+### Added
+- **Pages**: `VolunteerTimePage` with associated template `VolunteerTimeTemplate`.
+- **Organisms**: `VolunteerStatsGrid`, `VolunteerLogsTable`.
+- **Molecules**: `VolunteerRewardCard`, `VolunteerMetricCard`.
+- **Atoms**: `Checkbox`, `Table` component family.
+- Integration dummy page in `frontend`.
+
 ## 0.1.0 (2025-12-19)
 
 ### Added

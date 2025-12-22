@@ -8,6 +8,8 @@ export * from "./design-system/atoms/Logo/Logo";
 export * from "./design-system/atoms/Badge/Badge";
 export * from "./design-system/atoms/Select/Select";
 export * from "./design-system/atoms/ProgressBar/ProgressBar";
+export * from "./design-system/atoms/Checkbox/Checkbox";
+export * from "./design-system/atoms/Table/Table";
 
 // Molecules
 export * from "./design-system/molecules/AuthDivider/AuthDivider";
@@ -24,6 +26,8 @@ export * from "./design-system/molecules/ActivityItem/ActivityItem";
 export * from "./design-system/molecules/ReporterCard/ReporterCard";
 export * from "./design-system/molecules/AssistanceCard/AssistanceCard";
 export * from "./design-system/molecules/Modal/Modal";
+export * from "./design-system/molecules/VolunteerRewardCard/VolunteerRewardCard";
+export * from "./design-system/molecules/VolunteerMetricCard/VolunteerMetricCard";
 
 // Organisms
 export * from "./design-system/organisms/LoginForm/LoginForm";
@@ -37,13 +41,17 @@ export * from "./design-system/organisms/ActivityFeed/ActivityFeed";
 export * from "./design-system/organisms/ClaimTaskCard/ClaimTaskCard";
 export * from "./design-system/organisms/NotImplementedModal/NotImplementedModal";
 export * from "./design-system/organisms/TaskFilterSidebar/TaskFilterSidebar";
+export * from "./design-system/organisms/VolunteerStatsGrid/VolunteerStatsGrid";
+export * from "./design-system/organisms/VolunteerLogsTable/VolunteerLogsTable";
 
 // Templates
 export * from "./design-system/templates/DashboardLayout/DashboardLayout";
 export * from "./design-system/templates/TaskDetailsTemplate/TaskDetailsTemplate";
+export * from "./design-system/templates/VolunteerTimeTemplate/VolunteerTimeTemplate";
 
 // Pages
 export * from "./pages/AuthPage/AuthPage";
 export * from "./pages/VolunteerDashboardPage/VolunteerDashboardPage";
 export * from "./pages/TaskDetailsPage/TaskDetailsPage";
 export * from "./pages/VolunteerAllTasksPage/VolunteerAllTasksPage";
+export * from "./pages/VolunteerTimePage/VolunteerTimePage";
