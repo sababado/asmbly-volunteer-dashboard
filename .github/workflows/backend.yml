@@ -1,14 +1,14 @@
-name: Backend CI/CD
-
-on:
-  push:
-    branches:
-      - main
-      - dev
-      - staging
-    paths:
-      - 'apps/backend/**'
-      - '.github/workflows/backend.yml'
+# name: Backend CI/CD
+# 
+# on:
+#   push:
+#     branches:
+#       - main
+#       - dev
+#       - staging
+#     paths:
+#       - 'apps/backend/**'
+#       - '.github/workflows/backend.yml'
 
 jobs:
   test-backend:

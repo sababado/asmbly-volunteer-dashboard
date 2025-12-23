@@ -1,4 +1,8 @@
-# Asmbly Volunteer Dashboard
+# Asmbly Volunteer Dashboard (ON HOLD INDEFINITELY)
+
+> [!CAUTION]
+> **THIS PROJECT IS ON HOLD INDEFINITELY.**
+> Due to developer effort and the requirements to make this project usable, successful, and more than just "another website," development has been suspended. All AWS infrastructure has been decommissioned and CI/CD triggers have been disabled.
 
 ## Overview
 

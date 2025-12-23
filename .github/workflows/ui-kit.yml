@@ -1,14 +1,14 @@
-name: UI Kit CI
-
-on:
-  push:
-    branches:
-      - main
-      - dev
-      - staging
-    paths:
-      - 'packages/ui-kit/**'
-      - '.github/workflows/ui-kit.yml'
+# name: UI Kit CI
+# 
+# on:
+#   push:
+#     branches:
+#       - main
+#       - dev
+#       - staging
+#     paths:
+#       - 'packages/ui-kit/**'
+#       - '.github/workflows/ui-kit.yml'
 
 jobs:
   ui-kit-checks:

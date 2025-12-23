@@ -1,15 +1,15 @@
-name: Frontend CI/CD
-
-on:
-  push:
-    branches:
-      - main
-      - dev
-      - staging
-    paths:
-      - 'apps/frontend/**'
-      - 'packages/ui-kit/**'
-      - '.github/workflows/frontend.yml'
+# name: Frontend CI/CD
+# 
+# on:
+#   push:
+#     branches:
+#       - main
+#       - dev
+#       - staging
+#     paths:
+#       - 'apps/frontend/**'
+#       - 'packages/ui-kit/**'
+#       - '.github/workflows/frontend.yml'
 
 jobs:
   test:
